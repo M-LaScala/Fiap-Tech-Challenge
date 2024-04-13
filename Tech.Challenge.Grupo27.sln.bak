@@ -9,11 +9,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tech.Challenge.Grupo27.API"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tech.Challenge.Grupo27.Application", "src\Tech.Challenge.Grupo27.Application\Tech.Challenge.Grupo27.Application.csproj", "{9657D768-6294-49DD-840F-F9336633307C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tech.Challenge.Grupo27.Domain", "src\Tech.Challenge.Grupo27.Domain\Tech.Challenge.Grupo27.Domain.csproj", "{834DAA47-3AEC-427B-A820-4CA993364702}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tech.Challenge.Grupo27.Domain", "Tech.Challenge.Grupo27.Domain\Tech.Challenge.Grupo27.Domain.csproj", "{834DAA47-3AEC-427B-A820-4CA993364702}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tech.Challenge.Grupo27.Infrastructure", "src\Tech.Challenge.Grupo27.Infrastructure\Tech.Challenge.Grupo27.Infrastructure.csproj", "{13D9B92C-D7CB-477F-94A6-DF7716BD2EEF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tech.Challenge.Grupo27.Common", "src\Tech.Challenge.Grupo27.Common\Tech.Challenge.Grupo27.Common.csproj", "{63714687-277C-4431-A6BE-151B81344914}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tech.Challenge.Grupo27.Common", "Tech.Challenge.Grupo27.Common\Tech.Challenge.Grupo27.Common.csproj", "{63714687-277C-4431-A6BE-151B81344914}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "API", "API", "{7D7BE8C0-3EEF-486B-9F86-CBD9DCF8A571}"
 EndProject
