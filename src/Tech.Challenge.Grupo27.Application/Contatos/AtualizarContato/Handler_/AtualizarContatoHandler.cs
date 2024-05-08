@@ -2,6 +2,7 @@
 using Tech.Challenge.Grupo27.Application.Shared;
 using Tech.Challenge.Grupo27.Domain.Models.ContatoAggregate;
 using Tech.Challenge.Grupo27.Domain.Services;
+using Tech.Challenge.Grupo27.Domain.Shared;
 using Tech.Challenge.Grupo27.Domain.Shared.Notificacoes;
 
 namespace Tech.Challenge.Grupo27.Application.Contatos.AtualizarContato.Handler_
@@ -10,11 +11,17 @@ namespace Tech.Challenge.Grupo27.Application.Contatos.AtualizarContato.Handler_
     {
         private readonly IContatoService _contatoService;
         private readonly INotificacaoContext _notificacaoContext;
+        private readonly IUnitOfWork _unitOfWork;
 
-        public AtualizarContatoHandler(IContatoService contatoService, INotificacaoContext notificacaoContext)
+        public AtualizarContatoHandler
+        (
+            IContatoService contatoService,
+            INotificacaoContext notificacaoContext,
+            IUnitOfWork unitOfWork)
         {
             _contatoService = contatoService;
             _notificacaoContext = notificacaoContext;
+            _unitOfWork = unitOfWork;   
         }
 
         public async Task<ContatoResponse> Handle(AtualizarContatoRequest request, CancellationToken cancellationToken)
@@ -33,7 +40,12 @@ namespace Tech.Challenge.Grupo27.Application.Contatos.AtualizarContato.Handler_
                 return new ContatoResponse("", false, null);
             }
 
-           await _contatoService.Aualizar(contato, cancellationToken);
+            await _unitOfWork.BeginTransaction(cancellationToken);
+
+            await _contatoService.Aualizar(contato, cancellationToken);
+
+            await _unitOfWork.SaveChanges(cancellationToken);
+            await _unitOfWork.CommitTransaction(cancellationToken);
 
             return new ContatoResponse("Contato atualizado com sucesso", true, new { Id = request.Id });
         }
