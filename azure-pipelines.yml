@@ -28,7 +28,6 @@ steps:
     scannerMode: 'MSBuild'
     projectKey: 'POSTECHFIAPGRUPO27_POSTECH-ARQUITETURA'
     projectName: 'POSTECH-ARQUITETURA'
-  
 
 - task: NuGetCommand@2
   inputs:
