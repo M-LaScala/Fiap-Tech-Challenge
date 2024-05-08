@@ -32,8 +32,6 @@ namespace Tech.Challenge.Grupo27.Infrastructure.Domain.Models.ContatoAggregate
             contatoEntity.DataDeAlteracao = DateTime.UtcNow;
 
             _context.Update(contatoEntity);
-            await _context.SaveChangesAsync(cancellationToken);
-
         }
 
         public async ValueTask<Contato> Delete(Guid? id, CancellationToken cancellationToken = default)
@@ -46,16 +44,14 @@ namespace Tech.Challenge.Grupo27.Infrastructure.Domain.Models.ContatoAggregate
                 return default;
             }
 
-            _context.Contatos.Remove(contatoEntity);
-            await _context.SaveChangesAsync(cancellationToken);
+            _context.Contatos.Remove(contatoEntity);            
             return MapearContato(contatoEntity);
         }
 
         public async ValueTask<Guid> Inserir(Contato contato, CancellationToken cancellationToken = default)
         {
             var contatoEntity = MapearContatpEntity(contato);
-            _context.Contatos.Add(contatoEntity);
-            await _context.SaveChangesAsync(cancellationToken);
+            await _context.Contatos.AddAsync(contatoEntity, cancellationToken);
             return contatoEntity.Id;
         }
 
