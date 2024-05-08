@@ -7,10 +7,7 @@ trigger:
 - main
 
 pool:
-  vmImage: 'ubuntu-linux'
-- task: SonarCloudAnalyze@1
-  inputs:
-    jdkversion: 'JAVA_HOME_17_X64'
+  vmImage: 'ubuntu-latest'
 
 variables:
   solution: '**/*.sln'
@@ -18,8 +15,12 @@ variables:
   buildConfiguration: 'Release'
 
 steps:
+- task: SonarCloudAnalyze@1
+  inputs:
+    jdkversion: 'JAVA_HOME_17_X64'
 - task: NuGetToolInstaller@1
 - checkout: self
+  fetchDepth: 0
 - task: SonarCloudPrepare@1
   inputs:
     SonarCloud: 'sonarcloud'
@@ -27,7 +28,7 @@ steps:
     scannerMode: 'MSBuild'
     projectKey: 'POSTECHFIAPGRUPO27_POSTECH-ARQUITETURA'
     projectName: 'POSTECH-ARQUITETURA'
-  fetchDepth: 0
+  
 
 - task: NuGetCommand@2
   inputs:
