@@ -1,0 +1,35 @@
+﻿using Tech.Challenge.Grupo27.Application.Contatos.ViewModels;
+using Tech.Challenge.Grupo27.Application.Shared;
+using Tech.Challenge.Grupo27.Domain.Models.ContatoAggregate;
+using Tech.Challenge.Grupo27.Domain.Services;
+using Tech.Challenge.Grupo27.Domain.Shared.Notificacoes;
+
+namespace Tech.Challenge.Grupo27.Application.Contatos.InserirContato.Handler_
+{
+    public class InserirContatoHandler : IHandler<ContatoRequest, ContatoResponse>
+    {
+        private readonly IContatoService _contatoService;
+        private readonly INotificacaoContext _notificacaoContext;
+        public InserirContatoHandler(IContatoService contatoService, INotificacaoContext notificacaoContext)
+        {
+            _contatoService = contatoService;
+            _notificacaoContext = notificacaoContext;
+        }
+
+        public async Task<ContatoResponse>Handle(ContatoRequest request, CancellationToken cancellationToken)
+        {
+            
+            var contato = new Contato(request.Nome,request.Email, new Domain.Shared.ValueObject.Telefone(request.Ddd,request.Numero));
+
+            if (contato.Invalid)
+            {
+                _notificacaoContext.AddNotificacoes(contato.ValidationResult);
+                return new ContatoResponse("", false, null);
+            }
+
+            var idRegistrado = await _contatoService.Inserir(contato,cancellationToken);
+
+            return new ContatoResponse("Contato gravado com sucesso", true, new { Id = idRegistrado });
+        }
+    }
+}
