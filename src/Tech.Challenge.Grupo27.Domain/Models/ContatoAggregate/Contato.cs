@@ -9,11 +9,11 @@ namespace Tech.Challenge.Grupo27.Domain.Models.ContatoAggregate
 
         public string? Email { get; private set; }
 
-        public Telefone Telefone { get; private set; }
+        public Telefone? Telefone { get; private set; }
 
         public Contato() { }
 
-        public Contato(string? nome, string? email, Telefone telefone)
+        public Contato(string? nome, string? email, Telefone? telefone)
         {
             Nome = nome;
             Email = email;
@@ -22,7 +22,7 @@ namespace Tech.Challenge.Grupo27.Domain.Models.ContatoAggregate
             Validate(this, new ContatoValidator());
         }
 
-        public Contato(Guid id, string? nome, string? email, Telefone telefone)
+        public Contato(Guid id, string? nome, string? email, Telefone? telefone)
         {
             Id = id;
             Nome = nome;

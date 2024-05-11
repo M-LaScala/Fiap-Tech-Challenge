@@ -30,7 +30,7 @@ namespace Tech.Challenge.Grupo27.Domain.Models.ContatoAggregate
                 .WithErrorCode("DDD_TAMANHO");
 
             RuleFor(contato => contato)
-                .Must(c => c.ValidarDdd(c.Ddd))
+                .Must(c => c.ValidarDdd(c?.Ddd))
                 .WithMessage("DDD de telefone inválido")
                 .WithErrorCode("DDD_INVALIDO");
         }

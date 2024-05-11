@@ -8,14 +8,14 @@ namespace Tech.Challenge.Grupo27.Infrastructure.Domain.Models.ContatoAggregate
     public class ContatoRepository : IContatoRepository
     {
         private readonly TechChallengeGrupo27Context _context;
-        private INotificacaoContext _notificacaoContext;
+        private readonly INotificacaoContext _notificacaoContext;
         public ContatoRepository(TechChallengeGrupo27Context context, INotificacaoContext notificacaoContext)
         {
             _context = context;
             _notificacaoContext = notificacaoContext;
         }
 
-        public async ValueTask Aualizar(Contato contato, CancellationToken cancellationToken = default)
+        public async ValueTask Aualizar(Contato contato, CancellationToken cancellationToken)
         {
             var contatoEntity = await _context.Contatos.FirstOrDefaultAsync(c => c.Id == contato.Id);
 
@@ -34,7 +34,7 @@ namespace Tech.Challenge.Grupo27.Infrastructure.Domain.Models.ContatoAggregate
             _context.Update(contatoEntity);
         }
 
-        public async ValueTask<Contato> Delete(Guid? id, CancellationToken cancellationToken = default)
+        public async ValueTask<Contato> Delete(Guid? id, CancellationToken cancellationToken)
         {
             var contatoEntity = await _context.Contatos.FirstOrDefaultAsync(c => c.Id == id);
 
@@ -48,7 +48,7 @@ namespace Tech.Challenge.Grupo27.Infrastructure.Domain.Models.ContatoAggregate
             return MapearContato(contatoEntity);
         }
 
-        public async ValueTask<Guid> Inserir(Contato contato, CancellationToken cancellationToken = default)
+        public async ValueTask<Guid> Inserir(Contato contato, CancellationToken cancellationToken)
         {
             var contatoEntity = MapearContatpEntity(contato);
             await _context.Contatos.AddAsync(contatoEntity, cancellationToken);
@@ -60,7 +60,7 @@ namespace Tech.Challenge.Grupo27.Infrastructure.Domain.Models.ContatoAggregate
             var contatos = new List<Contato>();
             var contatosEntities = await _context.Contatos.Where(c => c.Ddd == ddd).ToListAsync();
 
-            if(!contatosEntities.Any()) return Enumerable.Empty<Contato>();
+            if(contatosEntities.Count() == 0) return Enumerable.Empty<Contato>();
 
             foreach (var contatoEntity in contatosEntities)
             {

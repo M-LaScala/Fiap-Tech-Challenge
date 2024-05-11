@@ -34,7 +34,7 @@ namespace Tech.Challenge.Grupo27.Domain.Services
             await _contatoRepository.Aualizar(contato, cancellationToken);
         }
 
-        public async ValueTask<Contato> Delete(Guid? id, CancellationToken cancellationToken)
+        public async ValueTask<Contato?> Delete(Guid? id, CancellationToken cancellationToken)
         {
             var contato = await _contatoRepository.Delete(id, cancellationToken);
             
@@ -46,7 +46,13 @@ namespace Tech.Challenge.Grupo27.Domain.Services
 
         public async ValueTask<Guid> Inserir(Contato contato, CancellationToken cancellationToken)
         {
-            var regiao = await _regiaoDddRepository.ObterRegiaoPorCodigoDdd(Convert.ToInt32(contato.Telefone.Ddd));
+            
+            if (contato is null) {
+                _notificacaoContext.AddNotificacao("CONTATO_NULLO", "O contato deve ser preenchido corretamente");
+                return Guid.Empty;
+            }
+
+            var regiao = await _regiaoDddRepository.ObterRegiaoPorCodigoDdd(Convert.ToInt32(contato?.Telefone?.Ddd));
 
             if (regiao is null)
             {
@@ -70,7 +76,7 @@ namespace Tech.Challenge.Grupo27.Domain.Services
             return contatos;
         }
 
-        public async ValueTask<Contato> ObterPorId(Guid? id)
+        public async ValueTask<Contato?> ObterPorId(Guid? id)
         {
             var contato = await _contatoRepository.ObterPorId(id);
 
@@ -82,20 +88,20 @@ namespace Tech.Challenge.Grupo27.Domain.Services
 
         private async Task AdicionarRegiaoDoDdd(Contato contato)
         {
-            var regiao = await ObterRegiaoPorDDD(contato.Telefone.Ddd);
+            var regiao = await ObterRegiaoPorDDD(contato?.Telefone?.Ddd);
             PreencherRegiaoDddd(contato, regiao);
         }
 
-        private async Task<RegiaoDdd> ObterRegiaoPorDDD(string ddd)
+        private async Task<RegiaoDdd> ObterRegiaoPorDDD(string? ddd)
         {
             return await _regiaoDddRepository.ObterRegiaoPorCodigoDdd(Convert.ToInt32(ddd));
         }
 
-        private void PreencherRegiaoDddd(Contato contato, RegiaoDdd regiao)
+        private void PreencherRegiaoDddd(Contato? contato, RegiaoDdd regiao)
         {
             if (regiao is not null)
             {
-                contato.Telefone.AdicionarRegiaoDoDdd(regiao.Descricao, regiao.Estado);
+                contato?.Telefone?.AdicionarRegiaoDoDdd(regiao.Descricao, regiao.Estado);
             }
         }
 

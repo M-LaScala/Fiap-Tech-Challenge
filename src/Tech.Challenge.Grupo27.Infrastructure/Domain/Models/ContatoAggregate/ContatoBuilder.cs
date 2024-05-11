@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Tech.Challenge.Grupo27.Infrastructure.Domain.Models.ContatoAggregate
 {
-    internal class ContatoBuilder 
+    internal static class ContatoBuilder 
     {
         public static void Build(EntityTypeBuilder<ContatoEntity> builder)
         {

@@ -2,11 +2,11 @@
 {
     public interface IContatoRepository
     {
-        ValueTask<Guid> Inserir(Contato contato, CancellationToken cancellationToken);
+        ValueTask<Guid> Inserir(Contato contato, CancellationToken cancellationToken = default);
 
-        ValueTask Aualizar(Contato contato, CancellationToken cancellationToken);
+        ValueTask Aualizar(Contato contato, CancellationToken cancellationToken = default);
 
-        ValueTask<Contato> Delete(Guid? id, CancellationToken cancellationToken);
+        ValueTask<Contato> Delete(Guid? id, CancellationToken cancellationToken = default);
 
         ValueTask<Contato> ObterPorId(Guid? id);
 

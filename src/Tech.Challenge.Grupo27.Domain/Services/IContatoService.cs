@@ -9,9 +9,9 @@ namespace Tech.Challenge.Grupo27.Domain.Services
 
         ValueTask Aualizar(Contato contato, CancellationToken cancellationToken);
 
-        ValueTask<Contato> Delete(Guid? id, CancellationToken cancellationToken);
+        ValueTask<Contato?> Delete(Guid? id, CancellationToken cancellationToken);
 
-        ValueTask<Contato> ObterPorId(Guid? id);
+        ValueTask<Contato?> ObterPorId(Guid? id);
 
         ValueTask<IEnumerable<Contato>> ObterPorDdd(string ddd);
     }

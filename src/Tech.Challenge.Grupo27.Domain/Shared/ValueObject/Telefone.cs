@@ -8,9 +8,9 @@ namespace Tech.Challenge.Grupo27.Domain.Shared.ValueObject
 
         public string? Numero { get; private set; }
 
-        public string Regiao { get; private set; }
+        public string? Regiao { get; private set; }
 
-        public string Estado { get; private set; }
+        public string? Estado { get; private set; }
 
         public Telefone(string? dDD, string? numero)
         {
@@ -20,6 +20,8 @@ namespace Tech.Challenge.Grupo27.Domain.Shared.ValueObject
 
         public bool ValidarNumero(string numero)
         {
+            if(string.IsNullOrWhiteSpace(numero)) return false;
+
             var expressao = @"^[9]{0,1}[6-9]{1}[0-9]{3}[0-9]{4}$";
 
             return Regex.Match(numero, expressao).Success;
@@ -27,6 +29,8 @@ namespace Tech.Challenge.Grupo27.Domain.Shared.ValueObject
 
         public bool ValidarDdd(string ddd)
         {
+            if (string.IsNullOrWhiteSpace(ddd)) return false;
+
             var expressao = @"^[1-9]{2}";
             return Regex.Match(ddd, expressao).Success;
         }
