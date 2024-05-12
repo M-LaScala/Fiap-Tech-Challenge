@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Server.Kestrel.Core;
 using Serilog;
 using System.Reflection;
 using Tech.Challenge.Grupo27.API.Filters;
@@ -13,7 +14,7 @@ var configuration = new ConfigurationBuilder()
                 .Build();
 
 var logger = new LoggerConfiguration()
-             .MinimumLevel.Debug()
+             .MinimumLevel.Information()
              .WriteTo.Console()
              .WriteTo.File("logs/contatoApp.text", rollingInterval: RollingInterval.Day)
              .CreateLogger();
@@ -34,6 +35,16 @@ builder.Services.AddApplication();
 builder.Services.AddDomainService();
 builder.Services.AddRepository();
 
+builder.Services.Configure<KestrelServerOptions>(options =>
+{
+    options.AllowSynchronousIO = true;
+});
+
+// If using IIS:
+builder.Services.Configure<IISServerOptions>(options =>
+{
+    options.AllowSynchronousIO = true;
+});
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
@@ -63,6 +74,8 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 
 app.UseAuthorization();
+
+app.UseTelemetryMiddleware();
 
 app.MapControllers();
 

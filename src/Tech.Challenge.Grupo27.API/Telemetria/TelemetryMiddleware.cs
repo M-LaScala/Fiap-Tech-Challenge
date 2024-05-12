@@ -4,9 +4,9 @@ using System.Text;
 
 namespace Tech.Challenge.Grupo27.API.Telemetria
 {
-    internal class TelemetryMiddleware
+    internal  class TelemetryMiddleware : IMiddleware
     {
-        private static bool IRequestWitchBody(HttpRequest r) => r.Method == HttpMethod.Post.ToString() || r.Method == HttpMethod.Put.ToString();         
+        private bool IRequestWitchBody(HttpRequest r) => r.Method == HttpMethod.Post.ToString() || r.Method == HttpMethod.Put.ToString();         
         
         public async Task InvokeAsync(HttpContext context, RequestDelegate next)
         {
@@ -18,12 +18,13 @@ namespace Tech.Challenge.Grupo27.API.Telemetria
                 Log.Information($"Request Body: {requestBody}");
             }
 
-            var responseBody = await this.GetResponseBodyForTelemetry(context, next);
+            var responseBody = await GetResponseBodyForTelemetry(context, next);
 
-            if (!string.IsNullOrEmpty(responseBody)) Log.Information($"Response Body: {responseBody}");
+            if (!string.IsNullOrEmpty(responseBody))
+                Log.Information($"Response Body: {responseBody}");
         }
 
-        public async Task<string> GetRequestBodyForTelemetry(HttpContext context)
+        public static async Task<string> GetRequestBodyForTelemetry(HttpContext context)
         {
             var request = context.Request;
 
@@ -40,9 +41,9 @@ namespace Tech.Challenge.Grupo27.API.Telemetria
             return bodyContent;
         }
 
-        public async Task<string> GetResponseBodyForTelemetry(HttpContext context, RequestDelegate next)
+        public static async Task<string> GetResponseBodyForTelemetry(HttpContext context, RequestDelegate next)
         {
-            Stream originalBody = context.Request.Body;
+            Stream originalBody = context.Response.Body;
 
             try
             {
@@ -53,7 +54,8 @@ namespace Tech.Challenge.Grupo27.API.Telemetria
                     if (context.Response.StatusCode == (int)HttpStatusCode.NoContent) return null;
 
                     stream.Position = 0;
-                    var responseBody = new StreamReader(originalBody).ReadToEnd();
+                    var responseBody = new StreamReader(stream).ReadToEnd();
+
                     stream.Position = 0;
                     await stream.CopyToAsync(originalBody);
 
@@ -65,6 +67,14 @@ namespace Tech.Challenge.Grupo27.API.Telemetria
             {
                 context.Response.Body = originalBody;
             }    
+        }
+    }
+
+    public static class TelemetryMiddlewareExtensions
+    {
+        public static IApplicationBuilder UseTelemetryMiddleware(this IApplicationBuilder builder)
+        {
+            return builder.UseMiddleware<TelemetryMiddleware>();
         }
     }
 }
