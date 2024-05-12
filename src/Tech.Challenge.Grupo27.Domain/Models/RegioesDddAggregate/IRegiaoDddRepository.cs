@@ -2,6 +2,6 @@
 {
     public interface IRegiaoDddRepository
     {
-        ValueTask<RegiaoDdd> ObterRegiaoPorCodigoDdd(int ddd);
+        ValueTask<RegiaoDdd?> ObterRegiaoPorCodigoDdd(int ddd);
     }
 }

@@ -30,7 +30,7 @@ namespace Tech.Challenge.Grupo27.Application.Contatos.InserirContato.Handler_
 
             if (contato.Invalid)
             {
-                _notificacaoContext.AddNotificacoes(contato.ValidationResult);
+                _notificacaoContext.AddNotificacoes(contato?.ValidationResult);
                 return new ContatoResponse("", false, null);
             }
 

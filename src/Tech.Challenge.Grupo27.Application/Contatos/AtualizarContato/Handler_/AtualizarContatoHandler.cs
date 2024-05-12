@@ -36,7 +36,7 @@ namespace Tech.Challenge.Grupo27.Application.Contatos.AtualizarContato.Handler_
 
             if (contato.Invalid)
             {
-                _notificacaoContext.AddNotificacoes(contato.ValidationResult);
+                _notificacaoContext.AddNotificacoes(contato?.ValidationResult);
                 return new ContatoResponse("", false, null);
             }
 
@@ -47,7 +47,7 @@ namespace Tech.Challenge.Grupo27.Application.Contatos.AtualizarContato.Handler_
             await _unitOfWork.SaveChanges(cancellationToken);
             await _unitOfWork.CommitTransaction(cancellationToken);
 
-            return new ContatoResponse("Contato atualizado com sucesso", true, new { Id = request.Id });
+            return new ContatoResponse("Contato atualizado com sucesso", true, new { request.Id });
         }
     }
 }

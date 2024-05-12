@@ -24,11 +24,11 @@
 
         public string? Ddd { get; init; }
 
-        public string Estado { get; init; }
+        public string? Estado { get; init; }
 
-        public string Regiao { get; init; }
+        public string? Regiao { get; init; }
 
-        public TelefoneResponse(string? numero, string? ddd, string estado, string regiao)
+        public TelefoneResponse(string? numero, string? ddd, string? estado, string? regiao)
         {
             Numero = numero;
             Ddd = ddd;

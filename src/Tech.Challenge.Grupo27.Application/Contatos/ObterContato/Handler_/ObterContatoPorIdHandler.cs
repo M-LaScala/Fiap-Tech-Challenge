@@ -1,7 +1,6 @@
 ﻿using Tech.Challenge.Grupo27.Application.Contatos.ObterContato.Dtos;
 using Tech.Challenge.Grupo27.Application.Contatos.ViewModels;
 using Tech.Challenge.Grupo27.Application.Shared;
-using Tech.Challenge.Grupo27.Domain.Models.ContatoAggregate;
 using Tech.Challenge.Grupo27.Domain.Services;
 
 namespace Tech.Challenge.Grupo27.Application.Contatos.ObterContato.Handler_
@@ -36,10 +35,10 @@ namespace Tech.Challenge.Grupo27.Application.Contatos.ObterContato.Handler_
                     contato.Email,
                     new TelefoneResponse
                     (
-                        contato.Telefone.Numero,
-                        contato.Telefone.Ddd,
-                        contato.Telefone.Estado,
-                        contato.Telefone.Regiao
+                        contato?.Telefone?.Numero,
+                        contato?.Telefone?.Ddd,
+                        contato?.Telefone?.Estado,
+                        contato?.Telefone?.Regiao
                      )
                  )
             );

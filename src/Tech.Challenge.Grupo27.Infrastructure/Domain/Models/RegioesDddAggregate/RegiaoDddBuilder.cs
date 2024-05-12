@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Tech.Challenge.Grupo27.Infrastructure.Domain.Models.RegioesDddAggregate
 {
-    internal class RegiaoDddBuilder
+    internal static class RegiaoDddBuilder
     {
         public static void Build(EntityTypeBuilder<RegiaoDddEntity> builder)
         {
