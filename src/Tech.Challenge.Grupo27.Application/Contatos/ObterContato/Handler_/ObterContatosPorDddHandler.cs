@@ -18,12 +18,12 @@ namespace Tech.Challenge.Grupo27.Application.Contatos.ObterContato.Handler_
         {
             var contatosResponse = new List<ObterContatoResponse>();
 
-            var contatos = await _contatoService.ObterPorDdd(request.Ddd.ToString());
+            var contatos = await _contatoService.ObterPorDdd(request?.Ddd?.ToString());
 
 
-            if (contatos is null || !contatos.Any())
+            if (contatos is null || contatos.Count() == 0)
             {
-                var mensagem = $"Contato não encotrado para o DDD: {request.Ddd}";
+                var mensagem = $"Contato não encotrado para o DDD: {request?.Ddd}";
                 return new ContatoResponse(mensagem, false, null);
             }
 
@@ -38,10 +38,10 @@ namespace Tech.Challenge.Grupo27.Application.Contatos.ObterContato.Handler_
                         contato.Email,
                         new TelefoneResponse
                         (
-                            contato.Telefone.Numero,
-                            contato.Telefone.Ddd,
-                            contato.Telefone.Estado,
-                            contato.Telefone.Regiao
+                            contato?.Telefone?.Numero,
+                            contato?.Telefone?.Ddd,
+                            contato?.Telefone?.Estado,
+                            contato?.Telefone?.Regiao
                         )
                     )
                  );

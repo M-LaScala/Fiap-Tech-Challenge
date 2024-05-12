@@ -1,5 +1,7 @@
+using Serilog;
 using System.Reflection;
 using Tech.Challenge.Grupo27.API.Filters;
+using Tech.Challenge.Grupo27.API.Telemetria;
 using Tech.Challenge.Grupo27.Infrastructure.DI;
 
 
@@ -10,7 +12,20 @@ var configuration = new ConfigurationBuilder()
                 .AddJsonFile("appsettings.json")
                 .Build();
 
+var logger = new LoggerConfiguration()
+             .MinimumLevel.Debug()
+             .WriteTo.Console()
+             .WriteTo.File("logs/contatoApp.text", rollingInterval: RollingInterval.Day)
+             .CreateLogger();
+
+builder.Logging.ClearProviders();
+builder.Logging.AddSerilog(logger);
+
 builder.Services.AddMvc(options => options.Filters.Add<NotificationFilter>());
+
+builder.Services.AddTransient<TelemetryMiddleware>();
+
+// Add services to the container.
 
 var options = new Tech.Challenge.Grupo27.Infrastructure.EntityFrameworkCore.DbOptions(configuration.GetConnectionString("DefaultConnection"), configuration.GetConnectionString("Prefix"));
 builder.Services.AddSingleton(options);
@@ -19,7 +34,6 @@ builder.Services.AddApplication();
 builder.Services.AddDomainService();
 builder.Services.AddRepository();
 
-// Add services to the container.
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle

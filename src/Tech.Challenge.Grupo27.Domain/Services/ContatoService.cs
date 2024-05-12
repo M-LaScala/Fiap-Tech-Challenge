@@ -63,7 +63,7 @@ namespace Tech.Challenge.Grupo27.Domain.Services
             return await _contatoRepository.Inserir(contato, cancellationToken);
         }
 
-        public async ValueTask<IEnumerable<Contato>> ObterPorDdd(string ddd)
+        public async ValueTask<IEnumerable<Contato>> ObterPorDdd(string? ddd)
         {
             var contatos = await _contatoRepository.ObterPorDdd(ddd);
             RegiaoDdd regiao = await ObterRegiaoPorDDD(ddd);

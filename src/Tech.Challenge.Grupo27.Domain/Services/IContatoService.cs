@@ -13,6 +13,6 @@ namespace Tech.Challenge.Grupo27.Domain.Services
 
         ValueTask<Contato?> ObterPorId(Guid? id);
 
-        ValueTask<IEnumerable<Contato>> ObterPorDdd(string ddd);
+        ValueTask<IEnumerable<Contato>> ObterPorDdd(string? ddd);
     }
 }

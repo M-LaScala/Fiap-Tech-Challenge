@@ -26,15 +26,15 @@ namespace Tech.Challenge.Grupo27.Infrastructure.Domain.Models.ContatoAggregate
             }
 
             contatoEntity.Nome = contato.Nome;
-            contatoEntity.Telefone = contato.Telefone.Numero;
-            contatoEntity.Ddd = contato.Telefone.Ddd;
-            contatoEntity.Email = contato.Email;
+            contatoEntity.Telefone = contato?.Telefone?.Numero;
+            contatoEntity.Ddd = contato?.Telefone?.Ddd;
+            contatoEntity.Email = contato?.Email;
             contatoEntity.DataDeAlteracao = DateTime.UtcNow;
 
             _context.Update(contatoEntity);
         }
 
-        public async ValueTask<Contato> Delete(Guid? id, CancellationToken cancellationToken)
+        public async ValueTask<Contato?> Delete(Guid? id, CancellationToken cancellationToken)
         {
             var contatoEntity = await _context.Contatos.FirstOrDefaultAsync(c => c.Id == id);
 
@@ -55,12 +55,12 @@ namespace Tech.Challenge.Grupo27.Infrastructure.Domain.Models.ContatoAggregate
             return contatoEntity.Id;
         }
 
-        public async ValueTask<IEnumerable<Contato>> ObterPorDdd(string ddd)
+        public async ValueTask<IEnumerable<Contato>> ObterPorDdd(string? ddd)
         {
             var contatos = new List<Contato>();
             var contatosEntities = await _context.Contatos.Where(c => c.Ddd == ddd).ToListAsync();
 
-            if(contatosEntities.Count() == 0) return Enumerable.Empty<Contato>();
+            if(contatosEntities?.Count() == 0 || contatosEntities is null) return Enumerable.Empty<Contato>();
 
             foreach (var contatoEntity in contatosEntities)
             {
@@ -70,7 +70,7 @@ namespace Tech.Challenge.Grupo27.Infrastructure.Domain.Models.ContatoAggregate
             return contatos;
         }
 
-        public async ValueTask<Contato> ObterPorId(Guid? id)
+        public async ValueTask<Contato?> ObterPorId(Guid? id)
         {
            var contatoEntity = await _context.Contatos.FirstOrDefaultAsync(c => c.Id == id);
 
@@ -86,7 +86,7 @@ namespace Tech.Challenge.Grupo27.Infrastructure.Domain.Models.ContatoAggregate
 
         private static ContatoEntity MapearContatpEntity(Contato contato)
         {
-            return new ContatoEntity(contato.Nome, contato.Email, contato.Telefone.Numero, contato.Telefone.Ddd);
+            return new ContatoEntity(contato.Nome, contato.Email, contato?.Telefone?.Numero, contato?.Telefone?.Ddd);
         }
     }
 }

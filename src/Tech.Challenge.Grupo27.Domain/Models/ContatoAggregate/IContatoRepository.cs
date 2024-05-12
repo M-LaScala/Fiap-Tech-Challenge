@@ -6,10 +6,10 @@
 
         ValueTask Aualizar(Contato contato, CancellationToken cancellationToken = default);
 
-        ValueTask<Contato> Delete(Guid? id, CancellationToken cancellationToken = default);
+        ValueTask<Contato?> Delete(Guid? id, CancellationToken cancellationToken = default);
 
-        ValueTask<Contato> ObterPorId(Guid? id);
+        ValueTask<Contato?> ObterPorId(Guid? id);
 
-        ValueTask<IEnumerable<Contato>> ObterPorDdd(string ddd);
+        ValueTask<IEnumerable<Contato>> ObterPorDdd(string? ddd);
     }
 }

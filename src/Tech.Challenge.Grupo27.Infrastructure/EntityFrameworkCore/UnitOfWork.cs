@@ -10,21 +10,21 @@ namespace Tech.Challenge.Grupo27.Infrastructure.EntityFrameworkCore
 
         public UnitOfWork(TechChallengeGrupo27Context context)
         {
-            _context = context;
+            _context = context;            
         }
 
-        public virtual async Task BeginTransaction(CancellationToken cancellationToken)
+        public virtual async Task BeginTransaction(CancellationToken cancellationToken = default)
         {
             if(_transaction is null)
-                _transaction = await _context.Database.BeginTransactionAsync(cancellationToken);            
+                _transaction = await _context.Database.BeginTransactionAsync(cancellationToken);
         }
 
-        public  Task CommitTransaction(CancellationToken cancellationToken)
+        public  Task CommitTransaction(CancellationToken  cancellationToken = default)
         {
            return _transaction.CommitAsync(cancellationToken);
         }
 
-        public  Task SaveChanges(CancellationToken cancellationToken) 
+        public  Task SaveChanges(CancellationToken cancellationToken = default) 
         {
            return _context.SaveChangesAsync(cancellationToken);
         }

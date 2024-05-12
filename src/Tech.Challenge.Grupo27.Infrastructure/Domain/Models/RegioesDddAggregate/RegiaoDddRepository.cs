@@ -13,9 +13,8 @@ namespace Tech.Challenge.Grupo27.Infrastructure.Domain.Models.RegioesDddAggregat
             _context = context;            
         }
 
-        public async ValueTask<RegiaoDdd> ObterRegiaoPorCodigoDdd(int ddd)
-        {
-            var regioes = new List<RegiaoDdd>();
+        public async ValueTask<RegiaoDdd?> ObterRegiaoPorCodigoDdd(int ddd)
+        {            
             var regiaoEntity = await _context.RegioesDdds.FirstOrDefaultAsync(c => c.Codigo == ddd);
 
             if (regiaoEntity is null) return default;
