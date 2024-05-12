@@ -6,7 +6,7 @@ namespace Tech.Challenge.Grupo27.API.Telemetria
 {
     internal  class TelemetryMiddleware : IMiddleware
     {
-        private bool IRequestWitchBody(HttpRequest r) => r.Method == HttpMethod.Post.ToString() || r.Method == HttpMethod.Put.ToString();         
+        private bool IRequestWitchBody(HttpRequest r) => r.Method == HttpMethod.Post.ToString() || r.Method == HttpMethod.Put.ToString();     
         
         public async Task InvokeAsync(HttpContext context, RequestDelegate next)
         {

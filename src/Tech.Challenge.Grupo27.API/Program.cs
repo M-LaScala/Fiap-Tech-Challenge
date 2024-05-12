@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Server.Kestrel.Core;
 using Serilog;
+using Serilog.Events;
 using System.Reflection;
 using Tech.Challenge.Grupo27.API.Filters;
 using Tech.Challenge.Grupo27.API.Telemetria;
@@ -13,15 +14,15 @@ var configuration = new ConfigurationBuilder()
                 .AddJsonFile("appsettings.json")
                 .Build();
 
+var template = "{Timestamp:yyyy-MM-dd HH:mm:ss.fff zzz} [{Level:u3}] {Message:lj}{NewLine}{Exception}";
 var logger = new LoggerConfiguration()
-             .MinimumLevel.Information()
-             .WriteTo.Console()
-             .WriteTo.File("logs/contatoApp.text", rollingInterval: RollingInterval.Day)
+             .MinimumLevel.Information()             
+             .WriteTo.Console(outputTemplate: template, restrictedToMinimumLevel: LogEventLevel.Information)
+             .WriteTo.File("logs/contatoApp.text", outputTemplate: template, rollingInterval: RollingInterval.Day)
              .CreateLogger();
 
 builder.Logging.ClearProviders();
 builder.Logging.AddSerilog(logger);
-
 builder.Services.AddMvc(options => options.Filters.Add<NotificationFilter>());
 
 builder.Services.AddTransient<TelemetryMiddleware>();
