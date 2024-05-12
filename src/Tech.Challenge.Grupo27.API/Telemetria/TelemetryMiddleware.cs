@@ -10,18 +10,19 @@ namespace Tech.Challenge.Grupo27.API.Telemetria
         
         public async Task InvokeAsync(HttpContext context, RequestDelegate next)
         {
+            var logger = Log.ForContext<TelemetryMiddleware>();
             var request = context.Request;
 
             if(IRequestWitchBody(request) && (!string.IsNullOrWhiteSpace(request.ContentType) && !request.ContentType.Contains("multipart/form-data")))
             {
                 var requestBody = await GetRequestBodyForTelemetry(context);
-                Log.Information($"Request Body: {requestBody}");
+                logger.Information($"Request Body: {requestBody}");
             }
 
             var responseBody = await GetResponseBodyForTelemetry(context, next);
 
             if (!string.IsNullOrEmpty(responseBody))
-                Log.Information($"Response Body: {responseBody}");
+                logger.Information($"Response Body: {responseBody}");
         }
 
         public static async Task<string> GetRequestBodyForTelemetry(HttpContext context)

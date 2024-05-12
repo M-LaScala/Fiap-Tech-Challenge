@@ -14,15 +14,26 @@ var configuration = new ConfigurationBuilder()
                 .AddJsonFile("appsettings.json")
                 .Build();
 
-var template = "{Timestamp:yyyy-MM-dd HH:mm:ss.fff zzz} [{Level:u3}] {Message:lj}{NewLine}{Exception}";
 var logger = new LoggerConfiguration()
-             .MinimumLevel.Information()             
-             .WriteTo.Console(outputTemplate: template, restrictedToMinimumLevel: LogEventLevel.Information)
-             .WriteTo.File("logs/contatoApp.text", outputTemplate: template, rollingInterval: RollingInterval.Day)
+             .WriteTo.File
+             (
+                "%TEMP%/Logs/contatoApp.text",
+                outputTemplate:"{Timestamp:o} [{Level:u3}] ({Application}/{MachineName}/{ThreadId}) {Message}{NewLine}{Exception}",
+                rollingInterval: RollingInterval.Day, 
+                fileSizeLimitBytes: 10 * 1024 * 1024,
+                retainedFileCountLimit: 2,
+                rollOnFileSizeLimit: true,
+                shared: true,
+                flushToDiskInterval: TimeSpan.FromSeconds(1))
+             .ReadFrom.Configuration(configuration)             
              .CreateLogger();
 
 builder.Logging.ClearProviders();
-builder.Logging.AddSerilog(logger);
+builder.Services.AddSerilog((services, lc) => lc
+    .ReadFrom.Configuration(builder.Configuration)
+    .ReadFrom.Services(services)
+    .Enrich.FromLogContext());
+
 builder.Services.AddMvc(options => options.Filters.Add<NotificationFilter>());
 
 builder.Services.AddTransient<TelemetryMiddleware>();
