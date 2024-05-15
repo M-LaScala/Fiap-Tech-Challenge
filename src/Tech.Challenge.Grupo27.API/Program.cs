@@ -3,6 +3,7 @@ using Serilog;
 using Serilog.Events;
 using System.Reflection;
 using Tech.Challenge.Grupo27.API.Filters;
+using Tech.Challenge.Grupo27.API.Middlewares;
 using Tech.Challenge.Grupo27.API.Telemetria;
 using Tech.Challenge.Grupo27.Infrastructure.DI;
 
@@ -17,7 +18,7 @@ var configuration = new ConfigurationBuilder()
 var logger = new LoggerConfiguration()
              .WriteTo.File
              (
-                "%TEMP%/Logs/contatoApp.text",
+                "Logs/contatoApp.text",
                 outputTemplate:"{Timestamp:o} [{Level:u3}] ({Application}/{MachineName}/{ThreadId}) {Message}{NewLine}{Exception}",
                 rollingInterval: RollingInterval.Day, 
                 fileSizeLimitBytes: 10 * 1024 * 1024,
@@ -88,6 +89,8 @@ app.UseHttpsRedirection();
 app.UseAuthorization();
 
 app.UseTelemetryMiddleware();
+
+app.UseErrorMiddleware();
 
 app.MapControllers();
 
