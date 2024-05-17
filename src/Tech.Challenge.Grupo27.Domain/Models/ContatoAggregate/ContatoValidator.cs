@@ -17,10 +17,10 @@ namespace Tech.Challenge.Grupo27.Domain.Models.ContatoAggregate
             RuleFor(contato => contato.Email)
                 .NotEmpty()
                 .WithMessage("E-mail é obrigatório.")
-                .WithErrorCode("ENAIL_OBRIGATORIO")
+                .WithErrorCode("EMAIL_OBRIGATORIO")
                 .EmailAddress()
                 .WithMessage("O e-mail não é válido")
-                .WithErrorCode("ENAIL_INVALIDO");
+                .WithErrorCode("EMAIL_INVALIDO");                 
 
             RuleFor(x=> x.Telefone).SetValidator(new TelefoneValidator());
 

@@ -31,7 +31,7 @@ namespace Tech.Challenge.Grupo27.Application.Contatos.AtualizarContato.Handler_
                 request.Id,
                 request.Nome,
                 request.Email,
-                new Domain.Shared.ValueObject.Telefone(request.Ddd, request.Numero)
+                new Domain.Shared.ValueObject.Telefone(request?.Telefone?.Ddd, request?.Telefone?.Numero)
              );
 
             if (contato.Invalid)

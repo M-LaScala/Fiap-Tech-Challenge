@@ -1,9 +1,9 @@
 ﻿using Tech.Challenge.Grupo27.Domain.Models.ContatoAggregate;
 using Tech.Challenge.Grupo27.Domain.Shared.ValueObject;
 
-namespace Tech.Challenge.Grupo27.Tests.Entidade
+namespace Tech.Challenge.Grupo27.Tests.Domain.Models.ContatoAggregate
 {
-    public class TesteContato
+    public class ContatoTeste
     {
         /// <summary>
         /// Criação de contato padrão.
@@ -37,7 +37,6 @@ namespace Tech.Challenge.Grupo27.Tests.Entidade
         {
             Telefone telefone = new Telefone("555", "983243424");
             Contato contato = new Contato("Pedro Luiz", "pedro_2004@gmail.com", telefone);
-
             Assert.False(contato.Valid);
         }
     }

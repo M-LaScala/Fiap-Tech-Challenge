@@ -3,7 +3,7 @@ using Tech.Challenge.Grupo27.Domain.Shared.ValueObject;
 
 namespace Tech.Challenge.Grupo27.Domain.Models.ContatoAggregate
 {
-    internal class TelefoneValidator : AbstractValidator<Telefone>
+    public class TelefoneValidator : AbstractValidator<Telefone>
     {
         public TelefoneValidator()
         {
@@ -12,14 +12,15 @@ namespace Tech.Challenge.Grupo27.Domain.Models.ContatoAggregate
                 .NotEmpty()
                 .WithMessage("Número é obrigatório.")
                 .WithErrorCode("NUMERO_OBRIGATORIO")
-                .MaximumLength(80)
+                .MaximumLength(10)
                 .WithMessage("O número deve ter no máximo 10 caracteres.")
                 .WithErrorCode("NUMERO_TAMANHO_MAXIMO");
 
             RuleFor(contato => contato)
-                .Must(c => c.ValidarNumero(c.Numero))
-                .WithMessage("Número de telefone inválido")
-                .WithErrorCode("NUMERO_INVALIDO");
+                .Must(c => !string.IsNullOrWhiteSpace(c.Numero) ? c.ValidarNumero(c.Numero): true)
+                .WithMessage("Número de telefone inválido.")
+                .WithErrorCode("NUMERO_INVALIDO");            
+
 
             RuleFor(contato => contato.Ddd)
                 .NotEmpty()
@@ -30,8 +31,8 @@ namespace Tech.Challenge.Grupo27.Domain.Models.ContatoAggregate
                 .WithErrorCode("DDD_TAMANHO");
 
             RuleFor(contato => contato)
-                .Must(c => c.ValidarDdd(c?.Ddd))
-                .WithMessage("DDD de telefone inválido")
+                .Must(c => !string.IsNullOrWhiteSpace(c.Ddd) ? c.ValidarDdd(c?.Ddd): true)
+                .WithMessage("DDD de telefone inválido.")
                 .WithErrorCode("DDD_INVALIDO");
         }
     }
