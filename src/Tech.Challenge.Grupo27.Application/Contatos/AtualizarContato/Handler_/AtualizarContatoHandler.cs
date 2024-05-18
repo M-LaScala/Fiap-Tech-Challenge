@@ -21,7 +21,7 @@ namespace Tech.Challenge.Grupo27.Application.Contatos.AtualizarContato.Handler_
         {
             _contatoService = contatoService;
             _notificacaoContext = notificacaoContext;
-            _unitOfWork = unitOfWork;   
+            _unitOfWork = unitOfWork;
         }
 
         public async Task<ContatoResponse> Handle(AtualizarContatoRequest request, CancellationToken cancellationToken)

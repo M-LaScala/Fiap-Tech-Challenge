@@ -6,9 +6,9 @@
 
         public string Shema { get; init; }
 
-        public DbOptions(string connectionString, string shema) 
+        public DbOptions(string connectionString, string shema)
         {
-            ConnectionString = string.IsNullOrWhiteSpace(connectionString) ? 
+            ConnectionString = string.IsNullOrWhiteSpace(connectionString) ?
                                 throw new ArgumentException(nameof(connectionString)) :
                                 connectionString;
             Shema = shema;

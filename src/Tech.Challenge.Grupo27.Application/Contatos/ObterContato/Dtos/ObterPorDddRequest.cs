@@ -4,7 +4,7 @@ using Tech.Challenge.Grupo27.Application.Shared;
 
 namespace Tech.Challenge.Grupo27.Application.Contatos.ObterContato.Dtos
 {
-    public class ObterPorDddRequest: RequestDto, IRequest<ContatoResponse>
+    public class ObterPorDddRequest : RequestDto, IRequest<ContatoResponse>
     {
         public int? Ddd { get; set; }
 

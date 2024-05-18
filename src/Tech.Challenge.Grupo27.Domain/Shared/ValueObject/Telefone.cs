@@ -15,12 +15,12 @@ namespace Tech.Challenge.Grupo27.Domain.Shared.ValueObject
         public Telefone(string? dDD, string? numero)
         {
             Ddd = dDD;
-            Numero = numero; 
+            Numero = numero;
         }
 
         public bool ValidarNumero(string numero)
         {
-            if(string.IsNullOrWhiteSpace(numero)) return false;
+            if (string.IsNullOrWhiteSpace(numero)) return false;
 
             var expressao = @"^[9]{0,1}[6-9]{1}[0-9]{3}[0-9]{4}$";
 

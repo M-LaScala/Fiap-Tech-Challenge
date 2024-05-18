@@ -6,7 +6,7 @@
 
         public string? Codigo { get; set; }
 
-        public ErroMensagem(string? codigo, string? mensagem): base(mensagem)
+        public ErroMensagem(string? codigo, string? mensagem) : base(mensagem)
         {
             Codigo = codigo;
             Mensagem = mensagem;

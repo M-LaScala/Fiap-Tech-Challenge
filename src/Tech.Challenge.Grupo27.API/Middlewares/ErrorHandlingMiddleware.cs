@@ -1,7 +1,6 @@
 ﻿using Serilog;
 using System.Net;
 using System.Text.Json;
-using Tech.Challenge.Grupo27.API.Telemetria;
 using Tech.Challenge.Grupo27.Domain.Shared.Exceptions;
 
 namespace Tech.Challenge.Grupo27.API.Middlewares
@@ -10,7 +9,7 @@ namespace Tech.Challenge.Grupo27.API.Middlewares
     {
         private readonly RequestDelegate _next;
 
-        public ErrorHandlingMiddleware(RequestDelegate next) 
+        public ErrorHandlingMiddleware(RequestDelegate next)
         {
             _next = next;
         }
@@ -20,20 +19,20 @@ namespace Tech.Challenge.Grupo27.API.Middlewares
             try
             {
                 await _next(context);
-            }            
-            catch (Exception ex )
+            }
+            catch (Exception ex)
             {
 
-               await HandleException(context, ex);
+                await HandleException(context, ex);
             }
         }
 
-        private static Task HandleException(HttpContext context, Exception ex) 
+        private static Task HandleException(HttpContext context, Exception ex)
         {
             const string codigoErro = "ERRO_INTERNO_SERVIDOR";
             const string mensagemGenerica = "Ops, erro interno do servidor";
 
-            Log.Error(ex,$" {mensagemGenerica} | {ex.Message}");
+            Log.Error(ex, $" {mensagemGenerica} | {ex.Message}");
 
             var erros = new List<ErroMensagem>()
             {
@@ -43,7 +42,7 @@ namespace Tech.Challenge.Grupo27.API.Middlewares
             return HandleResponseMessageAsync(context, erros, HttpStatusCode.InternalServerError);
         }
 
-        private static Task HandleResponseMessageAsync(HttpContext context, IEnumerable<ErroMensagem> erros, HttpStatusCode httpStatusCode) 
+        private static Task HandleResponseMessageAsync(HttpContext context, IEnumerable<ErroMensagem> erros, HttpStatusCode httpStatusCode)
         {
             var options = new JsonSerializerOptions
             {

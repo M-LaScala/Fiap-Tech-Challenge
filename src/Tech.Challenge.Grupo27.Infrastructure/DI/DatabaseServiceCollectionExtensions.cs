@@ -6,8 +6,8 @@ namespace Tech.Challenge.Grupo27.Infrastructure.DI
 {
     public static class DatabaseServiceCollectionExtensions
     {
-        public static void AddSqlServerProvider(this IServiceCollection services, DbOptions dbOptions )
-        { 
+        public static void AddSqlServerProvider(this IServiceCollection services, DbOptions dbOptions)
+        {
 
             services.AddDbContext<TechChallengeGrupo27Context>(options =>
             {

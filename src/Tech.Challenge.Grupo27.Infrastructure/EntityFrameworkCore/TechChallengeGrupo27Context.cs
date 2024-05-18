@@ -4,7 +4,7 @@ using Tech.Challenge.Grupo27.Infrastructure.Domain.Models.RegioesDddAggregate;
 
 namespace Tech.Challenge.Grupo27.Infrastructure.EntityFrameworkCore
 {
-    public class TechChallengeGrupo27Context: DbContext
+    public class TechChallengeGrupo27Context : DbContext
     {
         private readonly DbOptions _dbOptions;
 
@@ -13,20 +13,20 @@ namespace Tech.Challenge.Grupo27.Infrastructure.EntityFrameworkCore
         public DbSet<RegiaoDddEntity> RegioesDdds { get; set; }
 
         public TechChallengeGrupo27Context() { }
-        public TechChallengeGrupo27Context(DbContextOptions<TechChallengeGrupo27Context> options, DbOptions dbOptions): base(options)
+        public TechChallengeGrupo27Context(DbContextOptions<TechChallengeGrupo27Context> options, DbOptions dbOptions) : base(options)
         {
             _dbOptions = dbOptions ?? throw new ArgumentNullException(nameof(dbOptions));
         }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-                optionsBuilder.UseSqlServer(_dbOptions.ConnectionString);
+            optionsBuilder.UseSqlServer(_dbOptions.ConnectionString);
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            if(!string.IsNullOrEmpty(_dbOptions.Shema))
-                modelBuilder.HasDefaultSchema(_dbOptions.Shema.Replace(".",""));
+            if (!string.IsNullOrEmpty(_dbOptions.Shema))
+                modelBuilder.HasDefaultSchema(_dbOptions.Shema.Replace(".", ""));
 
             ContatoBuilder.Build(modelBuilder.Entity<ContatoEntity>());
             RegiaoDddBuilder.Build(modelBuilder.Entity<RegiaoDddEntity>());
@@ -67,7 +67,7 @@ namespace Tech.Challenge.Grupo27.Infrastructure.EntityFrameworkCore
                 new RegiaoDddEntity(53, "Sul", "RS"),
                 new RegiaoDddEntity(54, "Sul", "RS"),
                 new RegiaoDddEntity(55, "Sul", "RS"),
-               
+
                 new RegiaoDddEntity(61, "Centro-Oeste", "MG"),
                 new RegiaoDddEntity(62, "Centro-Oeste", "GO"),
                 new RegiaoDddEntity(64, "Centro-Oeste", "GO"),

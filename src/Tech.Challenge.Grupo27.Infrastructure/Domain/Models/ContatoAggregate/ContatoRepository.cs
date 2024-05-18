@@ -44,7 +44,7 @@ namespace Tech.Challenge.Grupo27.Infrastructure.Domain.Models.ContatoAggregate
                 return default;
             }
 
-            _context.Contatos.Remove(contatoEntity);            
+            _context.Contatos.Remove(contatoEntity);
             return MapearContato(contatoEntity);
         }
 
@@ -60,7 +60,7 @@ namespace Tech.Challenge.Grupo27.Infrastructure.Domain.Models.ContatoAggregate
             var contatos = new List<Contato>();
             var contatosEntities = await _context.Contatos.Where(c => c.Ddd == ddd).ToListAsync();
 
-            if(contatosEntities?.Count() == 0 || contatosEntities is null) return Enumerable.Empty<Contato>();
+            if (contatosEntities?.Count() == 0 || contatosEntities is null) return Enumerable.Empty<Contato>();
 
             foreach (var contatoEntity in contatosEntities)
             {
@@ -72,7 +72,7 @@ namespace Tech.Challenge.Grupo27.Infrastructure.Domain.Models.ContatoAggregate
 
         public async ValueTask<Contato?> ObterPorId(Guid? id)
         {
-           var contatoEntity = await _context.Contatos.FirstOrDefaultAsync(c => c.Id == id);
+            var contatoEntity = await _context.Contatos.FirstOrDefaultAsync(c => c.Id == id);
 
             if (contatoEntity is null) return default;
 

@@ -1,11 +1,10 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Design;
 using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
 
 namespace Tech.Challenge.Grupo27.Infrastructure.EntityFrameworkCore
 {
-    public class DesingTimeDbContext: IDesignTimeDbContextFactory<TechChallengeGrupo27Context>
+    public class DesingTimeDbContext : IDesignTimeDbContextFactory<TechChallengeGrupo27Context>
     {
         public TechChallengeGrupo27Context CreateDbContext(string[] args)
         {
@@ -20,7 +19,7 @@ namespace Tech.Challenge.Grupo27.Infrastructure.EntityFrameworkCore
 
             var builder = new DbContextOptionsBuilder<TechChallengeGrupo27Context>();
             builder.UseSqlServer(connectionString);
-         
+
             return new TechChallengeGrupo27Context(builder.Options, new DbOptions(connectionString, schema));
 
         }

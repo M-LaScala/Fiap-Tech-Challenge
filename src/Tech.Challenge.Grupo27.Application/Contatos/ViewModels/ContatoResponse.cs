@@ -9,7 +9,7 @@ namespace Tech.Challenge.Grupo27.Application.Contatos.ViewModels
         public ContatoResponse() { }
 
         public ContatoResponse(string mensagem, bool sucesso, object? data) : base(sucesso, mensagem)
-        {  
+        {
             Data = data;
         }
     }

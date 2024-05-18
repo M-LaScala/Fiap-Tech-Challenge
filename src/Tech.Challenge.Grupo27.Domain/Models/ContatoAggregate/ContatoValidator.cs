@@ -20,9 +20,9 @@ namespace Tech.Challenge.Grupo27.Domain.Models.ContatoAggregate
                 .WithErrorCode("EMAIL_OBRIGATORIO")
                 .EmailAddress()
                 .WithMessage("O e-mail não é válido")
-                .WithErrorCode("EMAIL_INVALIDO");                 
+                .WithErrorCode("EMAIL_INVALIDO");
 
-            RuleFor(x=> x.Telefone).SetValidator(new TelefoneValidator());
+            RuleFor(x => x.Telefone).SetValidator(new TelefoneValidator());
 
         }
     }

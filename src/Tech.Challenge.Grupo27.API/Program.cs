@@ -1,6 +1,5 @@
 using Microsoft.AspNetCore.Server.Kestrel.Core;
 using Serilog;
-using Serilog.Events;
 using System.Reflection;
 using Tech.Challenge.Grupo27.API.Filters;
 using Tech.Challenge.Grupo27.API.Middlewares;
@@ -19,14 +18,14 @@ var logger = new LoggerConfiguration()
              .WriteTo.File
              (
                 "Logs/contatoApp.text",
-                outputTemplate:"{Timestamp:o} [{Level:u3}] ({Application}/{MachineName}/{ThreadId}) {Message}{NewLine}{Exception}",
-                rollingInterval: RollingInterval.Day, 
+                outputTemplate: "{Timestamp:o} [{Level:u3}] ({Application}/{MachineName}/{ThreadId}) {Message}{NewLine}{Exception}",
+                rollingInterval: RollingInterval.Day,
                 fileSizeLimitBytes: 10 * 1024 * 1024,
                 retainedFileCountLimit: 2,
                 rollOnFileSizeLimit: true,
                 shared: true,
                 flushToDiskInterval: TimeSpan.FromSeconds(1))
-             .ReadFrom.Configuration(configuration)             
+             .ReadFrom.Configuration(configuration)
              .CreateLogger();
 
 builder.Logging.ClearProviders();
@@ -62,7 +61,7 @@ builder.Services.Configure<IISServerOptions>(options =>
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen(opt => 
+builder.Services.AddSwaggerGen(opt =>
 {
     opt.SwaggerDoc("v1", new Microsoft.OpenApi.Models.OpenApiInfo
     {
