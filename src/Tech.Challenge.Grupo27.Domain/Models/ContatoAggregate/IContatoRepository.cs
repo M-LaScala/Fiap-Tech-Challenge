@@ -4,7 +4,7 @@
     {
         ValueTask<Guid> Inserir(Contato contato, CancellationToken cancellationToken = default);
 
-        ValueTask Aualizar(Contato contato, CancellationToken cancellationToken = default);
+        ValueTask Atualizar(Contato contato, CancellationToken cancellationToken = default);
 
         ValueTask<Contato?> Delete(Guid? id, CancellationToken cancellationToken = default);
 

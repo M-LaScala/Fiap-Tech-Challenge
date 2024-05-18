@@ -15,7 +15,7 @@ namespace Tech.Challenge.Grupo27.Infrastructure.Domain.Models.ContatoAggregate
             _notificacaoContext = notificacaoContext;
         }
 
-        public async ValueTask Aualizar(Contato contato, CancellationToken cancellationToken)
+        public async ValueTask Atualizar(Contato contato, CancellationToken cancellationToken)
         {
             var contatoEntity = await _context.Contatos.FirstOrDefaultAsync(c => c.Id == contato.Id);
 

@@ -21,7 +21,7 @@ namespace Tech.Challenge.Grupo27.Domain.Services
             _notificacaoContext = notificacaoContext;
         }
 
-        public async ValueTask Aualizar(Contato contato, CancellationToken cancellationToken)
+        public async ValueTask Atualizar(Contato contato, CancellationToken cancellationToken)
         {
             var regiao = await _regiaoDddRepository.ObterRegiaoPorCodigoDdd(Convert.ToInt32(contato.Telefone.Ddd));
 
@@ -31,7 +31,7 @@ namespace Tech.Challenge.Grupo27.Domain.Services
                 return;
             }
 
-            await _contatoRepository.Aualizar(contato, cancellationToken);
+            await _contatoRepository.Atualizar(contato, cancellationToken);
         }
 
         public async ValueTask<Contato?> Delete(Guid? id, CancellationToken cancellationToken)

@@ -42,7 +42,7 @@ namespace Tech.Challenge.Grupo27.Application.Contatos.AtualizarContato.Handler_
 
             await _unitOfWork.BeginTransaction(cancellationToken);
 
-            await _contatoService.Aualizar(contato, cancellationToken);
+            await _contatoService.Atualizar(contato, cancellationToken);
 
             await _unitOfWork.SaveChanges(cancellationToken);
             await _unitOfWork.CommitTransaction(cancellationToken);

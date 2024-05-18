@@ -16,5 +16,16 @@ namespace Tech.Challenge.Grupo27.Tests.Fixtures
             
             return contato;
         }
+
+        public IEnumerable<Contato> ObterContatosMock()
+        {
+            var contato = new Faker<Contato>()
+                .RuleFor(c => c.Id, Guid.NewGuid())
+                .RuleFor(c => c.Nome, f => f.Person.FullName)
+                .RuleFor(c => c.Email, f => f.Person.Email)
+                .RuleFor(c => c.Telefone, f => new Telefone("11", f.Person.Phone));
+
+            return contato.Generate(5);
+        }
     }
 }
