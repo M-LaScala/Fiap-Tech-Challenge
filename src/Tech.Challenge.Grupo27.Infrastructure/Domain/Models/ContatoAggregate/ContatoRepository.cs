@@ -34,7 +34,7 @@ namespace Tech.Challenge.Grupo27.Infrastructure.Domain.Models.ContatoAggregate
             _context.Update(contatoEntity);
         }
 
-        public async ValueTask<Contato?> Delete(Guid? id, CancellationToken cancellationToken)
+        public async ValueTask<Contato?> Delete(Guid? id, CancellationToken cancellationToken = default )
         {
             var contatoEntity = await _context.Contatos.FirstOrDefaultAsync(c => c.Id == id);
 
@@ -48,7 +48,7 @@ namespace Tech.Challenge.Grupo27.Infrastructure.Domain.Models.ContatoAggregate
             return MapearContato(contatoEntity);
         }
 
-        public async ValueTask<Guid> Inserir(Contato contato, CancellationToken cancellationToken)
+        public async ValueTask<Guid> Inserir(Contato contato, CancellationToken cancellationToken = default)
         {
             var contatoEntity = MapearContatpEntity(contato);
             await _context.Contatos.AddAsync(contatoEntity, cancellationToken);

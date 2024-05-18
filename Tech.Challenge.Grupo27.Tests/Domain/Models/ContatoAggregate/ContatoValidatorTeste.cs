@@ -62,7 +62,7 @@ namespace Tech.Challenge.Grupo27.Tests.Domain.Models.ContatoAggregate
 
 
 
-        private Contato ObterContatoMock(string nome, string email)
+        private static Contato ObterContatoMock(string? nome, string? email)
         {
             Telefone telefone = new Telefone("13", "997843424");
             Contato contato = new Contato(nome, email, telefone);

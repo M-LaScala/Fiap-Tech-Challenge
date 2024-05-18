@@ -6,7 +6,7 @@ namespace Tech.Challenge.Grupo27.API.Telemetria
 {
     internal  class TelemetryMiddleware : IMiddleware
     {
-        private bool IRequestWitchBody(HttpRequest r) => r.Method == HttpMethod.Post.ToString() || r.Method == HttpMethod.Put.ToString();     
+        private static bool IRequestWitchBody(HttpRequest r) => r.Method == HttpMethod.Post.ToString() || r.Method == HttpMethod.Put.ToString();     
         
         public async Task InvokeAsync(HttpContext context, RequestDelegate next)
         {
@@ -16,13 +16,14 @@ namespace Tech.Challenge.Grupo27.API.Telemetria
             if(IRequestWitchBody(request) && (!string.IsNullOrWhiteSpace(request.ContentType) && !request.ContentType.Contains("multipart/form-data")))
             {
                 var requestBody = await GetRequestBodyForTelemetry(context);
-                logger.Information($"Request Body: {requestBody}");
+                logger.Information("Request Body: {RequestBody}", requestBody);
+
             }
 
             var responseBody = await GetResponseBodyForTelemetry(context, next);
 
             if (!string.IsNullOrEmpty(responseBody))
-                logger.Information($"Response Body: {responseBody}");
+                logger.Information("Response Body: {Response}", responseBody);
         }
 
         public static async Task<string> GetRequestBodyForTelemetry(HttpContext context)
