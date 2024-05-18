@@ -22,20 +22,21 @@ namespace Tech.Challenge.Grupo27.Tests.Domain.Models.ContatoAggregate
         }
 
         /// <summary>
-        /// Contato Validator Nome Obrigatório
+        /// Contato Validator nome e e-mail Obrigatório
         /// </summary>
         [Fact]
-        public void ContatoValidator_NomeNull_DeveRetornarErro()
+        public void ContatoValidator_NomeEhEmailNull_DeveRetornarErro()
         {
             //Arrange
             var contatoValidator = new ContatoValidator();
 
             //Act
-            var contatoRsult = contatoValidator.Validate(ObterContatoMock(null,"ninguem@gmail.com"));
+            var contatoRsult = contatoValidator.Validate(ObterContatoMock(null,null));
 
             //Assert
             Assert.False(contatoRsult.IsValid);
             Assert.Contains("Nome é obrigatório.", contatoRsult.Errors.Select(e => e.ErrorMessage));
+            Assert.Contains("E-mail é obrigatório.", contatoRsult.Errors.Select(e => e.ErrorMessage));
         }
 
         /// <summary>
