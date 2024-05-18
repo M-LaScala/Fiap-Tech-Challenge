@@ -4,7 +4,7 @@ namespace Tech.Challenge.Grupo27.Tests.Fixtures
 {
     public class RegiaoDddFixture
     {
-        public static RegiaoDdd ObterRegiaoDddMock()
+        public RegiaoDdd ObterRegiaoDddMock()
         {
             return new RegiaoDdd(Guid.NewGuid(),11, "SP", "Sudeste");
             
