@@ -17,7 +17,7 @@ namespace Tech.Challenge.Grupo27.Domain.Models.ContatoAggregate
                 .WithErrorCode("NUMERO_TAMANHO_MAXIMO");
 
             RuleFor(contato => contato)
-                .Must(c => !string.IsNullOrWhiteSpace(c.Numero) || c.ValidarNumero(c.Numero!))
+                .Must(c => !!string.IsNullOrWhiteSpace(c.Numero) || c.ValidarNumero(c.Numero))
                 .WithMessage("Número de telefone inválido.")
                 .WithErrorCode("NUMERO_INVALIDO");            
 
@@ -31,7 +31,7 @@ namespace Tech.Challenge.Grupo27.Domain.Models.ContatoAggregate
                 .WithErrorCode("DDD_TAMANHO");
 
             RuleFor(contato => contato)
-                .Must(c => !string.IsNullOrWhiteSpace(c.Ddd) || c.ValidarDdd(c.Ddd!))
+                .Must(c => !!string.IsNullOrWhiteSpace(c.Ddd) || c.ValidarDdd(c.Ddd))
                 .WithMessage("DDD de telefone inválido.")
                 .WithErrorCode("DDD_INVALIDO");
         }
