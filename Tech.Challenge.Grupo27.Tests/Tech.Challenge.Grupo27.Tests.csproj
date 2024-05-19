@@ -25,11 +25,8 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\src\Tech.Challenge.Grupo27.Application\Tech.Challenge.Grupo27.Application.csproj" />
     <ProjectReference Include="..\src\Tech.Challenge.Grupo27.Domain\Tech.Challenge.Grupo27.Domain.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Application\" />
   </ItemGroup>
 
 </Project>

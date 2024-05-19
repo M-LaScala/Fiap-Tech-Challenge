@@ -7,7 +7,7 @@ using Tech.Challenge.Grupo27.Domain.Shared;
 
 namespace Tech.Challenge.Grupo27.Application.Contatos.DeletarContato.Handler_
 {
-    internal class DeleteContatoHandler : IHandler<DeleteContatoRequest, ContatoResponse>
+    public class DeleteContatoHandler : IHandler<DeleteContatoRequest, ContatoResponse>
     {
         private readonly IContatoService _contatoService;
         private readonly IUnitOfWork _unitOfWork;
@@ -23,13 +23,13 @@ namespace Tech.Challenge.Grupo27.Application.Contatos.DeletarContato.Handler_
 
             var contato = await _contatoService.Delete(request.Id, cancellationToken);
 
-            await _unitOfWork.SaveChanges(cancellationToken);
-            await _unitOfWork.CommitTransaction(cancellationToken);
-
             if (contato is null)
             {
                 return new ContatoResponse("", false, null);
             }
+
+            await _unitOfWork.SaveChanges(cancellationToken);
+            await _unitOfWork.CommitTransaction(cancellationToken);            
 
             return new ContatoResponse
             (

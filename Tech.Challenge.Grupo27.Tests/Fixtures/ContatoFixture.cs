@@ -12,7 +12,7 @@ namespace Tech.Challenge.Grupo27.Tests.Fixtures
                 .RuleFor(c=> c.Id, id)
                 .RuleFor(c => c.Nome, f => f.Person.FullName)
                 .RuleFor(c => c.Email, f => f.Person.Email)
-                .RuleFor(c => c.Telefone, f => new Telefone("11", f.Person.Phone));
+                .RuleFor(c => c.Telefone, new Telefone("11", "998551314"));
             
             return contato;
         }
@@ -23,7 +23,7 @@ namespace Tech.Challenge.Grupo27.Tests.Fixtures
                 .RuleFor(c => c.Id, Guid.NewGuid())
                 .RuleFor(c => c.Nome, f => f.Person.FullName)
                 .RuleFor(c => c.Email, f => f.Person.Email)
-                .RuleFor(c => c.Telefone, f => new Telefone("11", f.Person.Phone));
+                .RuleFor(c => c.Telefone, f => new Telefone("11", "32148523"));
 
             return contato.Generate(5);
         }

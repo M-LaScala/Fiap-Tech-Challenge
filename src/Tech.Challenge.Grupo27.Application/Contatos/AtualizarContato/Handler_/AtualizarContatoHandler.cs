@@ -7,7 +7,7 @@ using Tech.Challenge.Grupo27.Domain.Shared.Notificacoes;
 
 namespace Tech.Challenge.Grupo27.Application.Contatos.AtualizarContato.Handler_
 {
-    internal class AtualizarContatoHandler : IHandler<AtualizarContatoRequest, ContatoResponse>
+    public class AtualizarContatoHandler : IHandler<AtualizarContatoRequest, ContatoResponse>
     {
         private readonly IContatoService _contatoService;
         private readonly INotificacaoContext _notificacaoContext;

@@ -2,6 +2,7 @@
 using Tech.Challenge.Grupo27.Domain.Models.ContatoAggregate;
 using Tech.Challenge.Grupo27.Domain.Models.RegioesDddAggregate;
 using Tech.Challenge.Grupo27.Domain.Services;
+using Tech.Challenge.Grupo27.Domain.Shared.Exceptions;
 using Tech.Challenge.Grupo27.Domain.Shared.Notificacoes;
 using Tech.Challenge.Grupo27.Tests.Fixtures;
 
@@ -57,6 +58,75 @@ namespace Tech.Challenge.Grupo27.Tests.Domain.Services
             , Times.Once());
 
             _regiaoDddRepository.Verify(c => c.ObterRegiaoPorCodigoDdd(It.Is<int>(c => c == Convert.ToInt32(contato.Telefone.Ddd))), Times.Once());
+        }
+
+        // <summary>
+        /// Criação de contato com DDD inexistente deve retornar erro.
+        /// </summary>
+        [Fact]
+        public async Task Inserir_ContatoDDDInexistente_DeveRetornarErro()
+        {
+            //Arrange
+            var idContato = Guid.NewGuid();
+            var contato = _contatoFixture.ObterContatoMock(idContato);
+
+            _contatoRepository.Setup(c => c.Inserir
+            (
+                It.Is<Contato>(b => b.Equals(contato)),
+                It.IsAny<CancellationToken>())
+            ).ReturnsAsync(idContato).Verifiable();            
+
+            _regiaoDddRepository.Setup(c => c.ObterRegiaoPorCodigoDdd(It.Is<int>(c => c == Convert.ToInt32(contato.Telefone.Ddd)))).ReturnsAsync((RegiaoDdd)null);            
+
+            _notificacaoContext.Setup(n => n.AddNotificacao("DDD_INEXISTENTE", "Não foi possível encontrar uma região para o DDD informado")).Verifiable();
+
+
+            var services = new ContatoService(_contatoRepository.Object, _regiaoDddRepository.Object, _notificacaoContext.Object);
+
+            //Act
+            await services.Inserir(contato, CancellationToken.None);
+
+            //Assert
+            
+            _contatoRepository.Verify(c => c.Inserir
+            (
+                It.Is<Contato>(b => b.Equals(contato)),
+                It.IsAny<CancellationToken>())
+            , Times.Never());
+
+            _regiaoDddRepository.Verify(c => c.ObterRegiaoPorCodigoDdd(It.Is<int>(c => c == Convert.ToInt32(contato.Telefone.Ddd))), Times.Once());
+
+            _notificacaoContext.Verify(n => n.AddNotificacao("DDD_INEXISTENTE", "Não foi possível encontrar uma região para o DDD informado"), Times.Once());
+        }
+
+        // <summary>
+        /// Criação de contato com contato null deve retornar erro.
+        /// </summary>
+        [Fact]
+        public async Task Inserir_ContatoNull_DeveRetornarErro()
+        {
+            //Arrange            
+            Contato contato = null;                     
+
+            _notificacaoContext.Setup(n => n.AddNotificacao("CONTATO_NULLO", "O contato deve ser preenchido corretamente")).Verifiable();
+
+
+            var services = new ContatoService(_contatoRepository.Object, _regiaoDddRepository.Object, _notificacaoContext.Object);
+
+            //Act
+            await services.Inserir(contato, CancellationToken.None);
+
+            //Assert
+
+            _contatoRepository.Verify(c => c.Inserir
+            (
+                It.Is<Contato>(b => b.Equals(contato)),
+                It.IsAny<CancellationToken>())
+            , Times.Never());
+
+            _regiaoDddRepository.Verify(c => c.ObterRegiaoPorCodigoDdd(It.Is<int>(c => c == Convert.ToInt32(contato.Telefone.Ddd))), Times.Never());
+
+            _notificacaoContext.Verify(n => n.AddNotificacao("CONTATO_NULLO", "O contato deve ser preenchido corretamente"), Times.Once());
         }
 
         // <summary>
@@ -176,6 +246,41 @@ namespace Tech.Challenge.Grupo27.Tests.Domain.Services
         }
 
         // <summary>
+        /// Obter de contato por Id não encontrado.
+        /// </summary>
+        [Fact]
+        public async Task ObterPorId_IdNaoEncontrado_DeveRetornarNull()
+        {
+            //Arrange
+            var idContato = Guid.NewGuid();
+            Contato contato = null;            
+           
+            _contatoRepository.Setup(c => c.ObterPorId
+            (
+                It.Is<Guid>(b => b.Equals(idContato))
+
+            )).ReturnsAsync(contato).Verifiable();            
+
+            var services = new ContatoService(_contatoRepository.Object, _regiaoDddRepository.Object, _notificacaoContext.Object);
+
+            //Act
+            var resultado = await services.ObterPorId(idContato);
+
+            //Assert            
+
+            Assert.Null(resultado);            
+
+            _contatoRepository.Verify(c => c.ObterPorId
+            (
+                It.Is<Guid>(b => b.Equals(idContato))
+
+            )
+            , Times.Once());
+
+            _regiaoDddRepository.Verify(c => c.ObterRegiaoPorCodigoDdd(It.Is<int>(c => c == Convert.ToInt32(contato.Telefone.Ddd))), Times.Never());
+        }
+
+        // <summary>
         /// Delete contato.
         /// </summary>
         [Fact]
@@ -209,6 +314,41 @@ namespace Tech.Challenge.Grupo27.Tests.Domain.Services
 
             )
             , Times.Once());            
+        }
+
+        // <summary>
+        /// Delete contato Id não retorna conta.
+        /// </summary>
+        [Fact]
+        public async Task Delete_IdNaoEncontrado_DeveRetornarNull()
+        {
+            //Arrange
+            var idContato = Guid.NewGuid();
+            Contato contato = null;
+
+            _contatoRepository.Setup(c => c.Delete
+            (
+                It.Is<Guid>(b => b.Equals(idContato)),
+                It.IsAny<CancellationToken>())
+
+            ).ReturnsAsync(contato).Verifiable();
+
+            var services = new ContatoService(_contatoRepository.Object, _regiaoDddRepository.Object, _notificacaoContext.Object);
+
+            //Act
+            var resultado = await services.Delete(idContato, CancellationToken.None);
+
+            //Assert            
+
+            Assert.Null(resultado);            
+
+            _contatoRepository.Verify(c => c.Delete
+            (
+                It.Is<Guid>(b => b.Equals(idContato)),
+                It.IsAny<CancellationToken>()
+
+            )
+            , Times.Once());
         }
     }
 }
