@@ -6,7 +6,7 @@ namespace Tech.Challenge.Grupo27.Domain.Services
     {
         ValueTask<Guid> Inserir(Contato contato, CancellationToken cancellationToken);
 
-        ValueTask Aualizar(Contato contato, CancellationToken cancellationToken);
+        ValueTask Atualizar(Contato contato, CancellationToken cancellationToken);
 
         ValueTask<Contato?> Delete(Guid? id, CancellationToken cancellationToken);
 

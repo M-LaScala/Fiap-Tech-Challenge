@@ -32,7 +32,7 @@ namespace Tech.Challenge.Grupo27.API.Middlewares
             const string codigoErro = "ERRO_INTERNO_SERVIDOR";
             const string mensagemGenerica = "Ops, erro interno do servidor";
 
-            Log.Error(ex, $" {mensagemGenerica} | {ex.Message}");
+            Log.Error(ex, "{MensagemGenerica} | {ExceptionMessage}", mensagemGenerica, ex.Message);
 
             var erros = new List<ErroMensagem>()
             {
@@ -63,5 +63,15 @@ namespace Tech.Challenge.Grupo27.API.Middlewares
         {
             return builder.UseMiddleware<ErrorHandlingMiddleware>();
         }
+    }
+
+    public static class JsonSerializerOptionsProvider
+    {
+        public static readonly JsonSerializerOptions Options = new JsonSerializerOptions
+        {
+            // Configure suas opções aqui, por exemplo:
+            PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
+            WriteIndented = true
+        };
     }
 }
