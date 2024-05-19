@@ -6,6 +6,7 @@ using Tech.Challenge.Grupo27.Application.Contatos.DeletarContato.Dtos;
 using Tech.Challenge.Grupo27.Application.Contatos.ObterContato.Dtos;
 using Tech.Challenge.Grupo27.Application.Contatos.ViewModels;
 using Tech.Challenge.Grupo27.Domain.Shared.Notificacoes;
+using Swashbuckle.AspNetCore.Annotations;
 
 namespace Tech.Challenge.Grupo27.API.Controllers
 {
@@ -36,6 +37,7 @@ namespace Tech.Challenge.Grupo27.API.Controllers
         [HttpPost]
         [ProducesResponseType(typeof(ContatoResponse), (int)HttpStatusCode.OK)]
         [ProducesResponseType(typeof(List<Notificacao>), (int)HttpStatusCode.BadRequest)]
+        [SwaggerOperation(Summary = "Realiza cadastro de Contatos")]
         public async ValueTask<IActionResult> Inserir([FromBody] ContatoRequest request)
         {
             return Ok(await _mediator.Send(request));
@@ -50,6 +52,7 @@ namespace Tech.Challenge.Grupo27.API.Controllers
         [HttpPut]
         [ProducesResponseType(typeof(ContatoResponse), (int)HttpStatusCode.OK)]
         [ProducesResponseType(typeof(List<Notificacao>), (int)HttpStatusCode.BadRequest)]
+        [SwaggerOperation(Summary = "Altera informações do contato.")]
         public async ValueTask<IActionResult> Atualizar([FromBody] AtualizarContatoRequest request)
         {
             return Ok(await _mediator.Send(request));
@@ -65,6 +68,7 @@ namespace Tech.Challenge.Grupo27.API.Controllers
         [Route("{id}/contato")]
         [ProducesResponseType(typeof(ContatoResponse), (int)HttpStatusCode.OK)]
         [ProducesResponseType(typeof(List<Notificacao>), (int)HttpStatusCode.BadRequest)]
+        [SwaggerOperation(Summary = "Busca um contato específico pelo seu Id.")]
         public async ValueTask<IActionResult> ObterPorId(Guid? id)
         {
             return Ok(await _mediator.Send(new ObterPorIdRequest(id)));
@@ -79,6 +83,7 @@ namespace Tech.Challenge.Grupo27.API.Controllers
         [Route("{ddd}/contatos")]
         [ProducesResponseType(typeof(ContatoResponse), (int)HttpStatusCode.OK)]
         [ProducesResponseType(typeof(List<Notificacao>), (int)HttpStatusCode.BadRequest)]
+        [SwaggerOperation(Summary = "Realiza uma busca de contatos filtrados pelo DDD do número de telefone.")]
         public async ValueTask<IActionResult> ObterPorDdd(int? ddd)
         {
             return Ok(await _mediator.Send(new ObterPorDddRequest(ddd)));
@@ -93,6 +98,7 @@ namespace Tech.Challenge.Grupo27.API.Controllers
         [Route("{id}/contato")]
         [ProducesResponseType(typeof(ContatoResponse), (int)HttpStatusCode.OK)]
         [ProducesResponseType(typeof(List<Notificacao>), (int)HttpStatusCode.BadRequest)]
+        [SwaggerOperation(Summary = "Apaga um contato da lista.")]
         public async ValueTask<IActionResult> Delete(Guid? id)
         {
             return Ok(await _mediator.Send(new DeleteContatoRequest(id)));

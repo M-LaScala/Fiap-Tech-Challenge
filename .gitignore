@@ -361,3 +361,4 @@ MigrationBackup/
 
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
+/src/Tech.Challenge.Grupo27.API/appsettings.local.json

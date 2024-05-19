@@ -63,6 +63,7 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(opt =>
 {
+    opt.EnableAnnotations();
     opt.SwaggerDoc("v1", new Microsoft.OpenApi.Models.OpenApiInfo
     {
         Version = "v1",
@@ -71,7 +72,10 @@ builder.Services.AddSwaggerGen(opt =>
     });
     var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
     var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
-    opt.IncludeXmlComments(xmlPath);
+    if (File.Exists(xmlPath))
+    {
+        opt.IncludeXmlComments(xmlPath);
+    }
 });
 
 var app = builder.Build();
