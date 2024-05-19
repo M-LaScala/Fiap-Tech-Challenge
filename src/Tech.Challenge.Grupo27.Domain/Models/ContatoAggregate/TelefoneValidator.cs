@@ -12,8 +12,8 @@ namespace Tech.Challenge.Grupo27.Domain.Models.ContatoAggregate
                 .NotEmpty()
                 .WithMessage("Número é obrigatório.")
                 .WithErrorCode("NUMERO_OBRIGATORIO")
-                .MaximumLength(10)
-                .WithMessage("O número deve ter no máximo 10 caracteres.")
+                .MaximumLength(9)
+                .WithMessage("O número deve ter no máximo 9 caracteres.")
                 .WithErrorCode("NUMERO_TAMANHO_MAXIMO");
 
             RuleFor(contato => contato)

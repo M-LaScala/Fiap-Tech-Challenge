@@ -22,7 +22,7 @@ namespace Tech.Challenge.Grupo27.Domain.Shared.ValueObject
         {
             if (string.IsNullOrWhiteSpace(numero)) return false;
 
-            var expressao = @"^[9]{0,1}[6-9]{1}[0-9]{3}[0-9]{4}$";
+            var expressao = @"(\(?\d{2}\)?\s)?(\d{4,5}\d{4})";
 
             return Regex.Match(numero, expressao).Success;
         }
