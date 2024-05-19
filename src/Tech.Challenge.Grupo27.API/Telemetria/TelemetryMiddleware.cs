@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Tech.Challenge.Grupo27.API.Telemetria
 {
-    internal  class TelemetryMiddleware : IMiddleware
+    internal class TelemetryMiddleware : IMiddleware
     {
         private static bool IRequestWitchBody(HttpRequest r) => r.Method == HttpMethod.Post.ToString() || r.Method == HttpMethod.Put.ToString();     
         
@@ -13,7 +13,7 @@ namespace Tech.Challenge.Grupo27.API.Telemetria
             var logger = Log.ForContext<TelemetryMiddleware>();
             var request = context.Request;
 
-            if(IRequestWitchBody(request) && (!string.IsNullOrWhiteSpace(request.ContentType) && !request.ContentType.Contains("multipart/form-data")))
+            if (IRequestWitchBody(request) && (!string.IsNullOrWhiteSpace(request.ContentType) && !request.ContentType.Contains("multipart/form-data")))
             {
                 var requestBody = await GetRequestBodyForTelemetry(context);
                 logger.Information("Request Body: {RequestBody}", requestBody);
@@ -65,10 +65,10 @@ namespace Tech.Challenge.Grupo27.API.Telemetria
 
                 }
             }
-            finally 
+            finally
             {
                 context.Response.Body = originalBody;
-            }    
+            }
         }
     }
 

@@ -37,17 +37,18 @@ namespace Tech.Challenge.Grupo27.Domain.Services
         public async ValueTask<Contato?> Delete(Guid? id, CancellationToken cancellationToken)
         {
             var contato = await _contatoRepository.Delete(id, cancellationToken);
-            
+
             if (contato is null) return default;
-            
+
             await AdicionarRegiaoDoDdd(contato);
             return contato;
         }
 
         public async ValueTask<Guid> Inserir(Contato contato, CancellationToken cancellationToken)
         {
-            
-            if (contato is null) {
+
+            if (contato is null)
+            {
                 _notificacaoContext.AddNotificacao("CONTATO_NULLO", "O contato deve ser preenchido corretamente");
                 return Guid.Empty;
             }

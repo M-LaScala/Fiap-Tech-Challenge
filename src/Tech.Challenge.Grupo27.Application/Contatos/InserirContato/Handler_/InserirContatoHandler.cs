@@ -23,10 +23,10 @@ namespace Tech.Challenge.Grupo27.Application.Contatos.InserirContato.Handler_
             _unitOfWork = unitOfWork;
         }
 
-        public async Task<ContatoResponse>Handle(ContatoRequest request, CancellationToken cancellationToken)
+        public async Task<ContatoResponse> Handle(ContatoRequest request, CancellationToken cancellationToken)
         {
-            
-            var contato = new Contato(request.Nome,request.Email, new Domain.Shared.ValueObject.Telefone(request?.Telefone?.Ddd,request?.Telefone?.Numero));
+
+            var contato = new Contato(request.Nome, request.Email, new Domain.Shared.ValueObject.Telefone(request?.Telefone?.Ddd, request?.Telefone?.Numero));
 
             if (contato.Invalid)
             {
@@ -36,7 +36,7 @@ namespace Tech.Challenge.Grupo27.Application.Contatos.InserirContato.Handler_
 
             await _unitOfWork.BeginTransaction(cancellationToken);
 
-            var idRegistrado = await _contatoService.Inserir(contato,cancellationToken);
+            var idRegistrado = await _contatoService.Inserir(contato, cancellationToken);
 
             await _unitOfWork.SaveChanges(cancellationToken);
             await _unitOfWork.CommitTransaction(cancellationToken);

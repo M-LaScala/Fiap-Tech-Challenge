@@ -27,3 +27,4 @@ namespace Tech.Challenge.Grupo27.Domain.Models.ContatoAggregate
         }
     }
 }
+

@@ -3,7 +3,7 @@
 namespace Tech.Challenge.Grupo27.Infrastructure.Domain.Models.ContatoAggregate
 {
     public class ContatoEntity : EntityBase
-    { 
+    {
         public string? Nome { get; set; }
 
         public string? Email { get; set; }

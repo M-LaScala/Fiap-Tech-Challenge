@@ -7,14 +7,14 @@ namespace Tech.Challenge.Grupo27.Infrastructure.Domain.Models.RegioesDddAggregat
     public class RegiaoDddRepository : IRegiaoDddRepository
     {
         private readonly TechChallengeGrupo27Context _context;
-      
+
         public RegiaoDddRepository(TechChallengeGrupo27Context context)
         {
-            _context = context;            
+            _context = context;
         }
 
         public async ValueTask<RegiaoDdd?> ObterRegiaoPorCodigoDdd(int ddd)
-        {            
+        {
             var regiaoEntity = await _context.RegioesDdds.FirstOrDefaultAsync(c => c.Codigo == ddd);
 
             if (regiaoEntity is null) return default;

@@ -18,11 +18,11 @@ namespace Tech.Challenge.Grupo27.Application.Contatos.ObterContato.Handler_
         {
             var contato = await _contatoService.ObterPorId(request.Id);
 
-            if(contato is null || contato.Id == Guid.Empty)
+            if (contato is null || contato.Id == Guid.Empty)
             {
                 var mensagem = $"Contato não encotrado para o Id: {request.Id}";
                 return new ContatoResponse(mensagem, false, null);
-            }    
+            }
 
             return new ContatoResponse
             (

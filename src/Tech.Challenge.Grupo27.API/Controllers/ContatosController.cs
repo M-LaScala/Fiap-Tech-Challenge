@@ -1,10 +1,10 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using Tech.Challenge.Grupo27.Application.Contatos.ViewModels;
-using Tech.Challenge.Grupo27.Application.Contatos.AtualizarContato;
-using Tech.Challenge.Grupo27.Application.Contatos.ObterContato.Dtos;
-using Tech.Challenge.Grupo27.Application.Contatos.DeletarContato.Dtos;
 using System.Net;
+using Tech.Challenge.Grupo27.Application.Contatos.AtualizarContato;
+using Tech.Challenge.Grupo27.Application.Contatos.DeletarContato.Dtos;
+using Tech.Challenge.Grupo27.Application.Contatos.ObterContato.Dtos;
+using Tech.Challenge.Grupo27.Application.Contatos.ViewModels;
 using Tech.Challenge.Grupo27.Domain.Shared.Notificacoes;
 
 namespace Tech.Challenge.Grupo27.API.Controllers
@@ -77,7 +77,7 @@ namespace Tech.Challenge.Grupo27.API.Controllers
         /// <response code="200">Retorna Lista de Contatos cadastrados</response>
         [HttpGet]
         [Route("{ddd}/contatos")]
-        [ProducesResponseType(typeof(ContatoResponse),(int)HttpStatusCode.OK)]
+        [ProducesResponseType(typeof(ContatoResponse), (int)HttpStatusCode.OK)]
         [ProducesResponseType(typeof(List<Notificacao>), (int)HttpStatusCode.BadRequest)]
         public async ValueTask<IActionResult> ObterPorDdd(int? ddd)
         {
