@@ -40,7 +40,16 @@ namespace Tech.Challenge.Grupo27.Tests.Domain.Services
                 It.IsAny<CancellationToken>())
             ).ReturnsAsync(idContato).Verifiable();
 
-            _regiaoDddRepository.Setup(c => c.ObterRegiaoPorCodigoDdd(It.Is<int>(c => c == Convert.ToInt32(contato.Telefone.Ddd)))).ReturnsAsync(_regiaoDddFixture.ObterRegiaoDddMock());
+            if (contato != null && contato.Telefone != null && int.TryParse(contato.Telefone.Ddd, out int ddd))
+            {
+                _regiaoDddRepository.Setup(c => c.ObterRegiaoPorCodigoDdd(It.Is<int>(c => c == ddd)))
+                                    .ReturnsAsync(_regiaoDddFixture.ObterRegiaoDddMock());
+            }
+            else
+            {
+                // Lidar com o caso em que contato ou contato.Telefone é nulo
+                throw new InvalidOperationException("Contato ou Telefone está nulo.");
+            }
 
             var services  = new ContatoService(_contatoRepository.Object,_regiaoDddRepository.Object, _notificacaoContext.Object);
 
@@ -57,8 +66,17 @@ namespace Tech.Challenge.Grupo27.Tests.Domain.Services
                 It.IsAny<CancellationToken>())
             , Times.Once());
 
-            _regiaoDddRepository.Verify(c => c.ObterRegiaoPorCodigoDdd(It.Is<int>(c => c == Convert.ToInt32(contato.Telefone.Ddd))), Times.Once());
-        }
+            if (contato?.Telefone?.Ddd != null)
+            {
+                int dddValue = Convert.ToInt32(contato.Telefone.Ddd);
+                _regiaoDddRepository.Verify(c => c.ObterRegiaoPorCodigoDdd(It.Is<int>(c => c == dddValue)), Times.Once());
+            }
+            else
+            {
+                // Lidar com o caso em que contato ou contato.Telefone ou contato.Telefone.Ddd é nulo
+                throw new InvalidOperationException("Contato, Telefone ou DDD está nulo.");
+            }
+       }
 
         // <summary>
         /// Criação de contato com DDD inexistente deve retornar erro.
@@ -74,9 +92,18 @@ namespace Tech.Challenge.Grupo27.Tests.Domain.Services
             (
                 It.Is<Contato>(b => b.Equals(contato)),
                 It.IsAny<CancellationToken>())
-            ).ReturnsAsync(idContato).Verifiable();            
+            ).ReturnsAsync(idContato).Verifiable();
 
-            _regiaoDddRepository.Setup(c => c.ObterRegiaoPorCodigoDdd(It.Is<int>(c => c == Convert.ToInt32(contato.Telefone.Ddd)))).ReturnsAsync((RegiaoDdd)null);            
+            if (contato?.Telefone?.Ddd != null)
+            {
+                int dddValue = Convert.ToInt32(contato.Telefone.Ddd);
+                _regiaoDddRepository.Setup(c => c.ObterRegiaoPorCodigoDdd(It.Is<int>(c => c == dddValue))).ReturnsAsync((RegiaoDdd?)null);
+            }
+            else
+            {
+                // Lidar com o caso em que contato ou contato.Telefone ou contato.Telefone.Ddd é nulo
+                throw new InvalidOperationException("Contato, Telefone ou DDD está nulo.");
+            }
 
             _notificacaoContext.Setup(n => n.AddNotificacao("DDD_INEXISTENTE", "Não foi possível encontrar uma região para o DDD informado")).Verifiable();
 
@@ -94,7 +121,16 @@ namespace Tech.Challenge.Grupo27.Tests.Domain.Services
                 It.IsAny<CancellationToken>())
             , Times.Never());
 
-            _regiaoDddRepository.Verify(c => c.ObterRegiaoPorCodigoDdd(It.Is<int>(c => c == Convert.ToInt32(contato.Telefone.Ddd))), Times.Once());
+            if (contato?.Telefone?.Ddd != null)
+            {
+                int dddValue = Convert.ToInt32(contato.Telefone.Ddd);
+                _regiaoDddRepository.Verify(c => c.ObterRegiaoPorCodigoDdd(It.Is<int>(c => c == dddValue)), Times.Once());
+            }
+            else
+            {
+                // Lidar com o caso em que contato ou contato.Telefone ou contato.Telefone.Ddd é nulo
+                throw new InvalidOperationException("Contato, Telefone ou DDD está nulo.");
+            }
 
             _notificacaoContext.Verify(n => n.AddNotificacao("DDD_INEXISTENTE", "Não foi possível encontrar uma região para o DDD informado"), Times.Once());
         }
@@ -106,7 +142,7 @@ namespace Tech.Challenge.Grupo27.Tests.Domain.Services
         public async Task Inserir_ContatoNull_DeveRetornarErro()
         {
             //Arrange            
-            Contato contato = null;                     
+            Contato? contato = null;                     
 
             _notificacaoContext.Setup(n => n.AddNotificacao("CONTATO_NULLO", "O contato deve ser preenchido corretamente")).Verifiable();
 
@@ -117,13 +153,11 @@ namespace Tech.Challenge.Grupo27.Tests.Domain.Services
             await services.Inserir(contato, CancellationToken.None);
 
             //Assert
-
             _contatoRepository.Verify(c => c.Inserir
             (
                 It.Is<Contato>(b => b.Equals(contato)),
                 It.IsAny<CancellationToken>())
             , Times.Never());
-
             _regiaoDddRepository.Verify(c => c.ObterRegiaoPorCodigoDdd(It.Is<int>(c => c == Convert.ToInt32(contato.Telefone.Ddd))), Times.Never());
 
             _notificacaoContext.Verify(n => n.AddNotificacao("CONTATO_NULLO", "O contato deve ser preenchido corretamente"), Times.Once());

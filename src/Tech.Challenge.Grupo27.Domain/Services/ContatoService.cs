@@ -44,7 +44,7 @@ namespace Tech.Challenge.Grupo27.Domain.Services
             return contato;
         }
 
-        public async ValueTask<Guid> Inserir(Contato contato, CancellationToken cancellationToken)
+        public async ValueTask<Guid> Inserir(Contato? contato, CancellationToken cancellationToken)
         {
 
             if (contato is null)
@@ -53,7 +53,7 @@ namespace Tech.Challenge.Grupo27.Domain.Services
                 return Guid.Empty;
             }
 
-            var regiao = await _regiaoDddRepository.ObterRegiaoPorCodigoDdd(Convert.ToInt32(contato?.Telefone?.Ddd));
+            var regiao = await _regiaoDddRepository.ObterRegiaoPorCodigoDdd(Convert.ToInt32(contato.Telefone?.Ddd));
 
             if (regiao is null)
             {

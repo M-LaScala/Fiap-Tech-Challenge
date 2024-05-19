@@ -52,8 +52,8 @@ namespace Tech.Challenge.Grupo27.Tests.Application.Contatos
             var resultado = await handler.Handle(request, CancellationToken.None);
 
             //Assert
-
             Assert.True(resultado.Sucesso);
+            Assert.NotNull(resultado.Mensagem);
             Assert.True(resultado.Mensagem.Equals("Contato removido com sucesso"));
 
             _contatoService.Verify(c => c.Delete
@@ -75,7 +75,7 @@ namespace Tech.Challenge.Grupo27.Tests.Application.Contatos
         {
             //Arrange
             var idContato = Guid.NewGuid();
-            Contato contato = null;
+            Contato? contato = null;
             var request = new DeleteContatoRequest(idContato);
 
             _contatoService.Setup(c => c.Delete
@@ -92,6 +92,7 @@ namespace Tech.Challenge.Grupo27.Tests.Application.Contatos
             //Assert
 
             Assert.False(resultado.Sucesso);
+            Assert.NotNull(resultado.Mensagem);
             Assert.Empty(resultado.Mensagem);
             Assert.Null(resultado.Data);
 

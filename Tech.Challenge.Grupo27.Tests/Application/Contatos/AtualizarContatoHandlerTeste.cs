@@ -47,8 +47,8 @@ namespace Tech.Challenge.Grupo27.Tests.Application.Contatos
                 Email = contato.Email,
                 Telefone = new TelefoneRequest()
                 {
-                    Numero = contato.Telefone.Numero,
-                    Ddd = contato.Telefone.Ddd
+                    Numero = contato.Telefone != null ? contato.Telefone.Numero : null,
+                    Ddd = contato.Telefone != null ? contato.Telefone.Ddd : null
                 }
             };
 
@@ -66,7 +66,10 @@ namespace Tech.Challenge.Grupo27.Tests.Application.Contatos
             //Assert
 
             Assert.True(resultado.Sucesso);
+            Assert.NotNull(resultado);
+            Assert.NotNull(resultado.Mensagem);
             Assert.True(resultado.Mensagem.Equals("Contato atualizado com sucesso"));
+
 
             _contatoService.Verify(c=> c.Atualizar
             (
@@ -114,6 +117,7 @@ namespace Tech.Challenge.Grupo27.Tests.Application.Contatos
             //Assert
 
             Assert.False(resultado.Sucesso);
+            Assert.NotNull(resultado.Mensagem);
             Assert.Empty(resultado.Mensagem);
             Assert.Null(resultado.Data);
 
