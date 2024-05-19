@@ -1,5 +1,4 @@
-﻿using FluentValidation.TestHelper;
-using Tech.Challenge.Grupo27.Domain.Models.ContatoAggregate;
+﻿using Tech.Challenge.Grupo27.Domain.Models.ContatoAggregate;
 using Tech.Challenge.Grupo27.Domain.Shared.ValueObject;
 
 namespace Tech.Challenge.Grupo27.Tests.Domain.Models.ContatoAggregate
@@ -44,7 +43,7 @@ namespace Tech.Challenge.Grupo27.Tests.Domain.Models.ContatoAggregate
             var telefoneValidator = new TelefoneValidator();
 
             //Act
-            var result = telefoneValidator.Validate(new Telefone("01", "785646198"));
+            var result = telefoneValidator.Validate(new Telefone("01", "78564-6198"));
 
             //Assert
             Assert.False(result.IsValid);
@@ -66,7 +65,7 @@ namespace Tech.Challenge.Grupo27.Tests.Domain.Models.ContatoAggregate
 
             //Assert
             Assert.False(result.IsValid);
-            Assert.Contains("O número deve ter no máximo 10 caracteres.", result.Errors.Select(x => x.ErrorMessage));
+            Assert.Contains("O número deve ter no máximo 9 caracteres.", result.Errors.Select(x => x.ErrorMessage));
             Assert.Contains("NUMERO_TAMANHO_MAXIMO", result.Errors.Select(x => x.ErrorCode));
             Assert.Contains("O DDD deve conter 2 caracteres.", result.Errors.Select(x => x.ErrorMessage));
             Assert.Contains("DDD_TAMANHO", result.Errors.Select(x => x.ErrorCode));
@@ -79,7 +78,7 @@ namespace Tech.Challenge.Grupo27.Tests.Domain.Models.ContatoAggregate
             var telefoneValidator = new TelefoneValidator();
 
             // Act
-            var result = telefoneValidator.Validate(new Telefone("", "9822775661"));
+            var result = telefoneValidator.Validate(new Telefone("", "00000-0000"));
 
             // Assert
             Assert.False(result.IsValid);
@@ -117,7 +116,7 @@ namespace Tech.Challenge.Grupo27.Tests.Domain.Models.ContatoAggregate
 
             //Assert
             Assert.False(result.IsValid);
-            Assert.Contains("O número deve ter no máximo 10 caracteres.", result.Errors.Select(x => x.ErrorMessage));
+            Assert.Contains("O número deve ter no máximo 9 caracteres.", result.Errors.Select(x => x.ErrorMessage));
             Assert.Contains("NUMERO_TAMANHO_MAXIMO", result.Errors.Select(x => x.ErrorCode));
             Assert.Contains("O DDD deve conter 2 caracteres.", result.Errors.Select(x => x.ErrorMessage));
             Assert.Contains("DDD_TAMANHO", result.Errors.Select(x => x.ErrorCode));
@@ -129,7 +128,7 @@ namespace Tech.Challenge.Grupo27.Tests.Domain.Models.ContatoAggregate
             var telefoneValidator = new TelefoneValidator();
 
             //Act
-            var result = telefoneValidator.Validate(new Telefone("0", "123456789"));
+            var result = telefoneValidator.Validate(new Telefone("0", "12345-6789"));
 
             //Assert
             Assert.False(result.IsValid);
