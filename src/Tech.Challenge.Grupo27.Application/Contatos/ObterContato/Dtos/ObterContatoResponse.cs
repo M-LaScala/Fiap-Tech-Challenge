@@ -1,6 +1,6 @@
 ﻿namespace Tech.Challenge.Grupo27.Application.Contatos.ObterContato.Dtos
 {
-    internal class ObterContatoResponse
+    public class ObterContatoResponse
     {
         public Guid Id { get; set; }
         public string? Nome { get; set; }

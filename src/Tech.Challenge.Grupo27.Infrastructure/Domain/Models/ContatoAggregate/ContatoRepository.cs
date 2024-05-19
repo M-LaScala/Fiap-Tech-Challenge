@@ -60,7 +60,7 @@ namespace Tech.Challenge.Grupo27.Infrastructure.Domain.Models.ContatoAggregate
             var contatos = new List<Contato>();
             var contatosEntities = await _context.Contatos.Where(c => c.Ddd == ddd).ToListAsync();
 
-            if (contatosEntities?.Count() == 0 || contatosEntities is null) return Enumerable.Empty<Contato>();
+            if (contatosEntities?.Count == 0 || contatosEntities is null) return Enumerable.Empty<Contato>();
 
             foreach (var contatoEntity in contatosEntities)
             {

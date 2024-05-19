@@ -21,7 +21,7 @@ namespace Tech.Challenge.Grupo27.Application.Contatos.ObterContato.Handler_
             var contatos = await _contatoService.ObterPorDdd(request?.Ddd?.ToString());
 
 
-            if (contatos is null || contatos.Count() == 0)
+            if (contatos is null || !contatos.Any())
             {
                 var mensagem = $"Contato não encotrado para o DDD: {request?.Ddd}";
                 return new ContatoResponse(mensagem, false, null);

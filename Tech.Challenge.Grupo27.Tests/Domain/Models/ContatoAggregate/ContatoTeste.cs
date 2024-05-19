@@ -1,5 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
-using Tech.Challenge.Grupo27.Domain.Models.ContatoAggregate;
+﻿using Tech.Challenge.Grupo27.Domain.Models.ContatoAggregate;
 using Tech.Challenge.Grupo27.Domain.Shared.ValueObject;
 
 namespace Tech.Challenge.Grupo27.Tests.Domain.Models.ContatoAggregate
