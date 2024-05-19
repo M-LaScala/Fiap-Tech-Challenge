@@ -7,13 +7,13 @@ namespace Tech.Challenge.Grupo27.Tests.Domain.Models.ContatoAggregate
     public class TelefoneValidatorTeste
     {
         [Fact]
-        public void TelefoneValidator_TelefoneValidoDDDCom2NumCom10_DeveRetornarSucesso()
+        public void TelefoneValidator_TelefoneValidoDDDCom2NumCom9_DeveRetornarSucesso()
         {
             //Arrange
             var telefoneValidator = new TelefoneValidator();
 
             //Act
-            var result = telefoneValidator.Validate(new Telefone("13", "9978434249"));
+            var result = telefoneValidator.Validate(new Telefone("13", "997843424"));
 
             //Assert
             Assert.True(result.IsValid);
