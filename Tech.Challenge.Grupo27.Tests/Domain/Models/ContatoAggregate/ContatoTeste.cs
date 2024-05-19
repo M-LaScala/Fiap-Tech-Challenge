@@ -60,3 +60,4 @@ namespace Tech.Challenge.Grupo27.Tests.Domain.Models.ContatoAggregate
         }
     }
 }
+

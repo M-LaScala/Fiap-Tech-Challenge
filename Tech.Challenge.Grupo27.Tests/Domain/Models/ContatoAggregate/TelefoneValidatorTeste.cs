@@ -6,7 +6,6 @@ namespace Tech.Challenge.Grupo27.Tests.Domain.Models.ContatoAggregate
 {
     public class TelefoneValidatorTeste
     {
-
         [Fact]
         public void TelefoneValidator_TelefoneValidoDDDCom2NumCom10_DeveRetornarSucesso()
         {
