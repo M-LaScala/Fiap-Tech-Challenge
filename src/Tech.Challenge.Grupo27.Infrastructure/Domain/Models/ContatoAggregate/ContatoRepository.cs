@@ -15,7 +15,7 @@ namespace Tech.Challenge.Grupo27.Infrastructure.Domain.Models.ContatoAggregate
             _notificacaoContext = notificacaoContext;
         }
 
-        public async ValueTask Atualizar(Contato contato, CancellationToken cancellationToken)
+        public async ValueTask Atualizar(Contato contato, CancellationToken cancellationToken = default)
         {
             var contatoEntity = await _context.Contatos.FirstOrDefaultAsync(c => c.Id == contato.Id);
 
@@ -86,7 +86,7 @@ namespace Tech.Challenge.Grupo27.Infrastructure.Domain.Models.ContatoAggregate
 
         private static ContatoEntity MapearContatpEntity(Contato contato)
         {
-            return new ContatoEntity(contato.Nome, contato.Email, contato?.Telefone?.Numero, contato?.Telefone?.Ddd);
+            return new ContatoEntity(contato.Nome, contato.Email, contato.Telefone?.Numero, contato.Telefone?.Ddd);
         }
     }
 }

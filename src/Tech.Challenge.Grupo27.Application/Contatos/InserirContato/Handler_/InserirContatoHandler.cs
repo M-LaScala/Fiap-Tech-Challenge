@@ -26,11 +26,11 @@ namespace Tech.Challenge.Grupo27.Application.Contatos.InserirContato.Handler_
         public async Task<ContatoResponse> Handle(ContatoRequest request, CancellationToken cancellationToken)
         {
 
-            var contato = new Contato(request.Nome, request.Email, new Domain.Shared.ValueObject.Telefone(request?.Telefone?.Ddd, request?.Telefone?.Numero));
+            var contato = new Contato(request.Nome, request.Email, new Domain.Shared.ValueObject.Telefone(request.Telefone?.Ddd, request.Telefone?.Numero));
 
             if (contato.Invalid)
             {
-                _notificacaoContext.AddNotificacoes(contato?.ValidationResult);
+                _notificacaoContext.AddNotificacoes(contato.ValidationResult);
                 return new ContatoResponse("", false, null);
             }
 

@@ -35,7 +35,7 @@ namespace Tech.Challenge.Grupo27.Tests.Application.Contatos
             //Arrange
             var idContato = Guid.NewGuid();
             var ddd = 11;
-            var contato = _contatoFixture.ObterContatoMock(idContato);
+            var contato = ContatoFixture.ObterContatoMock(idContato);
             var contatos = new List<Contato>() { contato };
             var request = new ObterPorDddRequest(ddd);
             var contatosResponse = new List<ObterContatoResponse>() { new ObterContatoResponse
@@ -89,7 +89,7 @@ namespace Tech.Challenge.Grupo27.Tests.Application.Contatos
             //Arrange
             var idContato = Guid.NewGuid();
             var ddd = 11;            
-            List<Contato> contatos = null;
+            List<Contato>? contatos = null;
             var request = new ObterPorDddRequest(ddd);           
 
             var resultadoEsperado = new ContatoResponse()
@@ -107,7 +107,7 @@ namespace Tech.Challenge.Grupo27.Tests.Application.Contatos
             var handler = new ObterContatosPorDddHandler(_contatoService.Object);
 
             //Act
-            var resultado = await handler.Handle(request, CancellationToken.None);
+            var resultado = await handler.Handle(request!, CancellationToken.None);
 
             //Assert
             Assert.True(_compareLogic.Compare(resultado, resultadoEsperado).AreEqual);

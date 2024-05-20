@@ -24,6 +24,6 @@ namespace Tech.Challenge.Grupo27.Application.Contatos.ViewModels
         /// Telefone que possui DDD e Numero
         /// </summary>
         /// 
-        public TelefoneRequest Telefone { get; set; }
+        public TelefoneRequest? Telefone { get; set; }
     }
 }

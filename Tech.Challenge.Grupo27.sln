@@ -5,15 +5,15 @@ VisualStudioVersion = 17.8.34330.188
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{A10DDF6C-B62A-4DA6-8528-54A6684B486A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tech.Challenge.Grupo27.API", "src\Tech.Challenge.Grupo27.API\Tech.Challenge.Grupo27.API.csproj", "{BB21C89F-7E60-4E6C-B497-353B2604BB02}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tech.Challenge.Grupo27.API", "src\Tech.Challenge.Grupo27.API\Tech.Challenge.Grupo27.API.csproj", "{BB21C89F-7E60-4E6C-B497-353B2604BB02}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tech.Challenge.Grupo27.Application", "src\Tech.Challenge.Grupo27.Application\Tech.Challenge.Grupo27.Application.csproj", "{9657D768-6294-49DD-840F-F9336633307C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tech.Challenge.Grupo27.Application", "src\Tech.Challenge.Grupo27.Application\Tech.Challenge.Grupo27.Application.csproj", "{9657D768-6294-49DD-840F-F9336633307C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tech.Challenge.Grupo27.Domain", "src\Tech.Challenge.Grupo27.Domain\Tech.Challenge.Grupo27.Domain.csproj", "{834DAA47-3AEC-427B-A820-4CA993364702}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tech.Challenge.Grupo27.Domain", "src\Tech.Challenge.Grupo27.Domain\Tech.Challenge.Grupo27.Domain.csproj", "{834DAA47-3AEC-427B-A820-4CA993364702}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tech.Challenge.Grupo27.Infrastructure", "src\Tech.Challenge.Grupo27.Infrastructure\Tech.Challenge.Grupo27.Infrastructure.csproj", "{13D9B92C-D7CB-477F-94A6-DF7716BD2EEF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tech.Challenge.Grupo27.Infrastructure", "src\Tech.Challenge.Grupo27.Infrastructure\Tech.Challenge.Grupo27.Infrastructure.csproj", "{13D9B92C-D7CB-477F-94A6-DF7716BD2EEF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tech.Challenge.Grupo27.Common", "src\Tech.Challenge.Grupo27.Common\Tech.Challenge.Grupo27.Common.csproj", "{63714687-277C-4431-A6BE-151B81344914}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tech.Challenge.Grupo27.Common", "src\Tech.Challenge.Grupo27.Common\Tech.Challenge.Grupo27.Common.csproj", "{63714687-277C-4431-A6BE-151B81344914}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "API", "API", "{7D7BE8C0-3EEF-486B-9F86-CBD9DCF8A571}"
 EndProject
@@ -25,7 +25,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Infrastructure", "Infrastru
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Common", "Common", "{92A30D3F-4EBE-4E47-B49A-0E0B26BCDFF0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tech.Challenge.Grupo27.Tests", "Tech.Challenge.Grupo27.Tests\Tech.Challenge.Grupo27.Tests.csproj", "{C31720FB-DE4D-452D-995B-28CD3098F9ED}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tech.Challenge.Grupo27.Tests", "Tech.Challenge.Grupo27.Tests\Tech.Challenge.Grupo27.Tests.csproj", "{C31720FB-DE4D-452D-995B-28CD3098F9ED}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{5F19799F-E6E7-4425-9322-06C7BD295C14}"
 EndProject

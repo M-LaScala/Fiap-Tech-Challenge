@@ -38,10 +38,10 @@ namespace Tech.Challenge.Grupo27.Application.Contatos.ObterContato.Handler_
                         contato.Email,
                         new TelefoneResponse
                         (
-                            contato?.Telefone?.Numero,
-                            contato?.Telefone?.Ddd,
-                            contato?.Telefone?.Estado,
-                            contato?.Telefone?.Regiao
+                            contato.Telefone?.Numero,
+                            contato.Telefone?.Ddd,
+                            contato.Telefone?.Estado,
+                            contato.Telefone?.Regiao
                         )
                     )
                  );

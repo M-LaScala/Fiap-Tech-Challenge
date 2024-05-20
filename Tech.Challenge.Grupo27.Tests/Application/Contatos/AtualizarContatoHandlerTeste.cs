@@ -39,7 +39,7 @@ namespace Tech.Challenge.Grupo27.Tests.Application.Contatos
         {
             //Arrange
             var idContato = Guid.NewGuid();
-            var contato = _contatoFixture.ObterContatoMock(idContato);
+            var contato = ContatoFixture.ObterContatoMock(idContato);
             var request = new AtualizarContatoRequest()
             {
                 Id = idContato,

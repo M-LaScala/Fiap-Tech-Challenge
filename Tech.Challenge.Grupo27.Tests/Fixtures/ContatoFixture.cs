@@ -6,7 +6,7 @@ namespace Tech.Challenge.Grupo27.Tests.Fixtures
 {
     public class ContatoFixture
     {
-        public Contato ObterContatoMock(Guid id)
+        public static Contato ObterContatoMock(Guid id)
         {
             var contato = new Faker<Contato>()
                 .RuleFor(c=> c.Id, id)
@@ -17,7 +17,7 @@ namespace Tech.Challenge.Grupo27.Tests.Fixtures
             return contato;
         }
 
-        public IEnumerable<Contato> ObterContatosMock()
+        public static IEnumerable<Contato> ObterContatosMock()
         {
             var contato = new Faker<Contato>()
                 .RuleFor(c => c.Id, Guid.NewGuid())

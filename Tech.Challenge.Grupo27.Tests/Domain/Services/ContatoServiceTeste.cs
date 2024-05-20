@@ -32,7 +32,7 @@ namespace Tech.Challenge.Grupo27.Tests.Domain.Services
         {
             //Arrange
             var idContato = Guid.NewGuid();
-            var contato = _contatoFixture.ObterContatoMock(idContato);
+            var contato = ContatoFixture.ObterContatoMock(idContato);
 
             _contatoRepository.Setup(c=> c.Inserir
             (
@@ -43,7 +43,7 @@ namespace Tech.Challenge.Grupo27.Tests.Domain.Services
             if (contato != null && contato.Telefone != null && int.TryParse(contato.Telefone.Ddd, out int ddd))
             {
                 _regiaoDddRepository.Setup(c => c.ObterRegiaoPorCodigoDdd(It.Is<int>(c => c == ddd)))
-                                    .ReturnsAsync(_regiaoDddFixture.ObterRegiaoDddMock());
+                                    .ReturnsAsync(RegiaoDddFixture.ObterRegiaoDddMock());
             }
             else
             {
@@ -86,7 +86,7 @@ namespace Tech.Challenge.Grupo27.Tests.Domain.Services
         {
             //Arrange
             var idContato = Guid.NewGuid();
-            var contato = _contatoFixture.ObterContatoMock(idContato);
+            var contato = ContatoFixture.ObterContatoMock(idContato);
 
             _contatoRepository.Setup(c => c.Inserir
             (
@@ -171,7 +171,7 @@ namespace Tech.Challenge.Grupo27.Tests.Domain.Services
         {
             //Arrange
             var idContato = Guid.NewGuid();
-            var contato = _contatoFixture.ObterContatoMock(idContato);
+            var contato = ContatoFixture.ObterContatoMock(idContato);
 
             _contatoRepository.Setup(c => c.Atualizar
             (
@@ -179,7 +179,16 @@ namespace Tech.Challenge.Grupo27.Tests.Domain.Services
                 It.IsAny<CancellationToken>())
             ).Verifiable();
 
-            _regiaoDddRepository.Setup(c => c.ObterRegiaoPorCodigoDdd(It.Is<int>(c => c == Convert.ToInt32(contato.Telefone.Ddd)))).ReturnsAsync(_regiaoDddFixture.ObterRegiaoDddMock());
+            if (contato?.Telefone?.Ddd != null)
+            {
+                int dddValue = Convert.ToInt32(contato.Telefone.Ddd);
+                _regiaoDddRepository.Setup(c => c.ObterRegiaoPorCodigoDdd(It.Is<int>(c => c == dddValue))).ReturnsAsync(RegiaoDddFixture.ObterRegiaoDddMock());
+            }
+            else
+            {
+                // Lidar com o caso em que contato ou contato.Telefone ou contato.Telefone.Ddd é nulo
+                throw new InvalidOperationException("Contato, Telefone ou DDD está nulo.");
+            }
 
             var services = new ContatoService(_contatoRepository.Object, _regiaoDddRepository.Object, _notificacaoContext.Object);
 
@@ -194,7 +203,17 @@ namespace Tech.Challenge.Grupo27.Tests.Domain.Services
                 It.IsAny<CancellationToken>())
             , Times.Once());
 
-            _regiaoDddRepository.Verify(c => c.ObterRegiaoPorCodigoDdd(It.Is<int>(c => c == Convert.ToInt32(contato.Telefone.Ddd))), Times.Once());
+            if (contato?.Telefone?.Ddd != null)
+            {
+                int dddValue = Convert.ToInt32(contato.Telefone.Ddd);
+                _regiaoDddRepository.Verify(c => c.ObterRegiaoPorCodigoDdd(It.Is<int>(c => c == dddValue)), Times.Once());
+            }
+            else
+            {
+                // Lidar com o caso em que contato ou contato.Telefone ou contato.Telefone.Ddd é nulo
+                throw new InvalidOperationException("Contato, Telefone ou DDD está nulo.");
+            }
+
         }
 
         // <summary>
@@ -204,9 +223,9 @@ namespace Tech.Challenge.Grupo27.Tests.Domain.Services
         public async Task ObterPorDdd_DddValido_DeveRetornarSucesso()
         {
             //Arrange            
-            var contatos = _contatoFixture.ObterContatosMock();
-            var regiao = _regiaoDddFixture.ObterRegiaoDddMock();
-            var ddd = contatos.FirstOrDefault().Telefone.Ddd;
+            var contatos = ContatoFixture.ObterContatosMock();
+            var regiao = RegiaoDddFixture.ObterRegiaoDddMock();
+            var ddd = contatos.FirstOrDefault()!.Telefone!.Ddd;
             _contatoRepository.Setup(c => c.ObterPorDdd
             (
                 It.Is<string>(b => b.Equals(ddd))
@@ -217,7 +236,15 @@ namespace Tech.Challenge.Grupo27.Tests.Domain.Services
 
             foreach (var contato in contatos)
             {
-                contato.Telefone.AdicionarRegiaoDoDdd(regiao.Descricao, regiao.Estado);
+                if (contato!.Telefone != null)
+                {
+                    contato.Telefone.AdicionarRegiaoDoDdd(regiao.Descricao, regiao.Estado);
+                }
+                else
+                {
+                    // Lidar com o caso em que contato ou contato.Telefone ou contato.Telefone.Ddd é nulo
+                    throw new InvalidOperationException("Contato, Telefone ou DDD está nulo.");
+                }
             }           
 
             var services = new ContatoService(_contatoRepository.Object, _regiaoDddRepository.Object, _notificacaoContext.Object);
@@ -248,9 +275,9 @@ namespace Tech.Challenge.Grupo27.Tests.Domain.Services
         {
             //Arrange
             var idContato = Guid.NewGuid();
-            var contato = _contatoFixture.ObterContatoMock(idContato);
-            var regiao = _regiaoDddFixture.ObterRegiaoDddMock();
-            contato.Telefone.AdicionarRegiaoDoDdd(regiao.Descricao, regiao.Estado);
+            var contato = ContatoFixture.ObterContatoMock(idContato);
+            var regiao = RegiaoDddFixture.ObterRegiaoDddMock();
+            contato!.Telefone!.AdicionarRegiaoDoDdd(regiao.Descricao, regiao.Estado);
             _contatoRepository.Setup(c => c.ObterPorId
             (
                 It.Is<Guid>(b => b.Equals(idContato))
@@ -287,7 +314,7 @@ namespace Tech.Challenge.Grupo27.Tests.Domain.Services
         {
             //Arrange
             var idContato = Guid.NewGuid();
-            Contato contato = null;            
+            Contato? contato = null;            
            
             _contatoRepository.Setup(c => c.ObterPorId
             (
@@ -322,7 +349,7 @@ namespace Tech.Challenge.Grupo27.Tests.Domain.Services
         {
             //Arrange
             var idContato = Guid.NewGuid();
-            var contato = _contatoFixture.ObterContatoMock(idContato);                        
+            var contato = ContatoFixture.ObterContatoMock(idContato);                        
            
             _contatoRepository.Setup(c => c.Delete
             (
@@ -358,7 +385,7 @@ namespace Tech.Challenge.Grupo27.Tests.Domain.Services
         {
             //Arrange
             var idContato = Guid.NewGuid();
-            Contato contato = null;
+            Contato? contato = null;
 
             _contatoRepository.Setup(c => c.Delete
             (

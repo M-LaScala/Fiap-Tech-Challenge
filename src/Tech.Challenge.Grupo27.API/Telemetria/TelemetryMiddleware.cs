@@ -43,7 +43,7 @@ namespace Tech.Challenge.Grupo27.API.Telemetria
             return bodyContent;
         }
 
-        public static async Task<string> GetResponseBodyForTelemetry(HttpContext context, RequestDelegate next)
+        public static async Task<string?> GetResponseBodyForTelemetry(HttpContext context, RequestDelegate next)
         {
             Stream originalBody = context.Response.Body;
 

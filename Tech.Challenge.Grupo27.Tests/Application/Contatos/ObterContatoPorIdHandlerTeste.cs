@@ -29,7 +29,7 @@ namespace Tech.Challenge.Grupo27.Tests.Application.Contatos
         {
             //Arrange
             var idContato = Guid.NewGuid();
-            var contato = _contatoFixture.ObterContatoMock(idContato);
+            var contato = ContatoFixture.ObterContatoMock(idContato);
             var request = new ObterPorIdRequest(idContato);
 
             var resultadoEsperado = new ContatoResponse()
@@ -79,7 +79,7 @@ namespace Tech.Challenge.Grupo27.Tests.Application.Contatos
         {
             //Arrange
             var idContato = Guid.NewGuid();
-            Contato contato = null;
+            Contato? contato = null;
             var request = new ObterPorIdRequest(idContato);
 
             var resultadoEsperado = new ContatoResponse()
