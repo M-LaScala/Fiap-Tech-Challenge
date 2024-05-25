@@ -40,7 +40,7 @@ namespace Tech.Challenge.Grupo27.API.Controllers
         [SwaggerOperation(Summary = "Realiza cadastro de Contatos")]
         public async ValueTask<IActionResult> Inserir([FromBody] ContatoRequest request)
         {
-            return Ok(await _mediator.Send(request));
+            return  Created("",await _mediator.Send(request));
         }
 
         /// <summary>
@@ -65,7 +65,7 @@ namespace Tech.Challenge.Grupo27.API.Controllers
         /// <returns>Contato</returns>
         /// <response code="200">Retorna Contato cadastrados</response>
         [HttpGet]
-        [Route("{id}/contato")]
+        [Route("{id}")]
         [ProducesResponseType(typeof(ContatoResponse), (int)HttpStatusCode.OK)]
         [ProducesResponseType(typeof(List<Notificacao>), (int)HttpStatusCode.BadRequest)]
         [SwaggerOperation(Summary = "Busca um contato específico pelo seu Id.")]
@@ -95,7 +95,7 @@ namespace Tech.Challenge.Grupo27.API.Controllers
         /// <response code="200">Retorna contato removido</response>
         /// <response code="400">Contato não encontrado</response>
         [HttpDelete]
-        [Route("{id}/contato")]
+        [Route("{id}")]
         [ProducesResponseType(typeof(ContatoResponse), (int)HttpStatusCode.OK)]
         [ProducesResponseType(typeof(List<Notificacao>), (int)HttpStatusCode.BadRequest)]
         [SwaggerOperation(Summary = "Apaga um contato da lista.")]

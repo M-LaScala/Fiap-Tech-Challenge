@@ -1,10 +1,5 @@
 ﻿using KellermanSoftware.CompareNetObjects;
 using Moq;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Tech.Challenge.Grupo27.Application.Contatos.ObterContato.Dtos;
 using Tech.Challenge.Grupo27.Application.Contatos.ObterContato.Handler_;
 using Tech.Challenge.Grupo27.Application.Contatos.ViewModels;
@@ -16,13 +11,11 @@ namespace Tech.Challenge.Grupo27.Tests.Application.Contatos
 {
     public class ObterContatosPorDddHandlerTeste
     {
-        private readonly Mock<IContatoService> _contatoService;
-        private readonly ContatoFixture _contatoFixture;
+        private readonly Mock<IContatoService> _contatoService;        
         private readonly CompareLogic _compareLogic;
         public ObterContatosPorDddHandlerTeste()
         {
-            _contatoService = new Mock<IContatoService>();
-            _contatoFixture = new ContatoFixture();
+            _contatoService = new Mock<IContatoService>();            
             _compareLogic = new CompareLogic();
         }
 
@@ -86,8 +79,7 @@ namespace Tech.Challenge.Grupo27.Tests.Application.Contatos
         [Fact]
         public async Task ObterContatoPorDDD_DddEncontrado_DeveRetornarNull()
         {
-            //Arrange
-            var idContato = Guid.NewGuid();
+            //Arrange            
             var ddd = 11;            
             List<Contato>? contatos = null;
             var request = new ObterPorDddRequest(ddd);           

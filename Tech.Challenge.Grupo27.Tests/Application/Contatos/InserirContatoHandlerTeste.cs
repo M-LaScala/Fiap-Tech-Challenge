@@ -13,15 +13,13 @@ namespace Tech.Challenge.Grupo27.Tests.Application.Contatos
     {
         private readonly Mock<IContatoService> _contatoService;
         private readonly Mock<INotificacaoContext> _notificacaoContext;
-        private readonly Mock<IUnitOfWork> _unitOfWork;
-        private readonly ContatoFixture _contatoFixture;
+        private readonly Mock<IUnitOfWork> _unitOfWork;        
 
         public InserirContatoHandlerTeste()
         {
             _contatoService = new Mock<IContatoService>();
             _notificacaoContext = new Mock<INotificacaoContext>();
-            _unitOfWork = new Mock<IUnitOfWork>();
-            _contatoFixture = new ContatoFixture();
+            _unitOfWork = new Mock<IUnitOfWork>();            
         }
 
         // <summary>

@@ -1,15 +1,7 @@
 ﻿using Moq;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Tech.Challenge.Grupo27.Domain.Services;
-using Tech.Challenge.Grupo27.Domain.Shared.Notificacoes;
 using Tech.Challenge.Grupo27.Domain.Shared;
 using Tech.Challenge.Grupo27.Tests.Fixtures;
-using Tech.Challenge.Grupo27.Application.Contatos.InserirContato.Handler_;
-using Tech.Challenge.Grupo27.Application.Contatos.ViewModels;
 using Tech.Challenge.Grupo27.Domain.Models.ContatoAggregate;
 using Tech.Challenge.Grupo27.Application.Contatos.DeletarContato.Dtos;
 using Tech.Challenge.Grupo27.Application.Contatos.DeletarContato.Handler_;
@@ -19,12 +11,10 @@ namespace Tech.Challenge.Grupo27.Tests.Application.Contatos
     public class DeleteContatoHandlerTeste
     {
         private readonly Mock<IContatoService> _contatoService;        
-        private readonly Mock<IUnitOfWork> _unitOfWork;
-        private readonly ContatoFixture _contatoFixture;
+        private readonly Mock<IUnitOfWork> _unitOfWork;        
 
         public DeleteContatoHandlerTeste()
-        {
-            _contatoFixture = new ContatoFixture();
+        {            
             _contatoService = new Mock<IContatoService>();
             _unitOfWork = new Mock<IUnitOfWork>();
         }

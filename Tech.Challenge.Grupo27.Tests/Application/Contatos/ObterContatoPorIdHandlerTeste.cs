@@ -11,13 +11,11 @@ namespace Tech.Challenge.Grupo27.Tests.Application.Contatos
 {
     public class ObterContatoPorIdHandlerTeste
     {
-        private readonly Mock<IContatoService> _contatoService;        
-        private readonly ContatoFixture _contatoFixture;
+        private readonly Mock<IContatoService> _contatoService;                
         private readonly CompareLogic _compareLogic;
         public ObterContatoPorIdHandlerTeste()
         {
-            _contatoService = new Mock<IContatoService>();
-            _contatoFixture = new ContatoFixture();
+            _contatoService = new Mock<IContatoService>();            
             _compareLogic = new CompareLogic();
         }
 

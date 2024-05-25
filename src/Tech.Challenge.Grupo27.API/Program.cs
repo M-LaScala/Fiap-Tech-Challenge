@@ -29,10 +29,8 @@ var logger = new LoggerConfiguration()
              .CreateLogger();
 
 builder.Logging.ClearProviders();
-builder.Services.AddSerilog((services, lc) => lc
-    .ReadFrom.Configuration(builder.Configuration)
-    .ReadFrom.Services(services)
-    .Enrich.FromLogContext());
+
+builder.Logging.AddSerilog(logger);    
 
 builder.Services.AddMvc(options => options.Filters.Add<NotificationFilter>());
 

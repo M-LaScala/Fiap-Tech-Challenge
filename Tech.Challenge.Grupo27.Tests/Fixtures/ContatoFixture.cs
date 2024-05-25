@@ -4,7 +4,7 @@ using Tech.Challenge.Grupo27.Domain.Shared.ValueObject;
 
 namespace Tech.Challenge.Grupo27.Tests.Fixtures
 {
-    public class ContatoFixture
+    public static class ContatoFixture
     {
         public static Contato ObterContatoMock(Guid id)
         {
