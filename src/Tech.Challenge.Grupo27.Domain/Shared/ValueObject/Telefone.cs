@@ -16,6 +16,12 @@ namespace Tech.Challenge.Grupo27.Domain.Shared.ValueObject
         {
             Ddd = dDD;
             Numero = numero;
+        }       
+
+        public void AdicionarRegiaoDoDdd(string regiao, string estado)
+        {
+            Estado = estado;
+            Regiao = regiao;
         }
 
         public bool ValidarNumero(string numero)
@@ -33,12 +39,6 @@ namespace Tech.Challenge.Grupo27.Domain.Shared.ValueObject
 
             var expressao = @"^[1-9]{2}";
             return Regex.Match(ddd, expressao).Success;
-        }
-
-        public void AdicionarRegiaoDoDdd(string regiao, string estado)
-        {
-            Estado = estado;
-            Regiao = regiao;
         }
     }
 }

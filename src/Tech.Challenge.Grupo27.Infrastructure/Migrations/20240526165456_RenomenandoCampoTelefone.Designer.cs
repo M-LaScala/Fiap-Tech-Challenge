@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Tech.Challenge.Grupo27.Infrastructure.EntityFrameworkCore;
 
@@ -11,9 +12,11 @@ using Tech.Challenge.Grupo27.Infrastructure.EntityFrameworkCore;
 namespace Tech.Challenge.Grupo27.Infrastructure.Migrations
 {
     [DbContext(typeof(TechChallengeGrupo27Context))]
-    partial class TechChallengeGrupo27ContextModelSnapshot : ModelSnapshot
+    [Migration("20240526165456_RenomenandoCampoTelefone")]
+    partial class RenomenandoCampoTelefone
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

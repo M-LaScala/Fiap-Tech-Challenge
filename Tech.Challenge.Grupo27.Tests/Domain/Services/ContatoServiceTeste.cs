@@ -81,7 +81,7 @@ namespace Tech.Challenge.Grupo27.Tests.Domain.Services
             int dddValue = Convert.ToInt32(contato.Telefone.Ddd);
             _regiaoDddRepository.Setup(c => c.ObterRegiaoPorCodigoDdd(It.Is<int>(c => c == dddValue))).ReturnsAsync((RegiaoDdd?)null);           
 
-            _notificacaoContext.Setup(n => n.AddNotificacao("DDD_INEXISTENTE", "Não foi possível encontrar uma região para o DDD informado")).Verifiable();
+            _notificacaoContext.Setup(n => n.AddNotificacao("DDD_INEXISTENTE", $"Não foi possível encontrar uma região para o DDD {contato.Telefone.Ddd}")).Verifiable();
 
 
             var services = new ContatoService(_contatoRepository.Object, _regiaoDddRepository.Object, _notificacaoContext.Object);
@@ -99,7 +99,7 @@ namespace Tech.Challenge.Grupo27.Tests.Domain.Services
 
                        
              _regiaoDddRepository.Verify(c => c.ObterRegiaoPorCodigoDdd(It.Is<int>(c => c == dddValue)), Times.Once());           
-            _notificacaoContext.Verify(n => n.AddNotificacao("DDD_INEXISTENTE", "Não foi possível encontrar uma região para o DDD informado"), Times.Once());
+            _notificacaoContext.Verify(n => n.AddNotificacao("DDD_INEXISTENTE", $"Não foi possível encontrar uma região para o DDD {contato.Telefone.Ddd}"), Times.Once());
         }
 
         // <summary>

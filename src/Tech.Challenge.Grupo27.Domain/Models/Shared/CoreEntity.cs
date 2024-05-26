@@ -5,7 +5,7 @@ namespace Tech.Challenge.Grupo27.Domain.Models.Shared
 {
     public class CoreEntity
     {
-        public Guid Id { get; set; }
+        public Guid? Id { get; set; }
 
         public DateTime DataDeCriacao { get; set; }
 
@@ -19,6 +19,6 @@ namespace Tech.Challenge.Grupo27.Domain.Models.Shared
         {
             ValidationResult = validator.Validate(model);
             return Valid = ValidationResult.IsValid;
-        }
+        }       
     }
 }

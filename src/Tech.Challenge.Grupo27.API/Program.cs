@@ -14,7 +14,8 @@ var configuration = new ConfigurationBuilder()
                 .AddJsonFile("appsettings.json")
                 .Build();
 
-var logger = new LoggerConfiguration()
+Log.Logger = new LoggerConfiguration()
+             .MinimumLevel.Information()
              .WriteTo.File
              (
                 "Logs/contatoApp.text",
@@ -25,12 +26,9 @@ var logger = new LoggerConfiguration()
                 rollOnFileSizeLimit: true,
                 shared: true,
                 flushToDiskInterval: TimeSpan.FromSeconds(1))
-             .ReadFrom.Configuration(configuration)
-             .CreateLogger();
-
-builder.Logging.ClearProviders();
-
-builder.Logging.AddSerilog(logger);    
+             .ReadFrom.Configuration(configuration)                         
+             .Enrich.FromLogContext()
+             .CreateLogger();    
 
 builder.Services.AddMvc(options => options.Filters.Add<NotificationFilter>());
 

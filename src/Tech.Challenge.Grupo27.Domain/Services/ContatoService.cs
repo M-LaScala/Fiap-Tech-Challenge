@@ -1,4 +1,6 @@
-﻿using Tech.Challenge.Grupo27.Domain.Models.ContatoAggregate;
+﻿
+using Serilog;
+using Tech.Challenge.Grupo27.Domain.Models.ContatoAggregate;
 using Tech.Challenge.Grupo27.Domain.Models.RegioesDddAggregate;
 using Tech.Challenge.Grupo27.Domain.Shared.Notificacoes;
 
@@ -9,6 +11,7 @@ namespace Tech.Challenge.Grupo27.Domain.Services
         private readonly IContatoRepository _contatoRepository;
         private readonly IRegiaoDddRepository _regiaoDddRepository;
         private readonly INotificacaoContext _notificacaoContext;
+        private readonly ILogger _logger;
 
         public ContatoService
         (
@@ -19,6 +22,7 @@ namespace Tech.Challenge.Grupo27.Domain.Services
             _contatoRepository = contatoRepository;
             _regiaoDddRepository = regiaoDddRepository;
             _notificacaoContext = notificacaoContext;
+            _logger = Log.ForContext<ContatoService>(); 
         }
 
         public async ValueTask Atualizar(Contato contato, CancellationToken cancellationToken)
@@ -27,7 +31,10 @@ namespace Tech.Challenge.Grupo27.Domain.Services
 
             if (regiao is null)
             {
-                _notificacaoContext.AddNotificacao("DDD_INEXISTENTE", "Não foi possível encontrar uma região para o DDD informado");
+                var mensagem = $"Não foi possível encontrar uma região para o DDD {contato.Telefone.Ddd}";
+                var messageTemplate = $"ContatoService | Atualizar | Mensagem:  {mensagem}";
+                _logger.Warning(messageTemplate);                
+                _notificacaoContext.AddNotificacao("DDD_INEXISTENTE", mensagem);
                 return;
             }
 
@@ -40,7 +47,10 @@ namespace Tech.Challenge.Grupo27.Domain.Services
 
             if (contato is null) return default;
 
-            await AdicionarRegiaoDoDdd(contato);
+            var regiao = await ObterRegiaoPorDDD(contato.Telefone.Ddd);
+
+            contato.AssociarDddContaARegiao(regiao?.Descricao, regiao?.Estado);
+
             return contato;
         }
 
@@ -49,7 +59,10 @@ namespace Tech.Challenge.Grupo27.Domain.Services
 
             if (contato is null)
             {
-                _notificacaoContext.AddNotificacao("CONTATO_NULLO", "O contato deve ser preenchido corretamente");
+                var mensagem = "O contato deve ser preenchido corretamente";
+                var messageTemplate = $"ContatoService | Inserir | Mensagem:  {mensagem}";
+                _logger.Warning(messageTemplate);
+                _notificacaoContext.AddNotificacao("CONTATO_NULLO",mensagem);
                 return Guid.Empty;
             }
 
@@ -57,7 +70,10 @@ namespace Tech.Challenge.Grupo27.Domain.Services
 
             if (regiao is null)
             {
-                _notificacaoContext.AddNotificacao("DDD_INEXISTENTE", "Não foi possível encontrar uma região para o DDD informado");
+                var mensagem = $"Não foi possível encontrar uma região para o DDD {contato.Telefone.Ddd}";
+                var messageTemplate = $"ContatoService | Inserir | Mensagem:  {mensagem}";
+                _logger.Warning(messageTemplate);
+                _notificacaoContext.AddNotificacao("DDD_INEXISTENTE", mensagem);
                 return Guid.Empty;
             }
 
@@ -67,11 +83,11 @@ namespace Tech.Challenge.Grupo27.Domain.Services
         public async ValueTask<IEnumerable<Contato>> ObterPorDdd(string? ddd)
         {
             var contatos = await _contatoRepository.ObterPorDdd(ddd);
-            RegiaoDdd regiao = await ObterRegiaoPorDDD(ddd);
+            var regiao = await ObterRegiaoPorDDD(ddd);
 
             foreach (var contato in contatos)
             {
-                PreencherRegiaoDddd(contato, regiao);
+                contato.AssociarDddContaARegiao(regiao?.Descricao, regiao?.Estado);
             }
 
             return contatos;
@@ -83,29 +99,19 @@ namespace Tech.Challenge.Grupo27.Domain.Services
 
             if (contato is null) return default;
 
-            await AdicionarRegiaoDoDdd(contato);
+            var regiao = await ObterRegiaoPorDDD(contato?.Telefone?.Ddd);            
+
+            contato.AssociarDddContaARegiao(regiao?.Descricao, regiao?.Estado);
+
             return contato;
         }
 
-        private async Task AdicionarRegiaoDoDdd(Contato contato)
+        private async Task<RegiaoDdd?> ObterRegiaoPorDDD(string? ddd)
         {
-            var regiao = await ObterRegiaoPorDDD(contato?.Telefone?.Ddd);
-            PreencherRegiaoDddd(contato, regiao);
-        }
+            if (string.IsNullOrWhiteSpace(ddd)) return default;
 
-        private async Task<RegiaoDdd> ObterRegiaoPorDDD(string? ddd)
-        {
             return await _regiaoDddRepository.ObterRegiaoPorCodigoDdd(Convert.ToInt32(ddd));
-        }
-
-        private void PreencherRegiaoDddd(Contato? contato, RegiaoDdd regiao)
-        {
-            if (regiao is not null)
-            {
-                contato?.Telefone?.AdicionarRegiaoDoDdd(regiao.Descricao, regiao.Estado);
-            }
-        }
-
-
+           
+        }         
     }
 }

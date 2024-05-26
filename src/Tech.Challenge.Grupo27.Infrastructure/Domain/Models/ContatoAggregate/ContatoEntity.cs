@@ -8,15 +8,15 @@ namespace Tech.Challenge.Grupo27.Infrastructure.Domain.Models.ContatoAggregate
 
         public string? Email { get; set; }
 
-        public string? Telefone { get; set; }
+        public string? NumeroTelefone { get; set; }
 
         public string? Ddd { get; set; }
 
-        public ContatoEntity(string? nome, string? email, string? telefone, string? ddd)
+        public ContatoEntity(string? nome, string? email, string? numeroTelefone, string? ddd)
         {
             Nome = nome;
             Email = email;
-            Telefone = telefone;
+            NumeroTelefone = numeroTelefone;
             Ddd = ddd;
         }
     }

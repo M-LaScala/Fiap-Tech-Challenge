@@ -2,14 +2,14 @@
 {
     public class ObterContatoResponse
     {
-        public Guid Id { get; set; }
+        public Guid? Id { get; set; }
         public string? Nome { get; set; }
 
         public string? Email { get; set; }
 
         public TelefoneResponse? Telefone { get; set; }
 
-        public ObterContatoResponse(Guid id, string? nome, string? email, TelefoneResponse? telefone)
+        public ObterContatoResponse(Guid? id, string? nome, string? email, TelefoneResponse? telefone)
         {
             Nome = nome;
             Email = email;

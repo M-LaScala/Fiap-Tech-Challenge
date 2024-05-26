@@ -9,27 +9,25 @@ namespace Tech.Challenge.Grupo27.Domain.Models.ContatoAggregate
 
         public string? Email { get; private set; }
 
-        public Telefone? Telefone { get; private set; }
+        public Telefone? Telefone { get; private set; }        
 
         public Contato() { }
 
-        public Contato(string? nome, string? email, Telefone? telefone)
+        public Contato(string? nome, string? email, Telefone? telefone, Guid? id = null)
         {
             Nome = nome;
             Email = email;
             Telefone = telefone;
-
+            Id = id;
             Validate(this, new ContatoValidator());
         }
 
-        public Contato(Guid id, string? nome, string? email, Telefone? telefone)
+        public void AssociarDddContaARegiao(string? regiao, string? estado)
         {
-            Id = id;
-            Nome = nome;
-            Email = email;
-            Telefone = telefone;
-
-            Validate(this, new ContatoValidator());
+            if ( !string.IsNullOrWhiteSpace(regiao) && !string.IsNullOrWhiteSpace(estado))
+            {
+                Telefone?.AdicionarRegiaoDoDdd(regiao, estado);
+            }
         }
     }
 }

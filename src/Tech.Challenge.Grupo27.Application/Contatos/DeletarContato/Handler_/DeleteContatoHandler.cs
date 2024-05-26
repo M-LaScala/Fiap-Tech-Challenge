@@ -46,7 +46,7 @@ namespace Tech.Challenge.Grupo27.Application.Contatos.DeletarContato.Handler_
                         contato.Telefone?.Ddd,
                         contato.Telefone?.Estado,
                         contato.Telefone?.Regiao
-                     )
+                     )                
                   )
             );
         }

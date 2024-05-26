@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Serilog;
 using Tech.Challenge.Grupo27.Domain.Models.ContatoAggregate;
 using Tech.Challenge.Grupo27.Domain.Shared.Notificacoes;
 using Tech.Challenge.Grupo27.Infrastructure.EntityFrameworkCore;
@@ -9,10 +10,12 @@ namespace Tech.Challenge.Grupo27.Infrastructure.Domain.Models.ContatoAggregate
     {
         private readonly TechChallengeGrupo27Context _context;
         private readonly INotificacaoContext _notificacaoContext;
+        private readonly ILogger _logger;
         public ContatoRepository(TechChallengeGrupo27Context context, INotificacaoContext notificacaoContext)
         {
             _context = context;
             _notificacaoContext = notificacaoContext;
+            _logger = Log.ForContext<ContatoRepository>();
         }
 
         public async ValueTask Atualizar(Contato contato, CancellationToken cancellationToken = default)
@@ -21,12 +24,15 @@ namespace Tech.Challenge.Grupo27.Infrastructure.Domain.Models.ContatoAggregate
 
             if (contatoEntity == null)
             {
-                _notificacaoContext.AddNotificacao("CONTATO_NAOEXISTE", "Contato não econtrado");
+                var mensagem = "Contato não econtrado";
+                var mensagemTemplate = $"ContatoRepository | Atualizar | Mensagem : {mensagem}";
+                _logger.Warning(mensagemTemplate);
+                _notificacaoContext.AddNotificacao("CONTATO_NAOEXISTE", mensagem);
                 return;
             }
 
             contatoEntity.Nome = contato.Nome;
-            contatoEntity.Telefone = contato?.Telefone?.Numero;
+            contatoEntity.NumeroTelefone = contato?.Telefone?.Numero;
             contatoEntity.Ddd = contato?.Telefone?.Ddd;
             contatoEntity.Email = contato?.Email;
             contatoEntity.DataDeAlteracao = DateTime.UtcNow;
@@ -40,7 +46,10 @@ namespace Tech.Challenge.Grupo27.Infrastructure.Domain.Models.ContatoAggregate
 
             if (contatoEntity == null)
             {
-                _notificacaoContext.AddNotificacao("CONTATO_NAOEXISTE", "Contato não econtrado");
+                var mensagem = "Contato não econtrado";
+                var mensagemTemplate = $"ContatoRepository | Delete | Mensagem : {mensagem}";
+                _logger.Warning(mensagemTemplate);
+                _notificacaoContext.AddNotificacao("CONTATO_NAOEXISTE", mensagem);
                 return default;
             }
 
@@ -60,7 +69,7 @@ namespace Tech.Challenge.Grupo27.Infrastructure.Domain.Models.ContatoAggregate
             var contatos = new List<Contato>();
             var contatosEntities = await _context.Contatos.Where(c => c.Ddd == ddd).ToListAsync();
 
-            if (contatosEntities?.Count == 0 || contatosEntities is null) return Enumerable.Empty<Contato>();
+            if (contatosEntities is null || (!contatosEntities?.Any() ?? false)) return Enumerable.Empty<Contato>();
 
             foreach (var contatoEntity in contatosEntities)
             {
@@ -81,7 +90,7 @@ namespace Tech.Challenge.Grupo27.Infrastructure.Domain.Models.ContatoAggregate
 
         private static Contato MapearContato(ContatoEntity contatoEntity)
         {
-            return new Contato(contatoEntity.Id, contatoEntity.Nome, contatoEntity.Email, new Grupo27.Domain.Shared.ValueObject.Telefone(contatoEntity.Ddd, contatoEntity.Telefone));
+            return new Contato(contatoEntity.Nome, contatoEntity.Email, new Grupo27.Domain.Shared.ValueObject.Telefone(contatoEntity.Ddd, contatoEntity.NumeroTelefone), contatoEntity.Id);
         }
 
         private static ContatoEntity MapearContatpEntity(Contato contato)

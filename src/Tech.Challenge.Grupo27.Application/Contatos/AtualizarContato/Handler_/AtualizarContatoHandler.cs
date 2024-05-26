@@ -27,11 +27,11 @@ namespace Tech.Challenge.Grupo27.Application.Contatos.AtualizarContato.Handler_
         public async Task<ContatoResponse> Handle(AtualizarContatoRequest request, CancellationToken cancellationToken)
         {
             var contato = new Contato
-            (
-                request.Id,
+            (                
                 request.Nome,
                 request.Email,
-                new Domain.Shared.ValueObject.Telefone(request.Telefone.Ddd, request.Telefone.Numero)
+                new Domain.Shared.ValueObject.Telefone(request.Telefone.Ddd, request.Telefone.Numero),
+                request.Id
              );
 
             if (contato.Invalid)
