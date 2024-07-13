@@ -5,6 +5,7 @@ using Tech.Challenge.Grupo27.API.Filters;
 using Tech.Challenge.Grupo27.API.Middlewares;
 using Tech.Challenge.Grupo27.API.Telemetria;
 using Tech.Challenge.Grupo27.Infrastructure.DI;
+using Tech.Challenge.Grupo27.Infrastructure.HealthCheck;
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -34,6 +35,11 @@ builder.Services.AddMvc(options => options.Filters.Add<NotificationFilter>());
 
 builder.Services.AddTransient<TelemetryMiddleware>();
 
+var hcBuilder = builder.Services.AddHealthChecks();
+var connectionString = configuration.GetConnectionString("DefaultConnection");
+hcBuilder.AddSqlServer(connectionString, name: "Sql Server");
+
+
 // Add services to the container.
 
 var options = new Tech.Challenge.Grupo27.Infrastructure.EntityFrameworkCore.DbOptions(configuration.GetConnectionString("DefaultConnection"), configuration.GetConnectionString("Prefix"));
@@ -53,6 +59,7 @@ builder.Services.Configure<IISServerOptions>(options =>
 {
     options.AllowSynchronousIO = true;
 });
+
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
@@ -90,6 +97,8 @@ app.UseAuthorization();
 app.UseTelemetryMiddleware();
 
 app.UseErrorMiddleware();
+
+app.UseHealthCheckCustom();
 
 app.MapControllers();
 

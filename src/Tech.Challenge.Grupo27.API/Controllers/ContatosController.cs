@@ -38,9 +38,9 @@ namespace Tech.Challenge.Grupo27.API.Controllers
         [ProducesResponseType(typeof(ContatoResponse), (int)HttpStatusCode.OK)]
         [ProducesResponseType(typeof(List<Notificacao>), (int)HttpStatusCode.BadRequest)]
         [SwaggerOperation(Summary = "Realiza cadastro de Contatos")]
-        public async ValueTask<IActionResult> Inserir([FromBody] ContatoRequest request)
+        public async ValueTask<IActionResult> Inserir([FromBody] ContatoRequest request, CancellationToken cancellationToken)
         {
-            return  Created("",await _mediator.Send(request));
+            return  Created("",await _mediator.Send(request, cancellationToken));
         }
 
         /// <summary>
@@ -53,9 +53,9 @@ namespace Tech.Challenge.Grupo27.API.Controllers
         [ProducesResponseType(typeof(ContatoResponse), (int)HttpStatusCode.OK)]
         [ProducesResponseType(typeof(List<Notificacao>), (int)HttpStatusCode.BadRequest)]
         [SwaggerOperation(Summary = "Altera informações do contato.")]
-        public async ValueTask<IActionResult> Atualizar([FromBody] AtualizarContatoRequest request)
+        public async ValueTask<IActionResult> Atualizar([FromBody] AtualizarContatoRequest request, CancellationToken cancellationToken)
         {
-            return Ok(await _mediator.Send(request));
+            return Ok(await _mediator.Send(request, cancellationToken));
         }
 
 
@@ -69,9 +69,9 @@ namespace Tech.Challenge.Grupo27.API.Controllers
         [ProducesResponseType(typeof(ContatoResponse), (int)HttpStatusCode.OK)]
         [ProducesResponseType(typeof(List<Notificacao>), (int)HttpStatusCode.BadRequest)]
         [SwaggerOperation(Summary = "Busca um contato específico pelo seu Id.")]
-        public async ValueTask<IActionResult> ObterPorId(Guid? id)
+        public async ValueTask<IActionResult> ObterPorId(Guid? id, CancellationToken cancellationToken)
         {
-            return Ok(await _mediator.Send(new ObterPorIdRequest(id)));
+            return Ok(await _mediator.Send(new ObterPorIdRequest(id), cancellationToken));
         }
 
         /// <summary>
@@ -84,9 +84,9 @@ namespace Tech.Challenge.Grupo27.API.Controllers
         [ProducesResponseType(typeof(ContatoResponse), (int)HttpStatusCode.OK)]
         [ProducesResponseType(typeof(List<Notificacao>), (int)HttpStatusCode.BadRequest)]
         [SwaggerOperation(Summary = "Realiza uma busca de contatos filtrados pelo DDD do número de telefone.")]
-        public async ValueTask<IActionResult> ObterPorDdd(int? ddd)
+        public async ValueTask<IActionResult> ObterPorDdd(int? ddd, CancellationToken cancellationToken)
         {
-            return Ok(await _mediator.Send(new ObterPorDddRequest(ddd)));
+            return Ok(await _mediator.Send(new ObterPorDddRequest(ddd), cancellationToken));
         }
 
         /// <summary>
@@ -99,9 +99,9 @@ namespace Tech.Challenge.Grupo27.API.Controllers
         [ProducesResponseType(typeof(ContatoResponse), (int)HttpStatusCode.OK)]
         [ProducesResponseType(typeof(List<Notificacao>), (int)HttpStatusCode.BadRequest)]
         [SwaggerOperation(Summary = "Apaga um contato da lista.")]
-        public async ValueTask<IActionResult> Delete(Guid? id)
+        public async ValueTask<IActionResult> Delete(Guid? id, CancellationToken cancellationToken)
         {
-            return Ok(await _mediator.Send(new DeleteContatoRequest(id)));
+            return Ok(await _mediator.Send(new DeleteContatoRequest(id), cancellationToken));
         }
 
     }
