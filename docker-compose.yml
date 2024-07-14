@@ -1,0 +1,19 @@
+version: '3.4'
+
+services:
+  tech.challenge.grupo27.api:
+    image: ${DOCKER_REGISTRY-}techchallengegrupo27api
+    build:
+      context: .
+      dockerfile: src/Tech.Challenge.Grupo27.API/Dockerfile
+    depends_on:
+    - mssql-server
+    ports:
+    - "5001:8080"
+  mssql-server:
+    build:
+     context: ./local/compose/sqlserver
+     dockerfile: Dockerfile
+    container_name: techchanllengesql
+    ports:
+      - 1433:1433
