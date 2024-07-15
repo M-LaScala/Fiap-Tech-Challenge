@@ -1,0 +1,110 @@
+{
+   "schemaVersion": 1,
+   "name": "dotnet/sdk",
+   "tag": "8.0",
+   "architecture": "amd64",
+   "fsLayers": [
+      {
+         "blobSum": "sha256:d4de4a0a18490e30141a8fe17a9d8b56284784d55480e549427adce8c27ab578"
+      },
+      {
+         "blobSum": "sha256:8d83776e834a27afe375c75dfe574a40b2850af1111cda93b7713b3c1b10106b"
+      },
+      {
+         "blobSum": "sha256:69e8cb59019e7154a59556f56ccab24331969aca69b6ef26b5c80832629cddc2"
+      },
+      {
+         "blobSum": "sha256:a3ed95caeb02ffe68cdd9fd84406680ae93d633cb16422d00e8a7c22955b46d4"
+      },
+      {
+         "blobSum": "sha256:1af270dba784337f5d7bb9c2eab26fdccf895fcbf593af2b1cf3e791787581ea"
+      },
+      {
+         "blobSum": "sha256:a3ed95caeb02ffe68cdd9fd84406680ae93d633cb16422d00e8a7c22955b46d4"
+      },
+      {
+         "blobSum": "sha256:d991aded06faa3592dbe5bebaf2efea62df8d19b618280aa6c0cd59e5cfed2a9"
+      },
+      {
+         "blobSum": "sha256:cea352090e1260f8077f3f67198a6eb2e3659dbabaf2e0a83cb2324af779d06b"
+      },
+      {
+         "blobSum": "sha256:a3ed95caeb02ffe68cdd9fd84406680ae93d633cb16422d00e8a7c22955b46d4"
+      },
+      {
+         "blobSum": "sha256:d8aa48f12a672292b575914cf101887ba86c5d8d1e3c1a45721732f8271c798b"
+      },
+      {
+         "blobSum": "sha256:04f88f6c2caac686a4470eda6fdeeea98fb521b49a3c41736fe7a4a66d2b5177"
+      },
+      {
+         "blobSum": "sha256:a3ed95caeb02ffe68cdd9fd84406680ae93d633cb16422d00e8a7c22955b46d4"
+      },
+      {
+         "blobSum": "sha256:a3ed95caeb02ffe68cdd9fd84406680ae93d633cb16422d00e8a7c22955b46d4"
+      },
+      {
+         "blobSum": "sha256:f11c1adaa26e078479ccdd45312ea3b88476441b91be0ec898a7e07bfd05badc"
+      }
+   ],
+   "history": [
+      {
+         "v1Compatibility": "{\"architecture\":\"amd64\",\"config\":{\"Env\":[\"PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin\",\"APP_UID=1654\",\"ASPNETCORE_HTTP_PORTS=8080\",\"DOTNET_RUNNING_IN_CONTAINER=true\",\"DOTNET_VERSION=8.0.7\",\"ASPNET_VERSION=8.0.7\",\"DOTNET_GENERATE_ASPNET_CERTIFICATE=false\",\"DOTNET_NOLOGO=true\",\"DOTNET_SDK_VERSION=8.0.303\",\"DOTNET_USE_POLLING_FILE_WATCHER=true\",\"NUGET_XMLDOC_MODE=skip\",\"POWERSHELL_DISTRIBUTION_CHANNEL=PSDocker-DotnetSDK-Debian-12\"],\"Cmd\":[\"bash\"]},\"created\":\"2024-07-09T14:48:31.657761803Z\",\"id\":\"537402f28a2d4c7e331366928bf99a29169b99b6bca25b4cbbd96871c9024bd9\",\"os\":\"linux\",\"parent\":\"a0594902ede05b55cc514d16605303f493d20c6c058d5f289bde508b90d7426a\"}"
+      },
+      {
+         "v1Compatibility": "{\"id\":\"a0594902ede05b55cc514d16605303f493d20c6c058d5f289bde508b90d7426a\",\"parent\":\"035a208d0c9772ace201ff16987f8b3ada8c6e6b966cd3cfbcf98c9c42bf320b\",\"comment\":\"buildkit.dockerfile.v0\",\"created\":\"2024-07-09T14:48:27.749369781Z\",\"container_config\":{\"Cmd\":[\"RUN /bin/sh -c curl -fSL --output dotnet.tar.gz https://dotnetcli.azureedge.net/dotnet/Sdk/$DOTNET_SDK_VERSION/dotnet-sdk-$DOTNET_SDK_VERSION-linux-x64.tar.gz     \\u0026\\u0026 dotnet_sha512='814ff07ccdfc8160c4a24adfda6c815e7feace88c59722f827a5a27041719067538754911fc15cb46978e16566fe0938695891723d182055190e876131faedda'     \\u0026\\u0026 echo \\\"$dotnet_sha512  dotnet.tar.gz\\\" | sha512sum -c -     \\u0026\\u0026 mkdir -p /usr/share/dotnet     \\u0026\\u0026 tar -oxzf dotnet.tar.gz -C /usr/share/dotnet ./packs ./sdk ./sdk-manifests ./templates ./LICENSE.txt ./ThirdPartyNotices.txt     \\u0026\\u0026 rm dotnet.tar.gz     \\u0026\\u0026 dotnet help # buildkit\"]}}"
+      },
+      {
+         "v1Compatibility": "{\"id\":\"035a208d0c9772ace201ff16987f8b3ada8c6e6b966cd3cfbcf98c9c42bf320b\",\"parent\":\"5f86b881a123fdf72d1611df564c4c6411021c4e95687f566ec0d3f987a6c98d\",\"comment\":\"buildkit.dockerfile.v0\",\"created\":\"2024-07-09T14:48:12.372337995Z\",\"container_config\":{\"Cmd\":[\"RUN /bin/sh -c apt-get update     \\u0026\\u0026 apt-get install -y --no-install-recommends         curl         git         libatomic1         wget     \\u0026\\u0026 rm -rf /var/lib/apt/lists/* # buildkit\"]}}"
+      },
+      {
+         "v1Compatibility": "{\"id\":\"5f86b881a123fdf72d1611df564c4c6411021c4e95687f566ec0d3f987a6c98d\",\"parent\":\"49345ae68b08d75d7974e842737bec0f3bac36a9164d7d90698149a58cef0938\",\"comment\":\"buildkit.dockerfile.v0\",\"created\":\"2024-07-09T14:48:12.372337995Z\",\"container_config\":{\"Cmd\":[\"ENV DOTNET_GENERATE_ASPNET_CERTIFICATE=false DOTNET_NOLOGO=true DOTNET_SDK_VERSION=8.0.303 DOTNET_USE_POLLING_FILE_WATCHER=true NUGET_XMLDOC_MODE=skip POWERSHELL_DISTRIBUTION_CHANNEL=PSDocker-DotnetSDK-Debian-12\"]},\"throwaway\":true}"
+      },
+      {
+         "v1Compatibility": "{\"id\":\"49345ae68b08d75d7974e842737bec0f3bac36a9164d7d90698149a58cef0938\",\"parent\":\"1c4888a70f45aeabe577d11ea8a17ec921ffeabe50614a6a3ce1c21b58c2425f\",\"comment\":\"buildkit.dockerfile.v0\",\"created\":\"2024-07-09T14:47:48.558022655Z\",\"container_config\":{\"Cmd\":[\"COPY /shared/Microsoft.AspNetCore.App /usr/share/dotnet/shared/Microsoft.AspNetCore.App # buildkit\"]}}"
+      },
+      {
+         "v1Compatibility": "{\"id\":\"1c4888a70f45aeabe577d11ea8a17ec921ffeabe50614a6a3ce1c21b58c2425f\",\"parent\":\"a719265ff020cb24719848185a06e8296e351adc5adf8daea690da6e03ec8e44\",\"comment\":\"buildkit.dockerfile.v0\",\"created\":\"2024-07-09T14:47:48.558022655Z\",\"container_config\":{\"Cmd\":[\"ENV ASPNET_VERSION=8.0.7\"]},\"throwaway\":true}"
+      },
+      {
+         "v1Compatibility": "{\"id\":\"a719265ff020cb24719848185a06e8296e351adc5adf8daea690da6e03ec8e44\",\"parent\":\"17566371286d17c796c86bdd3e7c0947b60eafc745399932041b0a8f29ecde83\",\"comment\":\"buildkit.dockerfile.v0\",\"created\":\"2024-07-09T14:47:32.684710593Z\",\"container_config\":{\"Cmd\":[\"RUN /bin/sh -c ln -s /usr/share/dotnet/dotnet /usr/bin/dotnet # buildkit\"]}}"
+      },
+      {
+         "v1Compatibility": "{\"id\":\"17566371286d17c796c86bdd3e7c0947b60eafc745399932041b0a8f29ecde83\",\"parent\":\"6134cdca840c2bbb8f8d698d0fb9cd05afa9f966964dad0faa493159c5c988ed\",\"comment\":\"buildkit.dockerfile.v0\",\"created\":\"2024-07-09T14:47:31.349152935Z\",\"container_config\":{\"Cmd\":[\"COPY /dotnet /usr/share/dotnet # buildkit\"]}}"
+      },
+      {
+         "v1Compatibility": "{\"id\":\"6134cdca840c2bbb8f8d698d0fb9cd05afa9f966964dad0faa493159c5c988ed\",\"parent\":\"4f69ccab38f496555c708018f3e99e27d71457688d3e362f6c2ab4fbb587ae35\",\"comment\":\"buildkit.dockerfile.v0\",\"created\":\"2024-07-09T14:47:31.349152935Z\",\"container_config\":{\"Cmd\":[\"ENV DOTNET_VERSION=8.0.7\"]},\"throwaway\":true}"
+      },
+      {
+         "v1Compatibility": "{\"id\":\"4f69ccab38f496555c708018f3e99e27d71457688d3e362f6c2ab4fbb587ae35\",\"parent\":\"1c96a868f77ff6238208a84cf3c28926b410586e187c0d961ab2b3eaac5ef46d\",\"comment\":\"buildkit.dockerfile.v0\",\"created\":\"2024-07-09T14:47:23.10302689Z\",\"container_config\":{\"Cmd\":[\"RUN /bin/sh -c groupadd         --gid=$APP_UID         app     \\u0026\\u0026 useradd -l         --uid=$APP_UID         --gid=$APP_UID         --create-home         app # buildkit\"]}}"
+      },
+      {
+         "v1Compatibility": "{\"id\":\"1c96a868f77ff6238208a84cf3c28926b410586e187c0d961ab2b3eaac5ef46d\",\"parent\":\"da141cba8eee234dc22eeff740a1b57edb896ad61039bcd718fa9350d9ec8223\",\"comment\":\"buildkit.dockerfile.v0\",\"created\":\"2024-07-09T14:47:21.224481352Z\",\"container_config\":{\"Cmd\":[\"RUN /bin/sh -c apt-get update     \\u0026\\u0026 apt-get install -y --no-install-recommends         ca-certificates                 libc6         libgcc-s1         libicu72         libssl3         libstdc++6         tzdata         zlib1g     \\u0026\\u0026 rm -rf /var/lib/apt/lists/* # buildkit\"]}}"
+      },
+      {
+         "v1Compatibility": "{\"id\":\"da141cba8eee234dc22eeff740a1b57edb896ad61039bcd718fa9350d9ec8223\",\"parent\":\"e3416f4f72d275ac95d8af94b628cef99af05e2b7d3e25d7d3df74280bd10f5d\",\"comment\":\"buildkit.dockerfile.v0\",\"created\":\"2024-07-09T14:47:21.224481352Z\",\"container_config\":{\"Cmd\":[\"ENV APP_UID=1654 ASPNETCORE_HTTP_PORTS=8080 DOTNET_RUNNING_IN_CONTAINER=true\"]},\"throwaway\":true}"
+      },
+      {
+         "v1Compatibility": "{\"id\":\"e3416f4f72d275ac95d8af94b628cef99af05e2b7d3e25d7d3df74280bd10f5d\",\"parent\":\"32c6c22d9e5105e3a81e2dcbd2cc57af21157f402af610ea7835e6490ed90cb7\",\"created\":\"2024-07-02T01:25:02.745660567Z\",\"container_config\":{\"Cmd\":[\"/bin/sh -c #(nop)  CMD [\\\"bash\\\"]\"]},\"throwaway\":true}"
+      },
+      {
+         "v1Compatibility": "{\"id\":\"32c6c22d9e5105e3a81e2dcbd2cc57af21157f402af610ea7835e6490ed90cb7\",\"created\":\"2024-07-02T01:25:02.331012304Z\",\"container_config\":{\"Cmd\":[\"/bin/sh -c #(nop) ADD file:b24689567a7c604de93e4ef1dc87c372514f692556744da43925c575b4f80df6 in / \"]}}"
+      }
+   ],
+   "signatures": [
+      {
+         "header": {
+            "jwk": {
+               "crv": "P-256",
+               "kid": "PYDU:GBEW:OTAC:QM4D:5ILD:QARD:XQFC:66CF:C6IX:2MRM:UOCK:PPH5",
+               "kty": "EC",
+               "x": "0ftEzwRzc5EbGhXkJpQcaZZ3bzS9zWquUouTnfzPhPE",
+               "y": "NMi4hjGS02xL-osIEvppliTJzaDgcONs_l3O6JCwSLE"
+            },
+            "alg": "ES256"
+         },
+         "signature": "D2CCsVbmuZLpA7fV2_hesTkzyDp4pxIy2GJSG2yjsr090OLqIUJayPwUa2_fb4CcowMVVE-X0Ij3xpcilUBDLw",
+         "protected": "eyJmb3JtYXRMZW5ndGgiOjg3MDcsImZvcm1hdFRhaWwiOiJDbjAiLCJ0aW1lIjoiMjAyNC0wNy0xNFQxNTo1NjoxMloifQ"
+      }
+   ]
+}

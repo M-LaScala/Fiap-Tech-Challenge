@@ -6,15 +6,21 @@ COPY *.sln .
 WORKDIR /src/*.csproj ./aspnetapp
 RUN dotnet restore --ignore-failed-sources
 
-COPY Tech.Challenge.Grupo27.API/. ./aspnetapp/
+COPY . ./
 WORKDIR /source/aspnetapp
 
 FROM mcr.microsoft.com/dotnet/aspnet:8.0
-WORKDIR /app
 EXPOSE 8080
 EXPOSE 8081
+ARG DEBIAN_FRONTEND=noninteractive
+RUN apt-get update
+RUN apt-get install tzdata -y
+RUN ln -fs /usr/share/zoneinfo/America/Sao_Paulo /etc/localtime
+RUN dpkg-reconfigure --frontend noninteractive tzdata
+
 WORKDIR /app
-COPY --from=build /src/Tech.Challenge.Grupo27.API/out .
+
+COPY --from=build /source/aspnetapp/out .
 ENV ASPNETCORE_URLS=http://+:5000
 ENV TZ="America/SAO_Paulo"
 
