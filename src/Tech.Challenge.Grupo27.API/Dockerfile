@@ -5,6 +5,7 @@ WORKDIR /app
 COPY *.sln .
 WORKDIR /src/*.csproj ./aspnetapp
 RUN dotnet restore --ignore-failed-sources
+RUN dotnet publish -c Release -o out
 
 COPY . ./
 WORKDIR /source/aspnetapp
