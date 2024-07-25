@@ -14,6 +14,6 @@ services:
     build:
      context: ./local/compose/sqlserver
      dockerfile: Dockerfile
-    container_name: techchanllengesql
+    container_name: techchanllengesqlteste
     ports:
       - 1433:1433
