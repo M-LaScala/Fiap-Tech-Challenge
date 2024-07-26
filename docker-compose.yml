@@ -9,11 +9,16 @@ services:
     depends_on:
     - mssql-server
     ports:
-    - "5001:8080"
+    - "5001:8050"
   mssql-server:
-    build:
-     context: ./local/compose/sqlserver
-     dockerfile: Dockerfile
-    container_name: techchanllengesqlteste
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    environment:
+      SA_PASSWORD: "techchanllenge@123"
+      ACCEPT_EULA: "Y"
+      MSSQL_PID: "Developer"
     ports:
-      - 1433:1433
+      - "1433:1433"
+networks:
+  my-networks:
+    driver: bridge
+    
