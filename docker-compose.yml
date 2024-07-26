@@ -7,6 +7,7 @@ services:
       context: .
       dockerfile: src/Tech.Challenge.Grupo27.API/Dockerfile
     environment:
+      - ConnectionStrings=server=127.0.0.1,1433; initial Catalog=techchanllengedbs; User ID=sa; password=techchanllenge@123;Trust Server Certificate=true;
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_HTTP_PORTS=8000
       - ASPNETCORE_HTTPS_PORTS=8001
@@ -17,7 +18,10 @@ services:
     - mssql-server
     ports:
     - "5020:8001"
-    - "5010:8000"  
+    - "5010:8000" 
+    mem_limit: 512m
+    mem_reservation: 128M
+    cpus: 0.3 
   mssql-server:
     image: mcr.microsoft.com/mssql/server:2022-latest
     environment:
@@ -26,7 +30,4 @@ services:
       MSSQL_PID: "Developer"
     ports:
       - "1433:1433"
-networks:
-    external:
-      name: host
     
