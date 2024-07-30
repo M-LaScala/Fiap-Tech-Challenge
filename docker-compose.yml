@@ -51,8 +51,17 @@ services:
       - GF_SECURITY_ADMIN_PASSWORD=admin  # Senha de administrador
     volumes:
       - grafana-storage:/var/lib/grafana
-networks:
-  monitoring:
-    driver: bridge
 volumes:
   grafana-storage:
+  mssqltools:
+    image: mcr.microsoft.com/mssql-tools
+    depends_on:
+      - mssql-server
+    volumes:
+      - ./local/sqlserver/createdatabase.sql:/tmp/createdatabase.sql
+      - ./local/sqlserver/criandotabelas.sql:/tmp/criandotabelas.sql
+      - ./local/sqlserver/init-contato.sh:/tmp/init-contato.sh
+    command: /bin/bash ./tmp/init-contato.sh
+networks:
+ minha-rede:
+  driver: bridge
