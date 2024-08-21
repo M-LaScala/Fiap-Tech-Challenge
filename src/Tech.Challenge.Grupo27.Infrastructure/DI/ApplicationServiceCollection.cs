@@ -1,5 +1,5 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
-using Tech.Challenge.Grupo27.Application.Contatos.InserirContato.Handler_;
+using Tech.Challenge.Grupo27.Application.API.InserirContato.Handler_;
 
 namespace Tech.Challenge.Grupo27.Infrastructure.DI
 {

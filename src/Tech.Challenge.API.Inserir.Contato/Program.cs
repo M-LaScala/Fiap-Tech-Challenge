@@ -7,6 +7,7 @@ using Tech.Challenge.Grupo27.Common.Middlewares;
 using Tech.Challenge.Grupo27.Infrastructure.DI;
 using Tech.Challenge.Grupo27.Infrastructure.HealthCheck;
 using Tech.Challenge.Grupo27.Common.Telemetria;
+using Tech.Challenge.Grupo27.Infrastructure.MessageBroker;
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -28,9 +29,9 @@ Log.Logger = new LoggerConfiguration()
                 rollOnFileSizeLimit: true,
                 shared: true,
                 flushToDiskInterval: TimeSpan.FromSeconds(1))
-             .ReadFrom.Configuration(configuration)                         
+             .ReadFrom.Configuration(configuration)
              .Enrich.FromLogContext()
-             .CreateLogger();    
+             .CreateLogger();
 
 builder.Services.AddMvc(options => options.Filters.Add<NotificationFilter>());
 
@@ -47,6 +48,7 @@ var options = new Tech.Challenge.Grupo27.Infrastructure.EntityFrameworkCore.DbOp
 builder.Services.AddSingleton(options);
 builder.Services.AddSqlServerProvider(options);
 builder.Services.AddApplication();
+builder.Services.AddMessageBrokerServiceProducer(configuration);
 builder.Services.AddDomainService();
 builder.Services.AddRepository();
 

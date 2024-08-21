@@ -1,9 +1,11 @@
-﻿using Serilog;
+﻿using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Http;
+using Serilog;
 using System.Net;
 using System.Text.Json;
 using Tech.Challenge.Grupo27.Domain.Shared.Exceptions;
 
-namespace Tech.Challenge.Grupo27.API.Middlewares
+namespace Tech.Challenge.Grupo27.Common.Middlewares
 {
     public class ErrorHandlingMiddleware
     {

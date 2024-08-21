@@ -1,0 +1,7 @@
+﻿namespace Tech.Challenge.Grupo27.Infrastructure.MessageBroker.Message.Broker.Settings
+{
+    public class RabbitApplicationQueueSettings
+    {
+        public RabbitQueueSettings ContatoCriadoV1 { get; set; }
+    }
+}

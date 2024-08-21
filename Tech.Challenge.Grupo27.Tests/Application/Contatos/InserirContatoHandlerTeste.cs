@@ -1,25 +1,22 @@
-﻿using Tech.Challenge.Grupo27.Domain.Services;
-using Tech.Challenge.Grupo27.Domain.Shared.Notificacoes;
-using Tech.Challenge.Grupo27.Domain.Shared;
+﻿using Tech.Challenge.Grupo27.Domain.Shared.Notificacoes;
 using Moq;
 using Tech.Challenge.Grupo27.Tests.Fixtures;
-using Tech.Challenge.Grupo27.Domain.Models.ContatoAggregate;
-using Tech.Challenge.Grupo27.Application.Contatos.InserirContato.Handler_;
 using Tech.Challenge.Grupo27.Application.Contatos.ViewModels;
+using Tech.Challenge.Grupo27.Application.API.InserirContato.Handler_;
+using Tech.Challenge.Grupo27.Domain.Infrastructure.MessageBroker;
+using Tech.Challenge.Grupo27.Domain.Commands;
 
 namespace Tech.Challenge.Grupo27.Tests.Application.Contatos
 {
     public class InserirContatoHandlerTeste
     {
-        private readonly Mock<IContatoService> _contatoService;
-        private readonly Mock<INotificacaoContext> _notificacaoContext;
-        private readonly Mock<IUnitOfWork> _unitOfWork;        
+        private readonly Mock<IContatoCriadoProducer> _contatoProducer;
+        private readonly Mock<INotificacaoContext> _notificacaoContext;       
 
         public InserirContatoHandlerTeste()
         {
-            _contatoService = new Mock<IContatoService>();
-            _notificacaoContext = new Mock<INotificacaoContext>();
-            _unitOfWork = new Mock<IUnitOfWork>();            
+            _contatoProducer = new Mock<IContatoCriadoProducer>();
+            _notificacaoContext = new Mock<INotificacaoContext>();           
         }
 
         // <summary>
@@ -42,13 +39,12 @@ namespace Tech.Challenge.Grupo27.Tests.Application.Contatos
                 }
             };
 
-            _contatoService.Setup(c => c.Inserir
+            _contatoProducer.Setup(c => c.CriarContato
             (
-                It.IsAny<Contato>(),
-                It.IsAny<CancellationToken>())
-            ).ReturnsAsync(idContato).Verifiable();           
+                It.IsAny<ContatoCriadoCommand>()
+            )).Verifiable();           
 
-            var handler = new InserirContatoHandler(_contatoService.Object, _notificacaoContext.Object, _unitOfWork.Object);
+            var handler = new InserirContatoHandler(_contatoProducer.Object, _notificacaoContext.Object);
 
             //Act
             var resultado = await handler.Handle(request, CancellationToken.None);
@@ -58,15 +54,11 @@ namespace Tech.Challenge.Grupo27.Tests.Application.Contatos
             Assert.NotNull(resultado.Mensagem);
             Assert.True(resultado.Mensagem.Equals("Contato gravado com sucesso"));
 
-            _contatoService.Verify(c => c.Inserir
+            _contatoProducer.Verify(c => c.CriarContato
             (
-                It.IsAny<Contato>(),
-                It.IsAny<CancellationToken>())
-            , Times.Once());       
-            
-            _unitOfWork.Verify(x=> x.SaveChanges(It.IsAny<CancellationToken>()), Times.Once());
-            _unitOfWork.Verify(x => x.CommitTransaction(It.IsAny<CancellationToken>()), Times.Once());
-
+                It.IsAny<ContatoCriadoCommand>()
+            )
+            , Times.Once());                
         }
 
         // <summary>
@@ -75,8 +67,7 @@ namespace Tech.Challenge.Grupo27.Tests.Application.Contatos
         [Fact]
         public async Task Inserir_ContatoSemDadosValidosEhObrigatorios_DeveRetornarErros()
         {
-            //Arrange
-            var idContato = Guid.NewGuid();            
+            //Arrange            
             var request = new ContatoRequest()
             {
                 Nome = "",
@@ -88,13 +79,13 @@ namespace Tech.Challenge.Grupo27.Tests.Application.Contatos
                 }
             };
 
-            _contatoService.Setup(c => c.Inserir
+            _contatoProducer.Setup(c => c.CriarContato
             (
-                It.IsAny<Contato>(),
-                It.IsAny<CancellationToken>())
-            ).ReturnsAsync(idContato).Verifiable();
+                It.IsAny<ContatoCriadoCommand>()
+            )
+            ).Verifiable();
 
-            var handler = new InserirContatoHandler(_contatoService.Object, _notificacaoContext.Object, _unitOfWork.Object);
+            var handler = new InserirContatoHandler(_contatoProducer.Object, _notificacaoContext.Object);
 
             //Act
             var resultado = await handler.Handle(request, CancellationToken.None);
@@ -106,15 +97,11 @@ namespace Tech.Challenge.Grupo27.Tests.Application.Contatos
             Assert.Empty(resultado.Mensagem);
             Assert.Null(resultado.Data);
 
-            _contatoService.Verify(c => c.Inserir
+            _contatoProducer.Verify(c => c.CriarContato
             (
-                It.IsAny<Contato>(),
-                It.IsAny<CancellationToken>())
+                It.IsAny<ContatoCriadoCommand>()
+            )
             , Times.Never());
-
-            _unitOfWork.Verify(x => x.SaveChanges(It.IsAny<CancellationToken>()), Times.Never());
-            _unitOfWork.Verify(x => x.CommitTransaction(It.IsAny<CancellationToken>()), Times.Never());
-
         }
     }
 }

@@ -26,7 +26,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\src\Tech.Challenge.Grupo27.Application\Tech.Challenge.Grupo27.Application.csproj" />
+    <ProjectReference Include="..\src\Tech.Challenge.Grupo27.Application.Worker\Tech.Challenge.Grupo27.Application.Worker.csproj" />
+    <ProjectReference Include="..\src\Tech.Challenge.Grupo27.Application\Tech.Challenge.Grupo27.Application.API.csproj" />
     <ProjectReference Include="..\src\Tech.Challenge.Grupo27.Domain\Tech.Challenge.Grupo27.Domain.csproj" />
   </ItemGroup>
 

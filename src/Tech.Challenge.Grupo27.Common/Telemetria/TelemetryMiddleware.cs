@@ -1,10 +1,12 @@
-﻿using Serilog;
+﻿using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Http;
+using Serilog;
 using System.Net;
 using System.Text;
 
-namespace Tech.Challenge.Grupo27.API.Telemetria
+namespace Tech.Challenge.Grupo27.Common.Telemetria
 {
-    internal class TelemetryMiddleware : IMiddleware
+    public class TelemetryMiddleware : IMiddleware
     {
         private static bool IRequestWitchBody(HttpRequest r) => r.Method == HttpMethod.Post.ToString() || r.Method == HttpMethod.Put.ToString();     
         

@@ -1,0 +1,1 @@
+/usr/src/app/init-contato.sh & /opt/mssql/bin/sqlserver

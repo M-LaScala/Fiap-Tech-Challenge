@@ -29,7 +29,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Tech.Challenge.Grupo27.Application\Tech.Challenge.Grupo27.Application.csproj" />
     <ProjectReference Include="..\Tech.Challenge.Grupo27.Common\Tech.Challenge.Grupo27.Common.csproj" />
     <ProjectReference Include="..\Tech.Challenge.Grupo27.Infrastructure\Tech.Challenge.Grupo27.Infrastructure.csproj" />
   </ItemGroup>
