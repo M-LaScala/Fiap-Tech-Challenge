@@ -1,4 +1,4 @@
-FROM mcr.microsoft.com/mssql/server:2022-latest
+FROM rabbitmq:3-management-alpine
 
 COPY . /rabbitmq.conf /etc/rabbitmq
 
