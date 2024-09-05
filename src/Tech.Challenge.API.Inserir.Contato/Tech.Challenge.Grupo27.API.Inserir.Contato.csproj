@@ -5,7 +5,8 @@
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
     <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
-    <DockerfileContext>..\POSTECH-ARQUITETURA</DockerfileContext>
+    <DockerfileContext>..\..</DockerfileContext>
+    <UserSecretsId>fdc11793-9ca0-47db-aeff-ce1e4764d148</UserSecretsId>
   </PropertyGroup>
 
   <ItemGroup>

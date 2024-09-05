@@ -46,7 +46,7 @@ hcBuilder.AddSqlServer(connectionString, name: "Sql Server");
 var options = new Tech.Challenge.Grupo27.Infrastructure.EntityFrameworkCore.DbOptions(configuration.GetConnectionString("DefaultConnection"), configuration.GetConnectionString("Prefix"));
 builder.Services.AddSingleton(options);
 builder.Services.AddSqlServerProvider(options);
-builder.Services.AddApplication();
+builder.Services.AddApplicationContato();
 builder.Services.AddDomainService();
 builder.Services.AddRepository();
 

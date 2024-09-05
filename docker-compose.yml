@@ -21,6 +21,46 @@ services:
     mem_limit: 512m
     mem_reservation: 128M
     cpus: 0.3 
+  tech.challenge.grupo27.Inserir.contato:
+    image: ${DOCKER_REGISTRY-}techchallengegrupo27apiinserircontato
+    build:
+      context: .
+      dockerfile: src/Tech.Challenge.API.Inserir.Contato/Dockerfile
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_HTTP_PORTS=8004
+      - ASPNETCORE_HTTPS_PORTS=8005
+    volumes:
+      - ${APPDATA}/Microsoft/UserSecrets:/home/app/.microsoft/usersecrets:ro
+      - ${APPDATA}/ASP.NET/Https:/home/app/.aspnet/https:ro
+    depends_on:
+    - mssql-server
+    ports:
+    - "5030:8005"
+    - "5045:8004" 
+    mem_limit: 512m
+    mem_reservation: 128M
+    cpus: 0.3 
+  tech.challenge.grupo27.worker:
+    image: ${DOCKER_REGISTRY-}techchallengegrupo27worker
+    build:
+      context: .
+      dockerfile: src/Tech.Challenge.Grupo27.Worker/Dockerfile
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_HTTP_PORTS=8006
+      - ASPNETCORE_HTTPS_PORTS=8007
+    volumes:
+      - ${APPDATA}/Microsoft/UserSecrets:/home/app/.microsoft/usersecrets:ro
+      - ${APPDATA}/ASP.NET/Https:/home/app/.aspnet/https:ro
+    depends_on:
+    - mssql-server
+    ports:
+    - "5060:8007"
+    - "5055:8006" 
+    mem_limit: 512m
+    mem_reservation: 128M
+    cpus: 0.3 
   mssql-server:
    build:
       context: ./local/compose/sqlserver
@@ -28,6 +68,15 @@ services:
    container_name: techchanllengesql
    ports:
    - 1433:1433
+  rabbitmq:
+    build:
+      context: ./local/compose/rabbitmq
+      dockerfile: Dockerfile
+    container_name: rabbitmq
+    ports:
+    - 5676:5676
+    - 15676:15676
+    hostname: local-rabbit
   prometheus:
     image: prom/prometheus:latest
     container_name: prometheus

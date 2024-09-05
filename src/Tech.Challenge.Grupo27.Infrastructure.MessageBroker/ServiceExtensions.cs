@@ -20,7 +20,7 @@ namespace Tech.Challenge.Grupo27.Infrastructure.MessageBroker
         public static IServiceCollection AddMessageBrokerServiceProducer(this IServiceCollection services, IConfiguration configuration)
         {
             var settings = GetRabbitmqSettings(configuration);
-            services.AddTransient<IContatoCriadoProducer, ContatoCriadoProducer>();
+            services.AddScoped<IContatoCriadoProducer, ContatoCriadoProducer>();
             services.AddRabbitmqServiceProducer(settings);            
 
             return services;
@@ -60,8 +60,7 @@ namespace Tech.Challenge.Grupo27.Infrastructure.MessageBroker
 
         public static void AddRabbitmqServerConsumer(this IServiceCollection services, IConfiguration configuration)
         {
-            var rabbitmqSetting = GetRabbitmqSettings(configuration);
-            services.AddTransient<IContatoCriadoProducer, ContatoCriadoProducer>();
+            var rabbitmqSetting = GetRabbitmqSettings(configuration);            
             services.AddMassTransit<IBusControl>(x =>
             {
                 x.AddConsumer<ContatoCriadaConsumer>();

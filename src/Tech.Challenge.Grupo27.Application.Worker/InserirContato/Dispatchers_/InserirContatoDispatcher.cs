@@ -1,14 +1,12 @@
-﻿using Tech.Challenge.Grupo27.Application.Worker.Shared;
-using Tech.Challenge.Grupo27.Application.Worker.ViewModels;
+﻿using Tech.Challenge.Grupo27.Application.Worker.InserirContato.Dispatchers_;
 using Tech.Challenge.Grupo27.Domain.Commands;
 using Tech.Challenge.Grupo27.Domain.Models.ContatoAggregate;
 using Tech.Challenge.Grupo27.Domain.Services;
 using Tech.Challenge.Grupo27.Domain.Shared;
-using Tech.Challenge.Grupo27.Domain.Shared.Notificacoes;
 
 namespace Tech.Challenge.Grupo27.Application.Worker.InserirContato.Dispatchers
 {
-    public class InserirContatoDispatcher
+    public class InserirContatoDispatcher : IInserirContatoDispatcher
     {
         private readonly IContatoService _contatoService;
         private readonly IUnitOfWork _unitOfWork;
@@ -21,7 +19,7 @@ namespace Tech.Challenge.Grupo27.Application.Worker.InserirContato.Dispatchers
             _unitOfWork = unitOfWork;
         }
 
-        public async Task Handle(ContatoCriadoCommand request, CancellationToken cancellationToken)
+        public async Task InseirContatoAsync(ContatoCriadoCommand request, CancellationToken cancellationToken)
         {
 
             var contato = new Contato(request.Nome, request.Email, new Domain.Shared.ValueObject.Telefone(request.Telefone?.Ddd, request.Telefone?.Numero));

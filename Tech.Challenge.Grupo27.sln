@@ -31,13 +31,13 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{5F19799F
 EndProject
 Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{F40BB577-9875-4D29-BE69-997912922829}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tech.Challenge.API.Inserir.Contato", "src\Tech.Challenge.API.Inserir.Contato\Tech.Challenge.API.Inserir.Contato.csproj", "{D610EFEA-50EA-4B28-87EF-70E115AC843E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tech.Challenge.Grupo27.API.Inserir.Contato", "src\Tech.Challenge.API.Inserir.Contato\Tech.Challenge.Grupo27.API.Inserir.Contato.csproj", "{D610EFEA-50EA-4B28-87EF-70E115AC843E}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tech.Challenge.Grupo27.Infrastructure.MessageBroker", "src\Tech.Challenge.Grupo27.Infrastructure.MessageBroker\Tech.Challenge.Grupo27.Infrastructure.MessageBroker.csproj", "{5037909E-EFB0-4D68-B2F4-0317E2422958}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tech.Challenge.Grupo27.Application.Worker", "src\Tech.Challenge.Grupo27.Application.Worker\Tech.Challenge.Grupo27.Application.Worker.csproj", "{138FAD37-7727-48FC-AD86-B87C09ADDEBE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tech.Challenge.Grupo27.Application.Worker", "src\Tech.Challenge.Grupo27.Application.Worker\Tech.Challenge.Grupo27.Application.Worker.csproj", "{138FAD37-7727-48FC-AD86-B87C09ADDEBE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tech.Challenge.Grupo27.Worker", "src\Tech.Challenge.Grupo27.Worker\Tech.Challenge.Grupo27.Worker.csproj", "{AB589FA5-A143-4D6C-9F65-DD6953EF513E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tech.Challenge.Grupo27.Worker", "src\Tech.Challenge.Grupo27.Worker\Tech.Challenge.Grupo27.Worker.csproj", "{AB589FA5-A143-4D6C-9F65-DD6953EF513E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

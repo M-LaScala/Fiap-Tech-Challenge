@@ -26,5 +26,6 @@
   <ItemGroup>
     <ProjectReference Include="..\Tech.Challenge.Grupo27.Application\Tech.Challenge.Grupo27.Application.API.csproj" />
     <ProjectReference Include="..\Tech.Challenge.Grupo27.Domain\Tech.Challenge.Grupo27.Domain.csproj" />
+    <ProjectReference Include="..\Tech.Challenge.Grupo27.Infrastructure.MessageBroker\Tech.Challenge.Grupo27.Infrastructure.MessageBroker.csproj" />
   </ItemGroup>
 </Project>
