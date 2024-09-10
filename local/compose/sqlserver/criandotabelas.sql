@@ -1,4 +1,26 @@
-﻿IF OBJECT_ID(N'[__EFMigrationsHistory]') IS NULL
+﻿
+USE [master]
+GO
+
+/****** Object:  Database [techchanllengedbs]    Script Date: 23/07/2024 16:14:02 ******/
+CREATE DATABASE [techchanllengedbs]
+ CONTAINMENT = NONE
+ ON  PRIMARY 
+( NAME = N'techchanllengedbs', FILENAME = N'/var/opt/mssql/data/techchanllengedbs.mdf' , SIZE = 8192KB , MAXSIZE = UNLIMITED, FILEGROWTH = 65536KB )
+ LOG ON 
+( NAME = N'techchanllengedbs_log', FILENAME = N'/var/opt/mssql/data/techchanllengedbs_log.ldf' , SIZE = 8192KB , MAXSIZE = 2048GB , FILEGROWTH = 65536KB )
+ WITH CATALOG_COLLATION = DATABASE_DEFAULT
+GO
+
+IF (1 = FULLTEXTSERVICEPROPERTY('IsFullTextInstalled'))
+begin
+EXEC [techchanllengedbs].[dbo].[sp_fulltext_database] @action = 'enable'
+end
+GO
+
+USE [techchanllengedbs]
+
+IF OBJECT_ID(N'[__EFMigrationsHistory]') IS NULL
 BEGIN
     CREATE TABLE [__EFMigrationsHistory] (
         [MigrationId] nvarchar(150) NOT NULL,
