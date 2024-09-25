@@ -36,6 +36,8 @@ GO
 IF SCHEMA_ID(N'techchanllenge') IS NULL EXEC(N'CREATE SCHEMA [techchanllenge];');
 GO
 
+IF OBJECT_ID(N'[[Tb_Contato]]') IS NULL
+begin
 CREATE TABLE [techchanllenge].[Tb_Contato] (
     [Id] uniqueidentifier NOT NULL,
     [Nome] Varchar(80) NOT NULL,
@@ -46,6 +48,7 @@ CREATE TABLE [techchanllenge].[Tb_Contato] (
     [DataDeAlteracao] DateTime NULL,
     CONSTRAINT [PK_Tb_Contato] PRIMARY KEY ([Id])
 );
+end;
 GO
 
 INSERT INTO [__EFMigrationsHistory] ([MigrationId], [ProductVersion])
@@ -57,7 +60,8 @@ GO
 
 BEGIN TRANSACTION;
 GO
-
+IF OBJECT_ID(N'[[Tb_RegiaoDdd]]') IS NULL
+begin
 CREATE TABLE [techchanllenge].[Tb_RegiaoDdd] (
     [Id] uniqueidentifier NOT NULL,
     [Codigo] int NOT NULL,
@@ -67,6 +71,7 @@ CREATE TABLE [techchanllenge].[Tb_RegiaoDdd] (
     [DataDeAlteracao] datetime2 NULL,
     CONSTRAINT [PK_Tb_RegiaoDdd] PRIMARY KEY ([Id])
 );
+end;
 GO
 
 IF EXISTS (SELECT * FROM [sys].[identity_columns] WHERE [name] IN (N'Id', N'Codigo', N'DataDeAlteracao', N'DataDeCriacao', N'Descricao', N'Estado') AND [object_id] = OBJECT_ID(N'[techchanllenge].[Tb_RegiaoDdd]'))

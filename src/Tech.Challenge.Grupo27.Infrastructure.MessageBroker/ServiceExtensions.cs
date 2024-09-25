@@ -21,8 +21,8 @@ namespace Tech.Challenge.Grupo27.Infrastructure.MessageBroker
         {
             var settings = GetRabbitmqSettings(configuration);
             services.AddScoped<IContatoCriadoProducer, ContatoCriadoProducer>();
-            services.AddRabbitmqServiceProducer(settings);            
-
+            services.AddRabbitmqServiceProducer(settings);
+            
             return services;
         }
 
@@ -47,16 +47,16 @@ namespace Tech.Challenge.Grupo27.Infrastructure.MessageBroker
 
                     EndpointConvention.Map<ContatoCriadoCommand>
                     (serviceSettings.ContatoEvent.Queues.ContatoCriadoV1.GetUrl(serviceSettings.ContatoEvent.ConnectionString));
-
+                   
                     cfg.Message<ContatoCriadoCommand>(message =>
                     {
                         message.SetEntityName(serviceSettings.ContatoEvent.Queues.ContatoCriadoV1.Name);
                     });
-                });                
-            });          
+                });
+                
+            });
+           
         }
-
-
 
         public static void AddRabbitmqServerConsumer(this IServiceCollection services, IConfiguration configuration)
         {
