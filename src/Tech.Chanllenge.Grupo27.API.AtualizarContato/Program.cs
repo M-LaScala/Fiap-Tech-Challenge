@@ -9,8 +9,6 @@ using Tech.Challenge.Grupo27.Infrastructure.HealthCheck;
 using Tech.Challenge.Grupo27.Common.Telemetria;
 using Tech.Challenge.Grupo27.Infrastructure.MessageBroker;
 
-
-
 var builder = WebApplication.CreateBuilder(args);
 
 var configuration = new ConfigurationBuilder()
@@ -48,11 +46,10 @@ hcBuilder.AddSqlServer(connectionString, name: "Sql Server");
 var options = new Tech.Challenge.Grupo27.Infrastructure.EntityFrameworkCore.DbOptions(configuration.GetConnectionString("DefaultConnection"), configuration.GetConnectionString("Prefix"));
 builder.Services.AddSingleton(options);
 builder.Services.AddSqlServerProvider(options);
-builder.Services.AddMessageBrokerServiceConsumer(configuration);
-builder.Services.AddApplicationContato();
+builder.Services.AddMessageBrokerServiceProducer(configuration);
+builder.Services.AddApplication();
 builder.Services.AddDomainService();
 builder.Services.AddRepository();
-
 builder.Services.Configure<KestrelServerOptions>(options =>
 {
     options.AllowSynchronousIO = true;
@@ -64,6 +61,7 @@ builder.Services.Configure<IISServerOptions>(options =>
     options.AllowSynchronousIO = true;
 });
 
+
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
@@ -74,7 +72,7 @@ builder.Services.AddSwaggerGen(opt =>
     {
         Version = "v1",
         Title = "Contato API",
-        Description = "API Por subir Worker Async"
+        Description = "API responsável por gerenciar contatos"
     });
     var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
     var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
