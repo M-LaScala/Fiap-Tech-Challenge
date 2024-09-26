@@ -19,7 +19,13 @@ namespace Tech.Challenge.Grupo27.Application.Worker.AtualizarContato.Dispatchers
         }
         public async Task AtualizarContatoAsync(ContatoAtualizadoCommand request, CancellationToken cancellationToken)
         {
-            var contato = new Contato(request.Nome, request.Email, new Domain.Shared.ValueObject.Telefone(request.Telefone?.Ddd, request.Telefone?.Numero));
+            var contato = new Contato
+           (
+               request.Nome,
+               request.Email,
+               new Domain.Shared.ValueObject.Telefone(request.Telefone.Ddd, request.Telefone.Numero),
+               request.Id
+            );
 
             await _unitOfWork.BeginTransaction(cancellationToken);
 

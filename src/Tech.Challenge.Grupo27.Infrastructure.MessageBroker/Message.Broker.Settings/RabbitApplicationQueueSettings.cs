@@ -3,5 +3,7 @@
     public class RabbitApplicationQueueSettings
     {
         public RabbitQueueSettings ContatoCriadoV1 { get; set; }
+
+        public RabbitQueueSettings ContatoAtualizadoV1 { get; set; }
     }
 }

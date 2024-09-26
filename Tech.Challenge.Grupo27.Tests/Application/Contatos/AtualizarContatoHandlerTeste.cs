@@ -7,18 +7,20 @@ using Tech.Challenge.Grupo27.Application.Contatos.ViewModels;
 using Tech.Challenge.Grupo27.Domain.Models.ContatoAggregate;
 using Tech.Challenge.Grupo27.Application.Contatos.AtualizarContato.Handler_;
 using Tech.Challenge.Grupo27.Application.Contatos.AtualizarContato;
+using Tech.Challenge.Grupo27.Domain.Infrastructure.MessageBroker;
+using Tech.Challenge.Grupo27.Domain.Commands;
 
 namespace Tech.Challenge.Grupo27.Tests.Application.Contatos
 {
     public class AtualizarContatoHandlerTeste
     {
-        private readonly Mock<IContatoService> _contatoService;
+        private readonly Mock<IContatoAtualizadoProducer> _contatoService;
         private readonly Mock<INotificacaoContext> _notificacaoContext;
         private readonly Mock<IUnitOfWork> _unitOfWork;        
 
         public AtualizarContatoHandlerTeste()
         {
-            _contatoService = new Mock<IContatoService>();
+            _contatoService = new Mock<IContatoAtualizadoProducer>();
             _notificacaoContext = new Mock<INotificacaoContext>();
             _unitOfWork = new Mock<IUnitOfWork>();            
         }
@@ -44,13 +46,12 @@ namespace Tech.Challenge.Grupo27.Tests.Application.Contatos
                 }
             };
 
-            _contatoService.Setup(c => c.Atualizar
+            _contatoService.Setup(c => c.AtualizarContato
             (
-                It.IsAny<Contato>(),
-                It.IsAny<CancellationToken>())
-            ).Verifiable();
+                It.IsAny<ContatoAtualizadoCommand>()
+            )).Verifiable();
 
-            var handler = new AtualizarContatoHandler(_contatoService.Object, _notificacaoContext.Object, _unitOfWork.Object);
+            var handler = new AtualizarContatoHandler(_contatoService.Object, _notificacaoContext.Object);
 
             //Act
             var resultado = await handler.Handle(request, CancellationToken.None);
@@ -60,18 +61,14 @@ namespace Tech.Challenge.Grupo27.Tests.Application.Contatos
             Assert.True(resultado.Sucesso);
             Assert.NotNull(resultado);
             Assert.NotNull(resultado.Mensagem);
-            Assert.True(resultado.Mensagem.Equals("Contato atualizado com sucesso"));
+            Assert.True(resultado.Mensagem.Equals("Solicitação de atualização de contato realizado com sucesso"));
 
 
-            _contatoService.Verify(c=> c.Atualizar
-            (
-                It.IsAny<Contato>(),
-                It.IsAny<CancellationToken>()
-            )
-            , Times.Once());
-
-            _unitOfWork.Verify(x => x.SaveChanges(It.IsAny<CancellationToken>()), Times.Once());
-            _unitOfWork.Verify(x => x.CommitTransaction(It.IsAny<CancellationToken>()), Times.Once());
+            _contatoService.Verify(c => c.AtualizarContato
+           (
+               It.IsAny<ContatoAtualizadoCommand>()
+           )
+           , Times.Once());
 
         }
 
@@ -95,13 +92,12 @@ namespace Tech.Challenge.Grupo27.Tests.Application.Contatos
                 }
             };
 
-            _contatoService.Setup(c => c.Atualizar
-            (
-                It.IsAny<Contato>(),
-                It.IsAny<CancellationToken>())
-            ).Verifiable();
+            _contatoService.Setup(c => c.AtualizarContato
+           (
+               It.IsAny<ContatoAtualizadoCommand>()
+           )).Verifiable();
 
-            var handler = new AtualizarContatoHandler(_contatoService.Object, _notificacaoContext.Object, _unitOfWork.Object);
+            var handler = new AtualizarContatoHandler(_contatoService.Object, _notificacaoContext.Object);
 
             //Act
             var resultado = await handler.Handle(request, CancellationToken.None);
@@ -113,11 +109,10 @@ namespace Tech.Challenge.Grupo27.Tests.Application.Contatos
             Assert.Empty(resultado.Mensagem);
             Assert.Null(resultado.Data);
 
-            _contatoService.Verify(c => c.Atualizar
-            (
-                It.IsAny<Contato>(),
-                It.IsAny<CancellationToken>()
-            )
+            _contatoService.Verify(c => c.AtualizarContato
+           (
+               It.IsAny<ContatoAtualizadoCommand>()
+           )
             , Times.Never());
 
             _unitOfWork.Verify(x => x.SaveChanges(It.IsAny<CancellationToken>()), Times.Never());

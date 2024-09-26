@@ -72,7 +72,7 @@ builder.Services.AddSwaggerGen(opt =>
     {
         Version = "v1",
         Title = "Contato API",
-        Description = "API responsável por gerenciar contatos"
+        Description = "API responsável por atualizar contatos"
     });
     var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
     var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
