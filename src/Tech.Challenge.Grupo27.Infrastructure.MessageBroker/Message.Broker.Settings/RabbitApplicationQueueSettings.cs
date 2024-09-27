@@ -5,5 +5,7 @@
         public RabbitQueueSettings ContatoCriadoV1 { get; set; }
 
         public RabbitQueueSettings ContatoAtualizadoV1 { get; set; }
+
+        public RabbitQueueSettings ContatoDeletadoV1 { get; set; }
     }
 }

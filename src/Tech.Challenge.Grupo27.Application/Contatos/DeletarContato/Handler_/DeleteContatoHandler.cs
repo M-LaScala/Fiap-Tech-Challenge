@@ -2,38 +2,35 @@
 using Tech.Challenge.Grupo27.Application.Contatos.ObterContato.Dtos;
 using Tech.Challenge.Grupo27.Application.Contatos.ViewModels;
 using Tech.Challenge.Grupo27.Application.Shared;
+using Tech.Challenge.Grupo27.Domain.Infrastructure.MessageBroker;
 using Tech.Challenge.Grupo27.Domain.Services;
-using Tech.Challenge.Grupo27.Domain.Shared;
 
 namespace Tech.Challenge.Grupo27.Application.Contatos.DeletarContato.Handler_
 {
     public class DeleteContatoHandler : IHandler<DeleteContatoRequest, ContatoResponse>
     {
+        private readonly IContatoDeletadoProducer _contatoProducer;
         private readonly IContatoService _contatoService;
-        private readonly IUnitOfWork _unitOfWork;
-        public DeleteContatoHandler(IContatoService contatoService, IUnitOfWork unitOfWork)
+        public DeleteContatoHandler(IContatoService contatoService, IContatoDeletadoProducer contatoProducer)
         {
             _contatoService = contatoService;
-            _unitOfWork = unitOfWork;
+            _contatoProducer = contatoProducer;
         }
 
         public async Task<ContatoResponse> Handle(DeleteContatoRequest request, CancellationToken cancellationToken)
         {
-            await _unitOfWork.BeginTransaction(cancellationToken);
-
-            var contato = await _contatoService.Delete(request.Id, cancellationToken);
+            var contato = await _contatoService.ObterPorId(request.Id);
 
             if (contato is null)
             {
-                return new ContatoResponse("", false, null);
+                return new ContatoResponse("Contato não encontrado", false, null);
             }
 
-            await _unitOfWork.SaveChanges(cancellationToken);
-            await _unitOfWork.CommitTransaction(cancellationToken);            
+           await _contatoProducer.DeleteContato(new Domain.Commands.ContatoDeletadoCommand() { Id = request.Id });
 
             return new ContatoResponse
             (
-                "Contato removido com sucesso",
+                "Solicitação de delete realizado com sucesso",
                 true,
                 new DeleteContatoResponse
                 (

@@ -15,6 +15,7 @@ namespace Tech.Challenge.Grupo27.Infrastructure.MessageBroker
         {
             services.AddRabbitmqServerInserirContatoConsumer(configuration);
             services.AddRabbitmqServerAtualizarContatoConsumer(configuration);
+            services.AddRabbitmqServerDeletarContatoConsumer(configuration);
             return services;
         }
 
@@ -25,6 +26,8 @@ namespace Tech.Challenge.Grupo27.Infrastructure.MessageBroker
             services.AddRabbitmqServiceInserirContatoProducer(settings);
             services.AddScoped<IContatoAtualizadoProducer, ContatoAtualizadoProducer>();
             services.AddRabbitmqServiceAtualizarContatoProducer(settings);
+            services.AddScoped<IContatoDeletadoProducer, ContatoDeletadoProducer>();
+            services.AddRabbitmqServiceDeletarContatoProducer(settings);
 
             return services;
         }
@@ -87,6 +90,33 @@ namespace Tech.Challenge.Grupo27.Infrastructure.MessageBroker
 
         }
 
+        public static void AddRabbitmqServiceDeletarContatoProducer(this IServiceCollection services, RabbitmqServiceSettings serviceSettings)
+        {
+            services.AddMassTransit<IBus>(x =>
+            {
+                x.UsingRabbitMq((context, cfg) =>
+                {
+                    cfg.UseConcurrencyLimit(serviceSettings.ContatoEvent.ConcurrencyLimit);
+                    cfg.Host(serviceSettings.ContatoEvent.ConnectionString, h =>
+                    {
+                        h.RequestedConnectionTimeout(TimeSpan.FromSeconds(serviceSettings.ContatoEvent.OperationTimeout));
+                        h.Username(serviceSettings.User);
+                        h.Password(serviceSettings.Password);
+                    });
+
+                    EndpointConvention.Map<ContatoDeletadoCommand>
+                    (serviceSettings.ContatoEvent.Queues.ContatoAtualizadoV1.GetUrl(serviceSettings.ContatoEvent.ConnectionString));
+
+                    cfg.Message<ContatoDeletadoCommand>(message =>
+                    {
+                        message.SetEntityName(serviceSettings.ContatoEvent.Queues.ContatoDeletadoV1.Name);
+                    });
+                });
+
+            });
+
+        }
+
         public static void AddRabbitmqServerInserirContatoConsumer(this IServiceCollection services, IConfiguration configuration)
         {
             var rabbitmqSetting = GetRabbitmqSettings(configuration);
@@ -135,6 +165,33 @@ namespace Tech.Challenge.Grupo27.Infrastructure.MessageBroker
                         e.ConfigureConsumer<ContatoAtualizadoConsumer>(context);
                         e.UseMessageRetry(r => r.Interval(rabbitmqSetting.Retry.MinimumInterval, rabbitmqSetting.Retry.MaximumInteval));
                         EndpointConvention.Map<ContatoAtualizadoCommand>(e.InputAddress);
+                    });
+                });
+            });
+        }
+
+        public static void AddRabbitmqServerDeletarContatoConsumer(this IServiceCollection services, IConfiguration configuration)
+        {
+            var rabbitmqSetting = GetRabbitmqSettings(configuration);
+            services.AddMassTransit<IBus>(x =>
+            {
+                x.AddConsumer<ContatoDeletadoConsumer>();
+                x.UsingRabbitMq((context, cfg) =>
+                {
+                    cfg.UseConcurrencyLimit(rabbitmqSetting.ContatoEvent.ConcurrencyLimit);
+                    cfg.Host(rabbitmqSetting.ContatoEvent.ConnectionString, h =>
+                    {
+                        h.RequestedConnectionTimeout(TimeSpan.FromSeconds(rabbitmqSetting.ContatoEvent.OperationTimeout));
+                        h.Username(rabbitmqSetting.User);
+                        h.Password(rabbitmqSetting.Password);
+                    });
+
+                    cfg.ReceiveEndpoint(rabbitmqSetting.ContatoEvent.Queues.ContatoDeletadoV1.Name, e =>
+                    {
+                        e.PrefetchCount = rabbitmqSetting.ContatoEvent.Queues.ContatoDeletadoV1.PrefetchCount;
+                        e.ConfigureConsumer<ContatoDeletadoConsumer>(context);
+                        e.UseMessageRetry(r => r.Interval(rabbitmqSetting.Retry.MinimumInterval, rabbitmqSetting.Retry.MaximumInteval));
+                        EndpointConvention.Map<ContatoDeletadoConsumer>(e.InputAddress);
                     });
                 });
             });

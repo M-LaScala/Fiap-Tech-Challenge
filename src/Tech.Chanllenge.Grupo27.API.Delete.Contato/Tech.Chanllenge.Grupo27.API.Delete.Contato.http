@@ -1,0 +1,6 @@
+@Tech.Chanllenge.Grupo27.API.Delete.Contato_HostAddress = http://localhost:5193
+
+GET {{Tech.Chanllenge.Grupo27.API.Delete.Contato_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

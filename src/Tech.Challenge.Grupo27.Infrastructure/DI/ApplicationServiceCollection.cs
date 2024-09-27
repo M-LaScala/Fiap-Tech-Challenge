@@ -8,9 +8,6 @@ using Tech.Challenge.Grupo27.Domain.Shared.Notificacoes;
 using Tech.Challenge.Grupo27.Domain.Infrastructure.MessageBroker;
 using Tech.Challenge.Grupo27.Application.Worker.InserirContato.Dispatchers_;
 using Tech.Challenge.Grupo27.Application.Worker.InserirContato.Dispatchers;
-using Tech.Challenge.Grupo27.Application.Shared;
-using MassTransit;
-using Microsoft.AspNetCore.Hosting;
 using Tech.Challenge.Grupo27.Application.Worker.AtualizarContato.Dispatchers_;
 using Tech.Challenge.Grupo27.Application.Contatos.AtualizarContato.Handler_;
 using Tech.Challenge.Grupo27.Application.Contatos.AtualizarContato;
@@ -26,16 +23,12 @@ namespace Tech.Challenge.Grupo27.Infrastructure.DI
 
             services.AddTransient<IRequestHandler<AtualizarContatoRequest, ContatoResponse>>(x =>
             new AtualizarContatoHandler(x.GetRequiredService<IContatoAtualizadoProducer>(), x.GetRequiredService<INotificacaoContext>()));
-
-
-            services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(typeof(InserirContatoHandler).Assembly));
-        }
-        public static void AddApplicationContato(this IServiceCollection services)
-        {
             services.AddTransient<IRequestHandler<ObterPorDddRequest, ContatoResponse>, ObterContatosPorDddHandler>();
             services.AddTransient<IRequestHandler<ObterPorIdRequest, ContatoResponse>, ObterContatoPorIdHandler>();
             services.AddTransient<IInserirContatoDispatcher, InserirContatoDispatcher>();
             services.AddTransient<IAtualizarContatoDispatcher, AtualizarContatoDispatcher>();
-        }
+
+            services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(typeof(InserirContatoHandler).Assembly));
+        }   
     }
 }

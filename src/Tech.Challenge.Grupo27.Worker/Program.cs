@@ -49,7 +49,7 @@ var options = new Tech.Challenge.Grupo27.Infrastructure.EntityFrameworkCore.DbOp
 builder.Services.AddSingleton(options);
 builder.Services.AddSqlServerProvider(options);
 builder.Services.AddMessageBrokerServiceConsumer(configuration);
-builder.Services.AddApplicationContato();
+builder.Services.AddApplication();
 builder.Services.AddDomainService();
 builder.Services.AddRepository();
 

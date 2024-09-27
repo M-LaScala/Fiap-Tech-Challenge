@@ -1,22 +1,23 @@
 ﻿using Moq;
 using Tech.Challenge.Grupo27.Domain.Services;
-using Tech.Challenge.Grupo27.Domain.Shared;
 using Tech.Challenge.Grupo27.Tests.Fixtures;
 using Tech.Challenge.Grupo27.Domain.Models.ContatoAggregate;
 using Tech.Challenge.Grupo27.Application.Contatos.DeletarContato.Dtos;
 using Tech.Challenge.Grupo27.Application.Contatos.DeletarContato.Handler_;
+using Tech.Challenge.Grupo27.Domain.Infrastructure.MessageBroker;
+using Tech.Challenge.Grupo27.Domain.Commands;
 
 namespace Tech.Challenge.Grupo27.Tests.Application.Contatos
 {
     public class DeleteContatoHandlerTeste
     {
         private readonly Mock<IContatoService> _contatoService;        
-        private readonly Mock<IUnitOfWork> _unitOfWork;        
+        private readonly Mock<IContatoDeletadoProducer> _contatoProducer;        
 
         public DeleteContatoHandlerTeste()
         {            
             _contatoService = new Mock<IContatoService>();
-            _unitOfWork = new Mock<IUnitOfWork>();
+            _contatoProducer = new Mock<IContatoDeletadoProducer>();
         }
 
         // <summary>
@@ -30,13 +31,12 @@ namespace Tech.Challenge.Grupo27.Tests.Application.Contatos
             var contato = ContatoFixture.ObterContatoMock(idContato);
             var request = new DeleteContatoRequest(idContato);
 
-            _contatoService.Setup(c => c.Delete
+            _contatoService.Setup(c => c.ObterPorId
             (
-                It.Is<Guid>(x=> x.Equals(idContato)),
-                It.IsAny<CancellationToken>())
-            ).ReturnsAsync(contato).Verifiable();
+                It.Is<Guid?>(x=> x.Equals(idContato))
+            )).ReturnsAsync(contato).Verifiable();
 
-            var handler = new DeleteContatoHandler(_contatoService.Object, _unitOfWork.Object);
+            var handler = new DeleteContatoHandler(_contatoService.Object, _contatoProducer.Object);
 
             //Act
             var resultado = await handler.Handle(request, CancellationToken.None);
@@ -46,15 +46,11 @@ namespace Tech.Challenge.Grupo27.Tests.Application.Contatos
             Assert.NotNull(resultado.Mensagem);
             Assert.True(resultado.Mensagem.Equals("Contato removido com sucesso"));
 
-            _contatoService.Verify(c => c.Delete
+            _contatoService.Verify(c => c.ObterPorId
             (
-                It.Is<Guid>(x => x.Equals(idContato)),
-                It.IsAny<CancellationToken>())
+                It.Is<Guid?>(x => x.Equals(idContato))
+            )
             , Times.Once());
-
-            _unitOfWork.Verify(x => x.SaveChanges(It.IsAny<CancellationToken>()), Times.Once());
-            _unitOfWork.Verify(x => x.CommitTransaction(It.IsAny<CancellationToken>()), Times.Once());
-
         }
 
         // <summary>
@@ -74,7 +70,7 @@ namespace Tech.Challenge.Grupo27.Tests.Application.Contatos
                 It.IsAny<CancellationToken>())
             ).ReturnsAsync(contato).Verifiable();
 
-            var handler = new DeleteContatoHandler(_contatoService.Object, _unitOfWork.Object);
+            var handler = new DeleteContatoHandler(_contatoService.Object, _contatoProducer.Object);
 
             //Act
             var resultado = await handler.Handle(request, CancellationToken.None);
@@ -86,15 +82,10 @@ namespace Tech.Challenge.Grupo27.Tests.Application.Contatos
             Assert.Empty(resultado.Mensagem);
             Assert.Null(resultado.Data);
 
-            _contatoService.Verify(c => c.Delete
+            _contatoProducer.Verify(c => c.DeleteContato
             (
-                It.Is<Guid>(x => x.Equals(idContato)),
-                It.IsAny<CancellationToken>())
+                It.Is<ContatoDeletadoCommand>(x => x.Equals(idContato)))
             , Times.Once());
-
-            _unitOfWork.Verify(x => x.SaveChanges(It.IsAny<CancellationToken>()), Times.Never());
-            _unitOfWork.Verify(x => x.CommitTransaction(It.IsAny<CancellationToken>()), Times.Never());
-
         }
     }
 }

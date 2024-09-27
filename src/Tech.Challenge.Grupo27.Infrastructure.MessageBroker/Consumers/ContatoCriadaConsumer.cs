@@ -1,5 +1,4 @@
 ﻿using MassTransit;
-using Tech.Challenge.Grupo27.Application.Worker.InserirContato.Dispatchers;
 using Tech.Challenge.Grupo27.Application.Worker.InserirContato.Dispatchers_;
 using Tech.Challenge.Grupo27.Domain.Commands;
 

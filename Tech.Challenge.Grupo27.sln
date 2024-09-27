@@ -41,6 +41,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tech.Challenge.Grupo27.Work
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tech.Chanllenge.Grupo27.API.AtualizarContato", "src\Tech.Chanllenge.Grupo27.API.AtualizarContato\Tech.Chanllenge.Grupo27.API.AtualizarContato.csproj", "{197AB995-CA92-475F-B023-7BB3833C3688}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tech.Chanllenge.Grupo27.API.Delete.Contato", "src\Tech.Chanllenge.Grupo27.API.Delete.Contato\Tech.Chanllenge.Grupo27.API.Delete.Contato.csproj", "{F635DAE6-4ACD-41E4-99A1-96BC47D322D2}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -95,6 +97,10 @@ Global
 		{197AB995-CA92-475F-B023-7BB3833C3688}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{197AB995-CA92-475F-B023-7BB3833C3688}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{197AB995-CA92-475F-B023-7BB3833C3688}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F635DAE6-4ACD-41E4-99A1-96BC47D322D2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F635DAE6-4ACD-41E4-99A1-96BC47D322D2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F635DAE6-4ACD-41E4-99A1-96BC47D322D2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F635DAE6-4ACD-41E4-99A1-96BC47D322D2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -116,6 +122,7 @@ Global
 		{138FAD37-7727-48FC-AD86-B87C09ADDEBE} = {232B1744-6B67-45D3-B08E-A213A53501A6}
 		{AB589FA5-A143-4D6C-9F65-DD6953EF513E} = {7D7BE8C0-3EEF-486B-9F86-CBD9DCF8A571}
 		{197AB995-CA92-475F-B023-7BB3833C3688} = {7D7BE8C0-3EEF-486B-9F86-CBD9DCF8A571}
+		{F635DAE6-4ACD-41E4-99A1-96BC47D322D2} = {7D7BE8C0-3EEF-486B-9F86-CBD9DCF8A571}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {EF2B9DB3-F1CF-4CB2-A303-C87A4B1EAEB3}
