@@ -9,15 +9,15 @@ EXPOSE 8085
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
-COPY ["src/Tech.Challenge.API.Inserir.Contato/Tech.Challenge.API.Inserir.Contato.csproj", "src/Tech.Challenge.API.Inserir.Contato/"]
-RUN dotnet restore "./src/Tech.Challenge.API.Inserir.Contato/./Tech.Challenge.API.Inserir.Contato.csproj"
+COPY ["src/Tech.Challenge.API.Inserir.Contato/Tech.Challenge.Grupo27.API.Inserir.Contato.csproj", "src/Tech.Challenge.API.Inserir.Contato/"]
+RUN dotnet restore "./src/Tech.Challenge.API.Inserir.Contato/./Tech.Challenge.Grupo27.API.Inserir.Contato.csproj"
 COPY . .
 WORKDIR "/src/src/Tech.Challenge.API.Inserir.Contato"
-RUN dotnet build "./Tech.Challenge.API.Inserir.Contato.csproj" -c $BUILD_CONFIGURATION -o /app/build
+RUN dotnet build "./Tech.Challenge.Grupo27.API.Inserir.Contato.csproj" -c $BUILD_CONFIGURATION -o /app/build
 
 FROM build AS publish
 ARG BUILD_CONFIGURATION=Release
-RUN dotnet publish "./Tech.Challenge.API.Inserir.Contato.csproj" -c $BUILD_CONFIGURATION -o /app/publish /p:UseAppHost=false
+RUN dotnet publish "./Tech.Challenge.Grupo27.API.Inserir.Contato.csproj" -c $BUILD_CONFIGURATION -o /app/publish /p:UseAppHost=false
 
 FROM base AS final
 WORKDIR /app
