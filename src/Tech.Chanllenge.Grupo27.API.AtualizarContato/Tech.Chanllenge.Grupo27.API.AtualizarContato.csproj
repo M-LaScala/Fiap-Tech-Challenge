@@ -4,9 +4,9 @@
     <TargetFramework>net8.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
-    <UserSecretsId>aefc7c28-77df-4037-be04-47dd2b5ecbe7</UserSecretsId>
     <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
     <DockerfileContext>..\..</DockerfileContext>
+    <UserSecretsId>aefc7c28-77df-4037-be04-47dd2b5ecbe7</UserSecretsId>
   </PropertyGroup>
 
   <ItemGroup>
@@ -30,5 +30,4 @@
     <ProjectReference Include="..\Tech.Challenge.Grupo27.Infrastructure.MessageBroker\Tech.Challenge.Grupo27.Infrastructure.MessageBroker.csproj" />
     <ProjectReference Include="..\Tech.Challenge.Grupo27.Infrastructure\Tech.Challenge.Grupo27.Infrastructure.csproj" />
   </ItemGroup>
-
 </Project>

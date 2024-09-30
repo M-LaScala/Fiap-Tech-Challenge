@@ -65,7 +65,7 @@ namespace Tech.Challenge.Grupo27.Infrastructure.MessageBroker
 
         public static void AddRabbitmqServiceAtualizarContatoProducer(this IServiceCollection services, RabbitmqServiceSettings serviceSettings)
         {
-            services.AddMassTransit<IBus>(x =>
+            services.AddMassTransit<IAtualizarContatoBus>(x =>
             {
                 x.UsingRabbitMq((context, cfg) =>
                 {
@@ -92,7 +92,7 @@ namespace Tech.Challenge.Grupo27.Infrastructure.MessageBroker
 
         public static void AddRabbitmqServiceDeletarContatoProducer(this IServiceCollection services, RabbitmqServiceSettings serviceSettings)
         {
-            services.AddMassTransit<IBus>(x =>
+            services.AddMassTransit<IDeleteContatoBus>(x =>
             {
                 x.UsingRabbitMq((context, cfg) =>
                 {
@@ -173,7 +173,7 @@ namespace Tech.Challenge.Grupo27.Infrastructure.MessageBroker
         public static void AddRabbitmqServerDeletarContatoConsumer(this IServiceCollection services, IConfiguration configuration)
         {
             var rabbitmqSetting = GetRabbitmqSettings(configuration);
-            services.AddMassTransit<IBus>(x =>
+            services.AddMassTransit<IDeleteContatoBus>(x =>
             {
                 x.AddConsumer<ContatoDeletadoConsumer>();
                 x.UsingRabbitMq((context, cfg) =>

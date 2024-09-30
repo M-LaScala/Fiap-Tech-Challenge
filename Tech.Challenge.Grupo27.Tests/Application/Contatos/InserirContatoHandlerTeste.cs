@@ -52,7 +52,7 @@ namespace Tech.Challenge.Grupo27.Tests.Application.Contatos
             //Assert
             Assert.True(resultado.Sucesso);
             Assert.NotNull(resultado.Mensagem);
-            Assert.True(resultado.Mensagem.Equals("Contato gravado com sucesso"));
+            Assert.True(resultado.Mensagem.Equals("Solicitação de inclusão de contato realizda com sucesso"));
 
             _contatoProducer.Verify(c => c.CriarContato
             (

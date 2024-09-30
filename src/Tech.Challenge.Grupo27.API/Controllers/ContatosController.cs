@@ -1,8 +1,6 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using System.Net;
-using Tech.Challenge.Grupo27.Application.Contatos.AtualizarContato;
-using Tech.Challenge.Grupo27.Application.Contatos.DeletarContato.Dtos;
 using Tech.Challenge.Grupo27.Application.Contatos.ObterContato.Dtos;
 using Tech.Challenge.Grupo27.Application.Contatos.ViewModels;
 using Tech.Challenge.Grupo27.Domain.Shared.Notificacoes;
@@ -27,37 +25,6 @@ namespace Tech.Challenge.Grupo27.API.Controllers
         {
             _mediator = mediator;
         }
-
-        /// <summary>
-        /// Inserir contato.
-        /// </summary>
-        /// <returns>Contato cadastrado</returns>
-        /// <response code="200">Retorna contato cadastrado</response>
-        /// <response code="400">Contato Inválido</response>
-        [HttpPost]
-        [ProducesResponseType(typeof(ContatoResponse), (int)HttpStatusCode.OK)]
-        [ProducesResponseType(typeof(List<Notificacao>), (int)HttpStatusCode.BadRequest)]
-        [SwaggerOperation(Summary = "Realiza cadastro de Contatos")]
-        public async ValueTask<IActionResult> Inserir([FromBody] ContatoRequest request, CancellationToken cancellationToken)
-        {
-            return  Created("",await _mediator.Send(request, cancellationToken));
-        }
-
-        /// <summary>
-        /// Atualizar contato.
-        /// </summary>
-        /// <returns>Contato atualizado</returns>
-        /// <response code="200">Retorna contato atualizado</response>
-        /// <response code="400">Contato Inválido</response>
-        [HttpPut]
-        [ProducesResponseType(typeof(ContatoResponse), (int)HttpStatusCode.OK)]
-        [ProducesResponseType(typeof(List<Notificacao>), (int)HttpStatusCode.BadRequest)]
-        [SwaggerOperation(Summary = "Altera informações do contato.")]
-        public async ValueTask<IActionResult> Atualizar([FromBody] AtualizarContatoRequest request, CancellationToken cancellationToken)
-        {
-            return Ok(await _mediator.Send(request, cancellationToken));
-        }
-
 
         /// <summary>
         /// Obter contato por Id.
@@ -88,21 +55,5 @@ namespace Tech.Challenge.Grupo27.API.Controllers
         {
             return Ok(await _mediator.Send(new ObterPorDddRequest(ddd), cancellationToken));
         }
-
-        /// <summary>
-        /// Remover contatos por Id.
-        /// </summary>
-        /// <response code="200">Retorna contato removido</response>
-        /// <response code="400">Contato não encontrado</response>
-        [HttpDelete]
-        [Route("{id}")]
-        [ProducesResponseType(typeof(ContatoResponse), (int)HttpStatusCode.OK)]
-        [ProducesResponseType(typeof(List<Notificacao>), (int)HttpStatusCode.BadRequest)]
-        [SwaggerOperation(Summary = "Apaga um contato da lista.")]
-        public async ValueTask<IActionResult> Delete(Guid? id, CancellationToken cancellationToken)
-        {
-            return Ok(await _mediator.Send(new DeleteContatoRequest(id), cancellationToken));
-        }
-
     }
 }

@@ -44,7 +44,7 @@ namespace Tech.Challenge.Grupo27.Tests.Application.Contatos
             //Assert
             Assert.True(resultado.Sucesso);
             Assert.NotNull(resultado.Mensagem);
-            Assert.True(resultado.Mensagem.Equals("Contato removido com sucesso"));
+            Assert.True(resultado.Mensagem.Equals("Solicitação de delete realizado com sucesso"));
 
             _contatoService.Verify(c => c.ObterPorId
             (
@@ -64,11 +64,10 @@ namespace Tech.Challenge.Grupo27.Tests.Application.Contatos
             Contato? contato = null;
             var request = new DeleteContatoRequest(idContato);
 
-            _contatoService.Setup(c => c.Delete
+            _contatoService.Setup(c => c.ObterPorId
             (
-                It.Is<Guid>(x => x.Equals(idContato)),
-                It.IsAny<CancellationToken>())
-            ).ReturnsAsync(contato).Verifiable();
+                It.Is<Guid>(x => x.Equals(idContato))
+            )).ReturnsAsync(contato).Verifiable();
 
             var handler = new DeleteContatoHandler(_contatoService.Object, _contatoProducer.Object);
 
@@ -79,13 +78,13 @@ namespace Tech.Challenge.Grupo27.Tests.Application.Contatos
 
             Assert.False(resultado.Sucesso);
             Assert.NotNull(resultado.Mensagem);
-            Assert.Empty(resultado.Mensagem);
+            Assert.True(resultado.Mensagem.Equals("Contato não encontrado"));
             Assert.Null(resultado.Data);
 
             _contatoProducer.Verify(c => c.DeleteContato
             (
                 It.Is<ContatoDeletadoCommand>(x => x.Equals(idContato)))
-            , Times.Once());
+            , Times.Never());
         }
     }
 }

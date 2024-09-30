@@ -6,6 +6,9 @@ MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{A10DDF6C-B62A-4DA6-8528-54A6684B486A}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tech.Challenge.Grupo27.API.Contato", "src\Tech.Challenge.Grupo27.API\Tech.Challenge.Grupo27.API.Contato.csproj", "{BB21C89F-7E60-4E6C-B497-353B2604BB02}"
+	ProjectSection(ProjectDependencies) = postProject
+		{5037909E-EFB0-4D68-B2F4-0317E2422958} = {5037909E-EFB0-4D68-B2F4-0317E2422958}
+	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tech.Challenge.Grupo27.Application.API", "src\Tech.Challenge.Grupo27.Application\Tech.Challenge.Grupo27.Application.API.csproj", "{9657D768-6294-49DD-840F-F9336633307C}"
 EndProject
@@ -39,9 +42,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tech.Challenge.Grupo27.Appl
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tech.Challenge.Grupo27.Worker", "src\Tech.Challenge.Grupo27.Worker\Tech.Challenge.Grupo27.Worker.csproj", "{AB589FA5-A143-4D6C-9F65-DD6953EF513E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tech.Chanllenge.Grupo27.API.AtualizarContato", "src\Tech.Chanllenge.Grupo27.API.AtualizarContato\Tech.Chanllenge.Grupo27.API.AtualizarContato.csproj", "{197AB995-CA92-475F-B023-7BB3833C3688}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tech.Chanllenge.Grupo27.API.AtualizarContato", "src\Tech.Chanllenge.Grupo27.API.AtualizarContato\Tech.Chanllenge.Grupo27.API.AtualizarContato.csproj", "{197AB995-CA92-475F-B023-7BB3833C3688}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tech.Chanllenge.Grupo27.API.Delete.Contato", "src\Tech.Chanllenge.Grupo27.API.Delete.Contato\Tech.Chanllenge.Grupo27.API.Delete.Contato.csproj", "{F635DAE6-4ACD-41E4-99A1-96BC47D322D2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tech.Chanllenge.Grupo27.API.Delete.Contato", "src\Tech.Chanllenge.Grupo27.API.Delete.Contato\Tech.Chanllenge.Grupo27.API.Delete.Contato.csproj", "{F635DAE6-4ACD-41E4-99A1-96BC47D322D2}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
