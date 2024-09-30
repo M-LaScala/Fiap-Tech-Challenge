@@ -1,0 +1,6 @@
+@Tech.Chanllenge.Grupo27.API.Atualizar_HostAddress = http://localhost:5124
+
+GET {{Tech.Chanllenge.Grupo27.API.Atualizar_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
