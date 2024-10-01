@@ -105,7 +105,7 @@ namespace Tech.Challenge.Grupo27.Infrastructure.MessageBroker
                     });
 
                     EndpointConvention.Map<ContatoDeletadoCommand>
-                    (serviceSettings.ContatoEvent.Queues.ContatoAtualizadoV1.GetUrl(serviceSettings.ContatoEvent.ConnectionString));
+                    (serviceSettings.ContatoEvent.Queues.ContatoDeletadoV1.GetUrl(serviceSettings.ContatoEvent.ConnectionString));
 
                     cfg.Message<ContatoDeletadoCommand>(message =>
                     {
