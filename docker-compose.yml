@@ -40,6 +40,46 @@ services:
     - "5045:8004" 
     mem_limit: 512m
     mem_reservation: 128M
+    cpus: 0.3
+  tech.challenge.grupo27.Atualizar.contato:
+    image: ${DOCKER_REGISTRY-}techchallengegrupo27apiatualizarcontato
+    build:
+      context: .
+      dockerfile: src/Tech.Chanllenge.Grupo27.API.AtualizarContato/Dockerfile
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_HTTP_PORTS=8009
+      - ASPNETCORE_HTTPS_PORTS=8008
+    volumes:
+      - ${APPDATA}/Microsoft/UserSecrets:/home/app/.microsoft/usersecrets:ro
+      - ${APPDATA}/ASP.NET/Https:/home/app/.aspnet/https:ro
+    depends_on:
+    - mssql-server
+    ports:
+    - "5070:8009"
+    - "5065:8008" 
+    mem_limit: 512m
+    mem_reservation: 128M
+    cpus: 0.3 
+  tech.challenge.grupo27.Delete.contato:
+    image: ${DOCKER_REGISTRY-}techchallengegrupo27apideletecontato
+    build:
+      context: .
+      dockerfile: src/Tech.Chanllenge.Grupo27.API.Delete.Contato/Dockerfile
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_HTTP_PORTS=8011
+      - ASPNETCORE_HTTPS_PORTS=8010
+    volumes:
+      - ${APPDATA}/Microsoft/UserSecrets:/home/app/.microsoft/usersecrets:ro
+      - ${APPDATA}/ASP.NET/Https:/home/app/.aspnet/https:ro
+    depends_on:
+    - mssql-server
+    ports:
+    - "5080:8011"
+    - "5075:8010" 
+    mem_limit: 512m
+    mem_reservation: 128M
     cpus: 0.3 
   tech.challenge.grupo27.worker:
     image: ${DOCKER_REGISTRY-}techchallengegrupo27worker
@@ -100,6 +140,14 @@ services:
       - ./local/compose/sqlserver/criandotabelas.sql:/tmp/criandotabelas.sql
       - ./local/compose/sqlserver/init-contato.sh:/tmp/init-contato.sh
     command: /bin/bash ./tmp/init-contato.sh
+  rabbitmq:
+    build:
+      context: ./local/compose/rabbitmq
+      dockerfile: Dockerfile
+    container_name: rabbitmq
+    ports:
+     - 5672:5672
+     - 15672:15672
 volumes:  
  grafana-storage:
 networks:
