@@ -35,7 +35,7 @@ namespace Tech.Chanllenge.Grupo27.API.AtualizarContato.Controllers
         [SwaggerOperation(Summary = "Altera informações do contato.")]
         public async ValueTask<IActionResult> Atualizar([FromBody] AtualizarContatoRequest request, CancellationToken cancellationToken)
         {
-            return Ok(await _mediator.Send(request, cancellationToken));
+            return Accepted(await _mediator.Send(request, cancellationToken));
         }
     }
 }

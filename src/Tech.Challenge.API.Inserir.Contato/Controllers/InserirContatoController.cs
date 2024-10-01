@@ -35,7 +35,7 @@ namespace Tech.Challenge.API.Inserir.Contato.Controllers
         [SwaggerOperation(Summary = "Realiza cadastro de Contatos")]
         public async ValueTask<IActionResult> Inserir([FromBody] ContatoRequest request, CancellationToken cancellationToken)
         {
-            return Created("", await _mediator.Send(request, cancellationToken));
+            return Accepted("", await _mediator.Send(request, cancellationToken));
         }
     }
 }

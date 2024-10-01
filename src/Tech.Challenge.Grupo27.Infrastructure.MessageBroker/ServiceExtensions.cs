@@ -28,7 +28,6 @@ namespace Tech.Challenge.Grupo27.Infrastructure.MessageBroker
             services.AddRabbitmqServiceAtualizarContatoProducer(settings);
             services.AddScoped<IContatoDeletadoProducer, ContatoDeletadoProducer>();
             services.AddRabbitmqServiceDeletarContatoProducer(settings);
-
             return services;
         }
 

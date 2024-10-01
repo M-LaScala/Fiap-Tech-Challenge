@@ -31,7 +31,6 @@ namespace Tech.Challenge.Grupo27.Infrastructure.DI
             services.AddTransient<IRequestHandler<DeleteContatoRequest, ContatoResponse>>(x =>
             new DeleteContatoHandler(x.GetRequiredService<IContatoService>(),x.GetRequiredService<IContatoDeletadoProducer>()));
 
-
             services.AddTransient<IRequestHandler<ObterPorDddRequest, ContatoResponse>, ObterContatosPorDddHandler>();
             services.AddTransient<IRequestHandler<ObterPorIdRequest, ContatoResponse>, ObterContatoPorIdHandler>();
             services.AddTransient<IInserirContatoDispatcher, InserirContatoDispatcher>();
