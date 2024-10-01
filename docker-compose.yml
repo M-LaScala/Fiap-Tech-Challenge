@@ -21,7 +21,7 @@ services:
     mem_limit: 512m
     mem_reservation: 128M
     cpus: 0.3 
-  tech.challenge.grupo27.Inserir.contato:
+  tech.challenge.grupo27.inserir.contato:
     image: ${DOCKER_REGISTRY-}techchallengegrupo27apiinserircontato
     build:
       context: .
@@ -41,7 +41,7 @@ services:
     mem_limit: 512m
     mem_reservation: 128M
     cpus: 0.3
-  tech.challenge.grupo27.Atualizar.contato:
+  tech.challenge.grupo27.atualizar.contato:
     image: ${DOCKER_REGISTRY-}techchallengegrupo27apiatualizarcontato
     build:
       context: .
@@ -61,7 +61,7 @@ services:
     mem_limit: 512m
     mem_reservation: 128M
     cpus: 0.3 
-  tech.challenge.grupo27.Delete.contato:
+  tech.challenge.grupo27.delete.contato:
     image: ${DOCKER_REGISTRY-}techchallengegrupo27apideletecontato
     build:
       context: .
