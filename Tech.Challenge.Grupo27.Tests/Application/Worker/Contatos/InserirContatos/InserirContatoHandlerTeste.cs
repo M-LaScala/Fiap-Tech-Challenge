@@ -6,17 +6,17 @@ using Tech.Challenge.Grupo27.Application.API.InserirContato.Handler_;
 using Tech.Challenge.Grupo27.Domain.Infrastructure.MessageBroker;
 using Tech.Challenge.Grupo27.Domain.Commands;
 
-namespace Tech.Challenge.Grupo27.Tests.Application.Contatos
+namespace Tech.Challenge.Grupo27.Tests.Application.Worker.Contatos.InserirContatos
 {
     public class InserirContatoHandlerTeste
     {
         private readonly Mock<IContatoCriadoProducer> _contatoProducer;
-        private readonly Mock<INotificacaoContext> _notificacaoContext;       
+        private readonly Mock<INotificacaoContext> _notificacaoContext;
 
         public InserirContatoHandlerTeste()
         {
             _contatoProducer = new Mock<IContatoCriadoProducer>();
-            _notificacaoContext = new Mock<INotificacaoContext>();           
+            _notificacaoContext = new Mock<INotificacaoContext>();
         }
 
         // <summary>
@@ -42,7 +42,7 @@ namespace Tech.Challenge.Grupo27.Tests.Application.Contatos
             _contatoProducer.Setup(c => c.CriarContato
             (
                 It.IsAny<ContatoCriadoCommand>()
-            )).Verifiable();           
+            )).Verifiable();
 
             var handler = new InserirContatoHandler(_contatoProducer.Object, _notificacaoContext.Object);
 
@@ -58,7 +58,7 @@ namespace Tech.Challenge.Grupo27.Tests.Application.Contatos
             (
                 It.IsAny<ContatoCriadoCommand>()
             )
-            , Times.Once());                
+            , Times.Once());
         }
 
         // <summary>
