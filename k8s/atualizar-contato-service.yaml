@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: atualizar-contato
+  labels:
+    app: atualizar-contato
+spec:
+  type: ClusterIP
+  selector:
+    app: atualizar-contato
+  ports:
+    - protocol: TCP
+      port: 80        # Porta que o serviço expõe internamente no cluster
+      targetPort: 80  # Porta no contêiner que o serviço encaminha o tráfego

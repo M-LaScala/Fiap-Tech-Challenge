@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mssqltools
+  labels:
+    app: mssqltools
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mssqltools
+  template:
+    metadata:
+      labels:
+        app: mssqltools
+    spec:
+      containers:
+        - name: mssqltools
+          image: mcr.microsoft.com/mssql-tools
+          ports:
+            - containerPort: 1433

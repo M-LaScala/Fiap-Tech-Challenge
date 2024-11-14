@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: inserir-contato
+  labels:
+    app: inserir-contato
+spec:
+  type: ClusterIP
+  selector:
+    app: inserir-contato
+  ports:
+    - protocol: TCP
+      port: 80        # Porta exposta internamente no cluster
+      targetPort: 80  # Porta no contêiner para encaminhamento do tráfego

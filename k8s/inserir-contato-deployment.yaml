@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: inserir-contato
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: inserir-contato
+  template:
+    metadata:
+      labels:
+        app: inserir-contato
+    spec:
+      containers:
+        - name: inserir-contato
+          image: meu-registry/inserir-contato-image:latest
+          ports:
+            - containerPort: 8081
+          livenessProbe:
+            httpGet:
+              path: /healthz
+              port: 8081
+            initialDelaySeconds: 15
+            periodSeconds: 20
+          readinessProbe:
+            httpGet:
+              path: /ready
+              port: 8081
+            initialDelaySeconds: 5
+            periodSeconds: 10

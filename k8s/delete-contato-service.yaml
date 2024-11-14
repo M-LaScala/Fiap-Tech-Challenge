@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: delete-contato
+  labels:
+    app: delete-contato
+spec:
+  type: ClusterIP
+  selector:
+    app: delete-contato
+  ports:
+    - protocol: TCP
+      port: 80        # Porta que o serviço expõe internamente no cluster
+      targetPort: 80  # Porta no contêiner que o serviço encaminha o tráfego

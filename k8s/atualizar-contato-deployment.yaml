@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: atualizar-contato
+  labels:
+    app: atualizar-contato
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: atualizar-contato
+  template:
+    metadata:
+      labels:
+        app: atualizar-contato
+    spec:
+      containers:
+        - name: atualizar-contato
+          image: meu-registro/atualizar-contato:latest
+          ports:
+            - containerPort: 80
+          livenessProbe:
+            httpGet:
+              path: /healthz
+              port: 80
+            initialDelaySeconds: 15
+            periodSeconds: 20
+          readinessProbe:
+            httpGet:
+              path: /ready
+              port: 80
+            initialDelaySeconds: 10
+            periodSeconds: 15

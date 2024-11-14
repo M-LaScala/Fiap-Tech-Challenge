@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: delete-contato
+  labels:
+    app: delete-contato
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: delete-contato
+  template:
+    metadata:
+      labels:
+        app: delete-contato
+    spec:
+      containers:
+        - name: delete-contato
+          image: meu-registro/delete-contato:latest
+          ports:
+            - containerPort: 80
+          livenessProbe:
+            httpGet:
+              path: /healthz
+              port: 80
+            initialDelaySeconds: 15
+            periodSeconds: 20
+          readinessProbe:
+            httpGet:
+              path: /ready
+              port: 80
+            initialDelaySeconds: 10
+            periodSeconds: 15
