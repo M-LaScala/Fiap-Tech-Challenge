@@ -34,7 +34,7 @@ namespace Tech.Chanllenge.Grupo27.API.Delete.Contato.Controller
         [SwaggerOperation(Summary = "Apaga um contato da lista.")]
         public async ValueTask<IActionResult> Delete(Guid? id, CancellationToken cancellationToken)
         {
-            return Ok(await _mediator.Send(new DeleteContatoRequest(id), cancellationToken));
+            return Accepted(await _mediator.Send(new DeleteContatoRequest(id), cancellationToken));
         }
     }
 }

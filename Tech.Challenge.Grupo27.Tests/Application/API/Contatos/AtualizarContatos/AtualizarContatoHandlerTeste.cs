@@ -8,19 +8,19 @@ using Tech.Challenge.Grupo27.Application.AtualizarContato;
 using TelefoneRequest = Tech.Challenge.Grupo27.Application.AtualizarContato.TelefoneRequest;
 using Tech.Challenge.Grupo27.Application.Contatos.AtualizarContato.Handler_;
 
-namespace Tech.Challenge.Grupo27.Tests.Application.Contatos
+namespace Tech.Challenge.Grupo27.Tests.Application.Worker.Contatos.AtualizarContatos
 {
     public class AtualizarContatoHandlerTeste
     {
         private readonly Mock<IContatoAtualizadoProducer> _contatoService;
         private readonly Mock<INotificacaoContext> _notificacaoContext;
-        private readonly Mock<IUnitOfWork> _unitOfWork;        
+        private readonly Mock<IUnitOfWork> _unitOfWork;
 
         public AtualizarContatoHandlerTeste()
         {
             _contatoService = new Mock<IContatoAtualizadoProducer>();
             _notificacaoContext = new Mock<INotificacaoContext>();
-            _unitOfWork = new Mock<IUnitOfWork>();            
+            _unitOfWork = new Mock<IUnitOfWork>();
         }
 
         // <summary>

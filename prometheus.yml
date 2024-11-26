@@ -23,7 +23,7 @@ scrape_configs:
       insecure_skip_verify: true
     metrics_path: '/metrics'
     static_configs:
-      - targets: ['tech.challenge.grupo27.Inserir.contato:8005']    
+      - targets: ['tech.challenge.grupo27.inserir.contato:8005']    
         
   - job_name: "atualizar-contatos-metrics"
     scrape_interval: 5s
@@ -32,7 +32,7 @@ scrape_configs:
       insecure_skip_verify: true
     metrics_path: '/metrics'
     static_configs:
-      - targets: ['tech.challenge.grupo27.Atualizar.contato:8009']
+      - targets: ['tech.challenge.grupo27.atualizar.contato:8008']
               
   - job_name: "delete-contatos-metrics"
     scrape_interval: 5s
@@ -41,5 +41,5 @@ scrape_configs:
       insecure_skip_verify: true
     metrics_path: '/metrics'
     static_configs:
-      - targets: ['tech.challenge.grupo27.Delete.contato:8011']
+      - targets: ['tech.challenge.grupo27.delete.contato:8010']
 

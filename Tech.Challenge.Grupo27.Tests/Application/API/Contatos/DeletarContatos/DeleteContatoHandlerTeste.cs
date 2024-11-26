@@ -6,15 +6,15 @@ using Tech.Challenge.Grupo27.Domain.Infrastructure.MessageBroker;
 using Tech.Challenge.Grupo27.Domain.Commands;
 using Tech.Challenge.Grupo27.Application.DeletarContato;
 
-namespace Tech.Challenge.Grupo27.Tests.Application.Contatos
+namespace Tech.Challenge.Grupo27.Tests.Application.Worker.Contatos.DeletarContatos
 {
     public class DeleteContatoHandlerTeste
     {
-        private readonly Mock<IContatoService> _contatoService;        
-        private readonly Mock<IContatoDeletadoProducer> _contatoProducer;        
+        private readonly Mock<IContatoService> _contatoService;
+        private readonly Mock<IContatoDeletadoProducer> _contatoProducer;
 
         public DeleteContatoHandlerTeste()
-        {            
+        {
             _contatoService = new Mock<IContatoService>();
             _contatoProducer = new Mock<IContatoDeletadoProducer>();
         }
@@ -32,7 +32,7 @@ namespace Tech.Challenge.Grupo27.Tests.Application.Contatos
 
             _contatoService.Setup(c => c.ObterPorId
             (
-                It.Is<Guid?>(x=> x.Equals(idContato))
+                It.Is<Guid?>(x => x.Equals(idContato))
             )).ReturnsAsync(contato).Verifiable();
 
             var handler = new DeleteContatoHandler(_contatoService.Object, _contatoProducer.Object);

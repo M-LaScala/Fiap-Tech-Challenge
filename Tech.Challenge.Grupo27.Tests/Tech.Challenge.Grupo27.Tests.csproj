@@ -34,11 +34,4 @@
     <ProjectReference Include="..\src\Tech.Challenge.Grupo27.Domain\Tech.Challenge.Grupo27.Domain.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Application\Worker\Contatos\AtualizarContatos\" />
-    <Folder Include="Application\Worker\Contatos\InserirContatos\" />
-    <Folder Include="Application\Worker\Contatos\DeletarContatos\" />
-    <Folder Include="Application\Worker\Contatos\" />
-  </ItemGroup>
-
 </Project>
