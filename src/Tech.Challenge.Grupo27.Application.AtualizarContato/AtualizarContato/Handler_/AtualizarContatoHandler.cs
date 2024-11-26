@@ -1,4 +1,4 @@
-﻿using Tech.Challenge.Grupo27.Application.Contatos.ViewModels;
+﻿using Tech.Challenge.Grupo27.Application.AtualizarContato;
 using Tech.Challenge.Grupo27.Application.Shared;
 using Tech.Challenge.Grupo27.Domain.Infrastructure.MessageBroker;
 using Tech.Challenge.Grupo27.Domain.Models.ContatoAggregate;

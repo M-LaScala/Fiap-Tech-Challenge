@@ -8,8 +8,6 @@ using Tech.Challenge.Grupo27.Infrastructure.DI;
 using Tech.Challenge.Grupo27.Infrastructure.HealthCheck;
 using Tech.Challenge.Grupo27.Common.Telemetria;
 using Tech.Challenge.Grupo27.Infrastructure.MessageBroker;
-using Tech.Challenge.Grupo27.Application.Shared;
-using Tech.Challenge.Grupo27.Application.API.InserirContato.Handler_;
 
 
 var builder = WebApplication.CreateBuilder(args);

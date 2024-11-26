@@ -2,10 +2,9 @@
 using Tech.Challenge.Grupo27.Domain.Services;
 using Tech.Challenge.Grupo27.Tests.Fixtures;
 using Tech.Challenge.Grupo27.Domain.Models.ContatoAggregate;
-using Tech.Challenge.Grupo27.Application.Contatos.DeletarContato.Dtos;
-using Tech.Challenge.Grupo27.Application.Contatos.DeletarContato.Handler_;
 using Tech.Challenge.Grupo27.Domain.Infrastructure.MessageBroker;
 using Tech.Challenge.Grupo27.Domain.Commands;
+using Tech.Challenge.Grupo27.Application.DeletarContato;
 
 namespace Tech.Challenge.Grupo27.Tests.Application.Contatos
 {

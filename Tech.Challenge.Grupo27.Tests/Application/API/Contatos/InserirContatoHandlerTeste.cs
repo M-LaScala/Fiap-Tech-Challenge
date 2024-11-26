@@ -1,10 +1,10 @@
 ﻿using Tech.Challenge.Grupo27.Domain.Shared.Notificacoes;
 using Moq;
 using Tech.Challenge.Grupo27.Tests.Fixtures;
-using Tech.Challenge.Grupo27.Application.Contatos.ViewModels;
-using Tech.Challenge.Grupo27.Application.API.InserirContato.Handler_;
 using Tech.Challenge.Grupo27.Domain.Infrastructure.MessageBroker;
 using Tech.Challenge.Grupo27.Domain.Commands;
+using Tech.Challenge.Grupo27.Application.InserirContato;
+using Tech.Challenge.Grupo27.Application.InserirContato.ViewModels;
 
 namespace Tech.Challenge.Grupo27.Tests.Application.Contatos
 {

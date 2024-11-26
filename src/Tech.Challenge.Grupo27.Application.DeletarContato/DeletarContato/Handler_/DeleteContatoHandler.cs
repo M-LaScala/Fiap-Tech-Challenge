@@ -1,11 +1,8 @@
-﻿using Tech.Challenge.Grupo27.Application.Contatos.DeletarContato.Dtos;
-using Tech.Challenge.Grupo27.Application.Contatos.ObterContato.Dtos;
-using Tech.Challenge.Grupo27.Application.Contatos.ViewModels;
-using Tech.Challenge.Grupo27.Application.Shared;
+﻿using Tech.Challenge.Grupo27.Application.Shared;
 using Tech.Challenge.Grupo27.Domain.Infrastructure.MessageBroker;
 using Tech.Challenge.Grupo27.Domain.Services;
 
-namespace Tech.Challenge.Grupo27.Application.Contatos.DeletarContato.Handler_
+namespace Tech.Challenge.Grupo27.Application.DeletarContato
 {
     public class DeleteContatoHandler : IHandler<DeleteContatoRequest, ContatoResponse>
     {

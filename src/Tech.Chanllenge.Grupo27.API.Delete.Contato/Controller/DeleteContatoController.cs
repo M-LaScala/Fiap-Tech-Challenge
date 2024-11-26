@@ -2,8 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
 using System.Net;
-using Tech.Challenge.Grupo27.Application.Contatos.DeletarContato.Dtos;
-using Tech.Challenge.Grupo27.Application.Contatos.ViewModels;
+using Tech.Challenge.Grupo27.Application.DeletarContato;
 using Tech.Challenge.Grupo27.Domain.Shared.Notificacoes;
 
 namespace Tech.Chanllenge.Grupo27.API.Delete.Contato.Controller
@@ -30,7 +29,7 @@ namespace Tech.Chanllenge.Grupo27.API.Delete.Contato.Controller
         /// <response code="400">Contato não encontrado</response>
         [HttpDelete]
         [Route("{id}")]
-        [ProducesResponseType(typeof(ContatoResponse), (int)HttpStatusCode.OK)]
+        [ProducesResponseType(typeof(Tech.Challenge.Grupo27.Application.DeletarContato.ContatoResponse), (int)HttpStatusCode.OK)]
         [ProducesResponseType(typeof(List<Notificacao>), (int)HttpStatusCode.BadRequest)]
         [SwaggerOperation(Summary = "Apaga um contato da lista.")]
         public async ValueTask<IActionResult> Delete(Guid? id, CancellationToken cancellationToken)

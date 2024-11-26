@@ -1,7 +1,6 @@
 ﻿using MediatR;
-using Tech.Challenge.Grupo27.Application.Contatos.ViewModels;
 
-namespace Tech.Challenge.Grupo27.Application.Contatos.AtualizarContato
+namespace Tech.Challenge.Grupo27.Application.AtualizarContato
 {
     public class AtualizarContatoRequest : ContatoRequest, IRequest<ContatoResponse>
     {

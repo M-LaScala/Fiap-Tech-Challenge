@@ -1,6 +1,4 @@
-﻿using Tech.Challenge.Grupo27.Application.Contatos.ObterContato.Dtos;
-
-namespace Tech.Challenge.Grupo27.Application.Contatos.DeletarContato.Dtos
+﻿namespace Tech.Challenge.Grupo27.Application.DeletarContato
 {
     public class DeleteContatoResponse
     {

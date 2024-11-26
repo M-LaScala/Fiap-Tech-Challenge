@@ -1,10 +1,10 @@
-﻿using Tech.Challenge.Grupo27.Application.Contatos.ViewModels;
-using Tech.Challenge.Grupo27.Application.Shared;
+﻿using Tech.Challenge.Grupo27.Application.InserirContato.Shared;
+using Tech.Challenge.Grupo27.Application.InserirContato.ViewModels;
 using Tech.Challenge.Grupo27.Domain.Infrastructure.MessageBroker;
 using Tech.Challenge.Grupo27.Domain.Models.ContatoAggregate;
 using Tech.Challenge.Grupo27.Domain.Shared.Notificacoes;
 
-namespace Tech.Challenge.Grupo27.Application.API.InserirContato.Handler_
+namespace Tech.Challenge.Grupo27.Application.InserirContato
 {
     public class InserirContatoHandler : IHandler<ContatoRequest, ContatoResponse>
     {

@@ -26,6 +26,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\src\Tech.Challenge.Grupo27.Application.AtualizarContato\Tech.Challenge.Grupo27.Application.AtualizarContato.csproj" />
+    <ProjectReference Include="..\src\Tech.Challenge.Grupo27.Application.DeletarContato\Tech.Challenge.Grupo27.Application.DeletarContato.csproj" />
+    <ProjectReference Include="..\src\Tech.Challenge.Grupo27.Application.InserirContato\Tech.Challenge.Grupo27.Application.InserirContato.csproj" />
     <ProjectReference Include="..\src\Tech.Challenge.Grupo27.Application.Worker\Tech.Challenge.Grupo27.Application.Worker.csproj" />
     <ProjectReference Include="..\src\Tech.Challenge.Grupo27.Application\Tech.Challenge.Grupo27.Application.API.csproj" />
     <ProjectReference Include="..\src\Tech.Challenge.Grupo27.Domain\Tech.Challenge.Grupo27.Domain.csproj" />

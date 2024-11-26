@@ -1,14 +1,12 @@
 ﻿using Moq;
-using Tech.Challenge.Grupo27.Domain.Services;
 using Tech.Challenge.Grupo27.Domain.Shared.Notificacoes;
 using Tech.Challenge.Grupo27.Domain.Shared;
 using Tech.Challenge.Grupo27.Tests.Fixtures;
-using Tech.Challenge.Grupo27.Application.Contatos.ViewModels;
-using Tech.Challenge.Grupo27.Domain.Models.ContatoAggregate;
-using Tech.Challenge.Grupo27.Application.Contatos.AtualizarContato.Handler_;
-using Tech.Challenge.Grupo27.Application.Contatos.AtualizarContato;
 using Tech.Challenge.Grupo27.Domain.Infrastructure.MessageBroker;
 using Tech.Challenge.Grupo27.Domain.Commands;
+using Tech.Challenge.Grupo27.Application.AtualizarContato;
+using TelefoneRequest = Tech.Challenge.Grupo27.Application.AtualizarContato.TelefoneRequest;
+using Tech.Challenge.Grupo27.Application.Contatos.AtualizarContato.Handler_;
 
 namespace Tech.Challenge.Grupo27.Tests.Application.Contatos
 {

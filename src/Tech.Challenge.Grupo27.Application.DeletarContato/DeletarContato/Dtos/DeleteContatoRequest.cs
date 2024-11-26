@@ -1,8 +1,7 @@
 ﻿using MediatR;
-using Tech.Challenge.Grupo27.Application.Contatos.ViewModels;
 using Tech.Challenge.Grupo27.Application.Shared;
 
-namespace Tech.Challenge.Grupo27.Application.Contatos.DeletarContato.Dtos
+namespace Tech.Challenge.Grupo27.Application.DeletarContato
 {
     public class DeleteContatoRequest : RequestDto, IRequest<ContatoResponse>
     {
