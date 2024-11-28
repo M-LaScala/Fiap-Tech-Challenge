@@ -16,16 +16,17 @@ spec:
         - name: api
           image: meu-registry/api-image:latest # Imagem gerada pelo Dockerfile
           ports:
-            - containerPort: 8080
+            - containerPort: 8001
+            - containerPort: 8000
           livenessProbe:
             httpGet:
               path: /healthz
-              port: 8080
+              port: 8001
             initialDelaySeconds: 15
             periodSeconds: 20
           readinessProbe:
             httpGet:
               path: /ready
-              port: 8080
+              port: 8000
             initialDelaySeconds: 5
             periodSeconds: 10
