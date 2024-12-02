@@ -2,14 +2,14 @@ version: '3.4'
 
 services:
   tech.challenge.grupo27.api:
-    image: ${DOCKER_REGISTRY-}techchallengegrupo27api
+    image: grupo27fiap/techchallenge-contato-api-consultar:4.0
     build:
       context: .
       dockerfile: src/Tech.Challenge.Grupo27.API/Dockerfile
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_HTTP_PORTS=8000
-      - ASPNETCORE_HTTPS_PORTS=8001
+      - ASPNETCORE_HTTPS_PORTS=8001 
     volumes:
       - ${APPDATA}/Microsoft/UserSecrets:/home/app/.microsoft/usersecrets:ro
       - ${APPDATA}/ASP.NET/Https:/home/app/.aspnet/https:ro
@@ -22,7 +22,7 @@ services:
     mem_reservation: 128M
     cpus: 0.3 
   tech.challenge.grupo27.inserir.contato:
-    image: ${DOCKER_REGISTRY-}techchallengegrupo27apiinserircontato
+    image: grupo27fiap/techchallenge-contato-api-inserir:4.0
     build:
       context: .
       dockerfile: src/Tech.Challenge.API.Inserir.Contato/Dockerfile
@@ -42,7 +42,7 @@ services:
     mem_reservation: 128M
     cpus: 0.3
   tech.challenge.grupo27.atualizar.contato:
-    image: ${DOCKER_REGISTRY-}techchallengegrupo27apiatualizarcontato
+    image: grupo27fiap/techchallenge-contato-api-atualizar:4.0
     build:
       context: .
       dockerfile: src/Tech.Chanllenge.Grupo27.API.Atualizar/Dockerfile
@@ -62,7 +62,7 @@ services:
     mem_reservation: 128M
     cpus: 0.3 
   tech.challenge.grupo27.delete.contato:
-    image: ${DOCKER_REGISTRY-}techchallengegrupo27apideletecontato
+    image: grupo27fiap/techchallenge-contato-api-deletar:4.0
     build:
       context: .
       dockerfile: src/Tech.Chanllenge.Grupo27.API.Delete.Contato/Dockerfile
@@ -82,7 +82,7 @@ services:
     mem_reservation: 128M
     cpus: 0.3 
   tech.challenge.grupo27.worker:
-    image: ${DOCKER_REGISTRY-}techchallengegrupo27worker
+    image: grupo27fiap/techchallenge-contato-worker:4.0
     build:
       context: .
       dockerfile: src/Tech.Challenge.Grupo27.Worker/Dockerfile

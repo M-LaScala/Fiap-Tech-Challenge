@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: api
-          image: meu-registry/api-image:latest # Imagem gerada pelo Dockerfile
+          image: grupo27fiap/techchallenge-contato-api-consultar:4.0
           ports:
             - containerPort: 8001
             - containerPort: 8000
