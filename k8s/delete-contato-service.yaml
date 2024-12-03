@@ -9,6 +9,11 @@ spec:
   selector:
     app: delete-contato
   ports:
-    - protocol: TCP
-      port: 80        # Porta que o serviço expõe internamente no cluster
-      targetPort: 80  # Porta no contêiner que o serviço encaminha o tráfego
+    - name: porta-5080
+      protocol: TCP
+      port: 5080
+      targetPort: 8011
+    - name: porta-5075
+      protocol: TCP
+      port: 5075
+      targetPort: 8010

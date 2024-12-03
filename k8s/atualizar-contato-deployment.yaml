@@ -16,18 +16,19 @@ spec:
     spec:
       containers:
         - name: atualizar-contato
-          image: meu-registro/atualizar-contato:latest
+          image: grupo27fiap/techchallenge-contato-api-atualizar:4.0
           ports:
-            - containerPort: 80
+            - containerPort: 8009
+            - containerPort: 8008
           livenessProbe:
             httpGet:
               path: /healthz
-              port: 80
+              port: 8009
             initialDelaySeconds: 15
             periodSeconds: 20
           readinessProbe:
             httpGet:
               path: /ready
-              port: 80
-            initialDelaySeconds: 10
-            periodSeconds: 15
+              port: 8008
+            initialDelaySeconds: 5
+            periodSeconds: 10

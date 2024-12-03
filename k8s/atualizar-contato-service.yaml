@@ -9,6 +9,11 @@ spec:
   selector:
     app: atualizar-contato
   ports:
-    - protocol: TCP
-      port: 80        # Porta que o serviço expõe internamente no cluster
-      targetPort: 80  # Porta no contêiner que o serviço encaminha o tráfego
+    - name: porta-5070
+      protocol: TCP
+      port: 5070
+      targetPort: 8009
+    - name: porta-5065
+      protocol: TCP
+      port: 5065
+      targetPort: 8008

@@ -9,6 +9,11 @@ spec:
   selector:
     app: inserir-contato
   ports:
-    - protocol: TCP
-      port: 80        # Porta exposta internamente no cluster
-      targetPort: 80  # Porta no contêiner para encaminhamento do tráfego
+    - name: porta-5030
+      protocol: TCP
+      port: 5030
+      targetPort: 8005
+    - name: porta-5045
+      protocol: TCP
+      port: 5045
+      targetPort: 8004

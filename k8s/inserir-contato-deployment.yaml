@@ -14,18 +14,19 @@ spec:
     spec:
       containers:
         - name: inserir-contato
-          image: meu-registry/inserir-contato-image:latest
+          image: grupo27fiap/techchallenge-contato-api-inserir:4.0
           ports:
-            - containerPort: 8081
+            - containerPort: 8005
+            - containerPort: 8004
           livenessProbe:
             httpGet:
               path: /healthz
-              port: 8081
+              port: 8005
             initialDelaySeconds: 15
             periodSeconds: 20
           readinessProbe:
             httpGet:
               path: /ready
-              port: 8081
+              port: 8004
             initialDelaySeconds: 5
             periodSeconds: 10

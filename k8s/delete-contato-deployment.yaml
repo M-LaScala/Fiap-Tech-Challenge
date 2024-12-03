@@ -16,18 +16,19 @@ spec:
     spec:
       containers:
         - name: delete-contato
-          image: meu-registro/delete-contato:latest
+          image: grupo27fiap/techchallenge-contato-api-delete:4.0
           ports:
-            - containerPort: 80
+            - containerPort: 8011
+            - containerPort: 8010
           livenessProbe:
             httpGet:
               path: /healthz
-              port: 80
+              port: 8011
             initialDelaySeconds: 15
             periodSeconds: 20
           readinessProbe:
             httpGet:
               path: /ready
-              port: 80
-            initialDelaySeconds: 10
-            periodSeconds: 15
+              port: 8010
+            initialDelaySeconds: 5
+            periodSeconds: 10
