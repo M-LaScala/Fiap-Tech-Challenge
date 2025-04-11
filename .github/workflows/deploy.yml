@@ -12,7 +12,7 @@ env:
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
-
+    
     steps:
     - name: Checkout do repositório
       uses: actions/checkout@v3
@@ -23,6 +23,10 @@ jobs:
         username: ${{ secrets.DOCKERHUB_USERNAME }}
         password: ${{ secrets.DOCKERHUB_PASSWORD }}
 
+    - name: Verificar estrutura de diretórios
+      run: |
+        ls -R
+    
     - name: Build & Push de imagens com Docker Compose
       run: |
         docker compose -f docker-compose.yml build
