@@ -23,10 +23,10 @@ jobs:
         dotnet-version: '8.0.x'
 
     - name: Restaurar dependências
-      run: dotnet restore Tech.Challenge.Grupo27.sln
+      run: dotnet restore src/Tech.Challenge.Grupo27.API/Tech.Challenge.Grupo27.API.csproj
 
     - name: Build do projeto
-      run: dotnet build --no-restore
+      run: dotnet build src/Tech.Challenge.Grupo27.API/Tech.Challenge.Grupo27.API.csproj --no-restore
 
     - name: Testes automatizados
       run: dotnet test --no-build --verbosity normal
@@ -35,7 +35,7 @@ jobs:
       uses: docker/login-action@v3
       with:
         username: ${{ secrets.DOCKERHUB_USERNAME }}
-        password: ${{ secrets.DOKERHUB_PASSWORD }}
+        password: ${{ secrets.DOCKERHUB_PASSWORD }}
 
     - name: Build da imagem Docker
       run: |
@@ -50,17 +50,12 @@ jobs:
       with:
         version: 'latest'
 
-    - name: Login no Azure
-      uses: azure/login@v1
-      with:
-        creds: ${{ secrets.AZURE_CREDENTIALS }}
-
     - name: Configurar contexto do AKS
       uses: azure/k8s-set-context@v1
       with:
         method: kubeconfig
-        kubeconfig: ${{ secrets.KUBECONFIG }}
+        kubeconfig: ${{ secrets.KUBE_CONFIG }}
 
     - name: Deploy no AKS
       run: |
-        kubectl apply -f k8s
+        kubectl apply -f k8s/ --namespace=default
