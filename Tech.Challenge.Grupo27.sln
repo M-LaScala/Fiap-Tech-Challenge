@@ -52,6 +52,13 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tech.Challenge.Grupo27.Appl
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tech.Challenge.Grupo27.Application.DeletarContato", "src\Tech.Challenge.Grupo27.Application.DeletarContato\Tech.Challenge.Grupo27.Application.DeletarContato.csproj", "{D4BACCC3-D891-486F-8B35-611B964E94F1}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".github", ".github", "{3B988502-3697-4503-8426-DE12D16FB5FD}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "workflows", "workflows", "{6701218C-07B7-4B9F-A228-9364FAACCB9D}"
+	ProjectSection(SolutionItems) = preProject
+		deploy.yml = deploy.yml
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -147,6 +154,7 @@ Global
 		{3C9D764D-9B03-438B-A529-AF21DA14E77B} = {232B1744-6B67-45D3-B08E-A213A53501A6}
 		{DA705020-58B5-4F6A-AFC7-4F29F1314CB9} = {232B1744-6B67-45D3-B08E-A213A53501A6}
 		{D4BACCC3-D891-486F-8B35-611B964E94F1} = {232B1744-6B67-45D3-B08E-A213A53501A6}
+		{6701218C-07B7-4B9F-A228-9364FAACCB9D} = {3B988502-3697-4503-8426-DE12D16FB5FD}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {EF2B9DB3-F1CF-4CB2-A303-C87A4B1EAEB3}
