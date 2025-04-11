@@ -23,7 +23,7 @@ jobs:
         dotnet-version: '8.0.x'
 
     - name: Restaurar dependências
-      run: dotnet restore
+      run: dotnet restore Tech.Challenge.Grupo27.sln
 
     - name: Build do projeto
       run: dotnet build --no-restore
