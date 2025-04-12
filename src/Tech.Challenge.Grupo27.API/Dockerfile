@@ -10,7 +10,7 @@ FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
 COPY ["src/Tech.Challenge.Grupo27.API/Tech.Challenge.Grupo27.API.Contato.csproj", "src/Tech.Challenge.Grupo27.API/"]
-RUN dotnet restore "./src/Tech.Challenge.Grupo27.API/./Tech.Challenge.Grupo27.API.csproj"
+RUN dotnet restore "./src/Tech.Challenge.Grupo27.API/./Tech.Challenge.Grupo27.API.Contato.csproj"
 COPY . .
 WORKDIR "/src/src/Tech.Challenge.Grupo27.API"
 RUN dotnet build "./Tech.Challenge.Grupo27.API.Contato.csproj" -c $BUILD_CONFIGURATION -o /app/build
