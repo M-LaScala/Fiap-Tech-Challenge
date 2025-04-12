@@ -19,12 +19,14 @@ jobs:
 
       # Build e push das imagens (ajuste os serviços conforme necessário)
       - name: Build e Push das imagens
+        env:
+          DOCKER_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
         run: |
-          docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/tech-api:latest -f ./src/TechChallenge.API/Dockerfile .
-          docker push ${{ secrets.DOCKERHUB_USERNAME }}/tech-api:latest
-
-          docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/tech-worker:latest -f ./src/TechChallenge.Worker/Dockerfile .
-          docker push ${{ secrets.DOCKERHUB_USERNAME }}/tech-worker:latest
+          docker build -t $DOCKER_USERNAME/tech-api:latest -f ./src/TechChallenge.API/Dockerfile .
+          docker push $DOCKER_USERNAME/tech-api:latest
+      
+          docker build -t $DOCKER_USERNAME/tech-worker:latest -f ./src/TechChallenge.Worker/Dockerfile .
+          docker push $DOCKER_USERNAME/tech-worker:lates
 
       # Configurar o kubeconfig
       - name: Criar kubeconfig
