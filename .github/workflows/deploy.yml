@@ -18,18 +18,22 @@ jobs:
 
       - name: Build e Push das imagens
         run: |
+          # Converte o username para minúsculas para evitar erro de referência inválida na tag
+          DOCKER_USERNAME=$(echo "${{ secrets.DOCKERHUB_USERNAME }}" | tr '[:upper:]' '[:lower:]')
+          echo "Docker Hub Username: $DOCKER_USERNAME"
+
           echo "Construindo e enviando imagem da API..."
-          docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/tech-api:latest -f ./src/Tech.Challenge.Grupo27.API/Dockerfile .
-          docker push ${{ secrets.DOCKERHUB_USERNAME }}/tech-api:latest
+          docker build -t "$DOCKER_USERNAME/tech-api:latest" -f ./src/Tech.Challenge.Grupo27.API/Dockerfile .
+          docker push "$DOCKER_USERNAME/tech-api:latest"
 
           echo "Construindo e enviando imagem do Worker..."
-          docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/tech-worker:latest -f ./src/Tech.Challenge.Grupo27.Worker/Dockerfile .
-          docker push ${{ secrets.DOCKERHUB_USERNAME }}/tech-worker:latest
+          docker build -t "$DOCKER_USERNAME/tech-worker:latest" -f ./src/Tech.Challenge.Grupo27.Worker/Dockerfile .
+          docker push "$DOCKER_USERNAME/tech-worker:latest"
 
       - name: Criar kubeconfig
         run: |
           mkdir -p $HOME/.kube
-          # Se sua secret KUBE_CONFIG estiver em plain text, remova o pipe base64 -d
+          # Se sua secret KUBE_CONFIG estiver em base64, mantenha o pipe base64 -d. Caso contrário, remova.
           echo "${{ secrets.KUBE_CONFIG }}" | base64 -d > $HOME/.kube/config
 
       - name: Deploy no Kubernetes (AKS)
