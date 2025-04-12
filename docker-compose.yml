@@ -2,7 +2,7 @@ version: '3.4'
 
 services:
   tech.challenge.grupo27.api:
-    image: grupo27fiap/techchallenge-contato-api-consultar:4.0
+    image: matheuslascala/fiap-techchallenge:contato-api-consultar-4.0
     build:
       context: .
       dockerfile: src/Tech.Challenge.Grupo27.API/Dockerfile
@@ -14,15 +14,16 @@ services:
       - ${APPDATA}/Microsoft/UserSecrets:/home/app/.microsoft/usersecrets:ro
       - ${APPDATA}/ASP.NET/Https:/home/app/.aspnet/https:ro
     depends_on:
-    - mssql-server
+      - mssql-server
     ports:
-    - "5020:8001"
-    - "5010:8000" 
+      - "5020:8001"
+      - "5010:8000" 
     mem_limit: 512m
     mem_reservation: 128M
     cpus: 0.3 
+
   tech.challenge.grupo27.inserir.contato:
-    image: grupo27fiap/techchallenge-contato-api-inserir:4.0
+    image: matheuslascala/fiap-techchallenge:contato-api-inserir-4.0
     build:
       context: .
       dockerfile: src/Tech.Challenge.API.Inserir.Contato/Dockerfile
@@ -34,15 +35,16 @@ services:
       - ${APPDATA}/Microsoft/UserSecrets:/home/app/.microsoft/usersecrets:ro
       - ${APPDATA}/ASP.NET/Https:/home/app/.aspnet/https:ro
     depends_on:
-    - mssql-server
+      - mssql-server
     ports:
-    - "5030:8005"
-    - "5045:8004" 
+      - "5030:8005"
+      - "5045:8004" 
     mem_limit: 512m
     mem_reservation: 128M
     cpus: 0.3
+
   tech.challenge.grupo27.atualizar.contato:
-    image: grupo27fiap/techchallenge-contato-api-atualizar:4.0
+    image: matheuslascala/fiap-techchallenge:contato-api-atualizar-4.0
     build:
       context: .
       dockerfile: src/Tech.Chanllenge.Grupo27.API.Atualizar/Dockerfile
@@ -54,15 +56,16 @@ services:
       - ${APPDATA}/Microsoft/UserSecrets:/home/app/.microsoft/usersecrets:ro
       - ${APPDATA}/ASP.NET/Https:/home/app/.aspnet/https:ro
     depends_on:
-    - mssql-server
+      - mssql-server
     ports:
-    - "5070:8009"
-    - "5065:8008" 
+      - "5070:8009"
+      - "5065:8008" 
     mem_limit: 512m
     mem_reservation: 128M
     cpus: 0.3 
+
   tech.challenge.grupo27.delete.contato:
-    image: grupo27fiap/techchallenge-contato-api-deletar:4.0
+    image: matheuslascala/fiap-techchallenge:contato-api-deletar-4.0
     build:
       context: .
       dockerfile: src/Tech.Chanllenge.Grupo27.API.Delete.Contato/Dockerfile
@@ -74,15 +77,16 @@ services:
       - ${APPDATA}/Microsoft/UserSecrets:/home/app/.microsoft/usersecrets:ro
       - ${APPDATA}/ASP.NET/Https:/home/app/.aspnet/https:ro
     depends_on:
-    - mssql-server
+      - mssql-server
     ports:
-    - "5080:8011"
-    - "5075:8010" 
+      - "5080:8011"
+      - "5075:8010" 
     mem_limit: 512m
     mem_reservation: 128M
     cpus: 0.3 
+
   tech.challenge.grupo27.worker:
-    image: grupo27fiap/techchallenge-contato-worker:4.0
+    image: matheuslascala/fiap-techchallenge:contato-worker-4.0
     build:
       context: .
       dockerfile: src/Tech.Challenge.Grupo27.Worker/Dockerfile
@@ -94,13 +98,14 @@ services:
       - ${APPDATA}/Microsoft/UserSecrets:/home/app/.microsoft/usersecrets:ro
       - ${APPDATA}/ASP.NET/Https:/home/app/.aspnet/https:ro
     depends_on:
-    - mssql-server
+      - mssql-server
     ports:
-    - "5060:8007"
-    - "5055:8006" 
+      - "5060:8007"
+      - "5055:8006" 
     mem_limit: 512m
     mem_reservation: 128M
     cpus: 0.3 
+
   mssql-server:
     image: mcr.microsoft.com/mssql/server:2022-latest
     hostname: "SqlServer"
@@ -110,6 +115,7 @@ services:
       MSSQL_PID: "Developer"
     ports:
       - "1433:1433"  
+
   prometheus:
     image: prom/prometheus:latest
     container_name: prometheus
@@ -117,20 +123,23 @@ services:
       - "9090:9090"
     volumes:
       - ./prometheus.yml:/etc/prometheus/prometheus.yml
+
   node-exporter:
     image: prom/node-exporter:latest
     container_name: node-exporter
     ports:
       - "9100:9100"
+
   grafana:
     image: grafana/grafana:latest
     container_name: grafana
     ports:
       - "3000:3000"
     environment:
-      - GF_SECURITY_ADMIN_PASSWORD=admin  # Senha de administrador
+      - GF_SECURITY_ADMIN_PASSWORD=admin
     volumes:
       - grafana-storage:/var/lib/grafana
+
   mssqltools:
     image: mcr.microsoft.com/mssql-tools
     depends_on:
@@ -140,17 +149,19 @@ services:
       - ./local/compose/sqlserver/criandotabelas.sql:/tmp/criandotabelas.sql
       - ./local/compose/sqlserver/init-contato.sh:/tmp/init-contato.sh
     command: /bin/bash ./tmp/init-contato.sh
+
   rabbitmq:
     build:
       context: ./local/compose/rabbitmq
       dockerfile: Dockerfile
     container_name: rabbitmq
     ports:
-     - 5672:5672
-     - 15672:15672
-volumes:  
- grafana-storage:
-networks:
- minha-rede:
-  driver: bridge
+      - 5672:5672
+      - 15672:15672
 
+volumes:  
+  grafana-storage:
+
+networks:
+  minha-rede:
+    driver: bridge
