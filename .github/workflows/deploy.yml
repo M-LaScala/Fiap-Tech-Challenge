@@ -13,6 +13,9 @@ jobs:
       - name: Checkout do código
         uses: actions/checkout@v3
 
+      - name: Listar arquivos da raiz
+        run: ls -la
+
       - name: Restaurar pacotes
         run: dotnet restore TechChallenge.sln
 
@@ -25,7 +28,7 @@ jobs:
           method: kubeconfig
           kubeconfig: ${{ secrets.KUBE_CONFIG }}
           version: 1.21.0
-          
+  
       - name: Fazer login no registro Docker
         run: docker login -u ${{ secrets.DOCKERHUB_USERNAME }} -p ${{ secrets.DOCKERHUB_PASSWORD }} 
 
