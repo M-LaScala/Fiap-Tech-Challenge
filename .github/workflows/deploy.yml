@@ -32,11 +32,11 @@ jobs:
       - name: Fazer login no registro Docker
         run: docker login -u ${{ secrets.DOCKERHUB_USERNAME }} -p ${{ secrets.DOCKERHUB_PASSWORD }} 
 
-      - name: Construir imagem Docker
-        run: docker build -t matheuslascala/fiap-techchallenge:latest .
+      - name: Construir imagens com Docker Compose
+        run: docker-compose build
 
-      - name: Publicar imagem Docker
-        run: docker push matheuslascala/fiap-techchallenge:latest
+      - name: Enviar imagens para o Docker Hub
+        run: docker-compose push
 
       - name: Listar arquivos no diretório
         run: |
