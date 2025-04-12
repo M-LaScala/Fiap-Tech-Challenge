@@ -3,7 +3,7 @@ name: CI/CD - Deploy no AKS
 on:
   push:
     branches:
-      - master
+      - main
 
 jobs:
   build-and-deploy:
@@ -13,30 +13,28 @@ jobs:
       - name: Checkout do código
         uses: actions/checkout@v3
 
-      # Autenticação no DockerHub
       - name: Login no DockerHub
         run: echo "${{ secrets.DOCKERHUB_PASSWORD }}" | docker login -u "${{ secrets.DOCKERHUB_USERNAME }}" --password-stdin
 
-      # Build e push das imagens (ajuste os serviços conforme necessário)
       - name: Build e Push das imagens
-        env:
-          DOCKER_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
         run: |
-          docker build -t $DOCKER_USERNAME/tech-api:latest -f ./src/TechChallenge.API/Dockerfile .
-          docker push $DOCKER_USERNAME/tech-api:latest
-      
-          docker build -t $DOCKER_USERNAME/tech-worker:latest -f ./src/TechChallenge.Worker/Dockerfile .
-          docker push $DOCKER_USERNAME/tech-worker:lates
+          echo "Construindo e enviando imagem da API..."
+          docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/tech-api:latest -f ./src/Tech.Challenge.Grupo27.API/Dockerfile .
+          docker push ${{ secrets.DOCKERHUB_USERNAME }}/tech-api:latest
 
-      # Configurar o kubeconfig
+          echo "Construindo e enviando imagem do Worker..."
+          docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/tech-worker:latest -f ./src/Tech.Challenge.Grupo27.Worker/Dockerfile .
+          docker push ${{ secrets.DOCKERHUB_USERNAME }}/tech-worker:latest
+
       - name: Criar kubeconfig
         run: |
           mkdir -p $HOME/.kube
+          # Se sua secret KUBE_CONFIG estiver em plain text, remova o pipe base64 -d
           echo "${{ secrets.KUBE_CONFIG }}" | base64 -d > $HOME/.kube/config
 
-      # Aplicar arquivos de deployment no cluster
-      - name: Deploy no Kubernetes
+      - name: Deploy no Kubernetes (AKS)
         run: |
+          echo "Aplicando deployments e serviços do AKS..."
           kubectl apply -f k8s/api-deployment.yaml
           kubectl apply -f k8s/api-service.yaml
           kubectl apply -f k8s/worker-deployment.yaml
@@ -50,8 +48,9 @@ jobs:
           kubectl apply -f k8s/rabbit-mq-deployment.yaml
           kubectl apply -f k8s/rabbitmq-service.yaml
 
-      # Verificação do status
       - name: Verificar status dos pods e serviços
         run: |
+          echo "Status dos pods:"
           kubectl get pods -o wide
+          echo "Status dos serviços:"
           kubectl get svc -o wide
