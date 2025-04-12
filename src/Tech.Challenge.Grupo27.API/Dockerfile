@@ -13,13 +13,13 @@ COPY ["src/Tech.Challenge.Grupo27.API/Tech.Challenge.Grupo27.API.Contato.csproj"
 RUN dotnet restore "./src/Tech.Challenge.Grupo27.API/./Tech.Challenge.Grupo27.API.csproj"
 COPY . .
 WORKDIR "/src/src/Tech.Challenge.Grupo27.API"
-RUN dotnet build "./Tech.Challenge.Grupo27.API.csproj" -c $BUILD_CONFIGURATION -o /app/build
+RUN dotnet build "./Tech.Challenge.Grupo27.API.Contato.csproj" -c $BUILD_CONFIGURATION -o /app/build
 
 FROM build AS publish
 ARG BUILD_CONFIGURATION=Release
-RUN dotnet publish "./Tech.Challenge.Grupo27.API.csproj" -c $BUILD_CONFIGURATION -o /app/publish /p:UseAppHost=false
+RUN dotnet publish "./Tech.Challenge.Grupo27.API.Contato.csproj" -c $BUILD_CONFIGURATION -o /app/publish /p:UseAppHost=false
 
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
-ENTRYPOINT ["dotnet", "Tech.Challenge.Grupo27.API.dll"]
+ENTRYPOINT ["dotnet", "Tech.Challenge.Grupo27.API.Contato.dll"]
