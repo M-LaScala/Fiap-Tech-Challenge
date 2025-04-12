@@ -9,9 +9,9 @@ spec:
   selector:
     app: rabbitmq
   ports:
-    - protocol: TCP
-      port: 5672        # Porta padrão do RabbitMQ para comunicação de mensagens
-      targetPort: 5672  # Porta do contêiner que o RabbitMQ escuta
-    - protocol: TCP
-      port: 15672       # Porta para o RabbitMQ Management Plugin (interface web)
-      targetPort: 15672 # Porta no contêiner para acessar a interface de administração
+  - name: amqp
+    port: 5672
+    targetPort: 5672
+  - name: management
+    port: 15672
+    targetPort: 15672
