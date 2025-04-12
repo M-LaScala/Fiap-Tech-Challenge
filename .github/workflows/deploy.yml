@@ -13,48 +13,33 @@ jobs:
       - name: Checkout do código
         uses: actions/checkout@v3
 
-      - name: Login no DockerHub
-        run: echo "${{ secrets.DOCKERHUB_PASSWORD }}" | docker login -u "${{ secrets.DOCKERHUB_USERNAME }}" --password-stdin
+      - name: Restaurar pacotes
+        run: dotnet restore
 
-      - name: Build e Push das imagens
+      - name: Publicar aplicação
+        run: dotnet publish -c Release -o ./publish
+
+      - name: Set up kubectl
+        uses: azure/k8s-set-context@v1
+        with:
+          method: kubeconfig
+          kubeconfig: ${{ secrets.KUBE_CONFIG }}
+          version: 1.21.0
+          
+      - name: Fazer login no registro Docker
+        run: docker login -u ${{ secrets.DOCKERHUB_USERNAME }} -p ${{ secrets.DOCKERHUB_PASSWORD }} 
+
+      - name: Construir imagem Docker
+        run: docker build -t matheuslascala/fiap-techchallenge:latest .
+
+      - name: Publicar imagem Docker
+        run: docker push matheuslascala/fiap-techchallenge:latest
+
+      - name: Listar arquivos no diretório
         run: |
-          # Converte o username para minúsculas para evitar erro de referência inválida na tag
-          DOCKER_USERNAME=$(echo "${{ secrets.DOCKERHUB_USERNAME }}" | tr '[:upper:]' '[:lower:]')
-          echo "Docker Hub Username: $DOCKER_USERNAME"
+          echo "Executando dir..."
+          dir
 
-          echo "Construindo e enviando imagem da API..."
-          docker build -t "$DOCKER_USERNAME/tech-api:latest" -f ./src/Tech.Challenge.Grupo27.API/Dockerfile .
-          docker push "$DOCKER_USERNAME/tech-api:latest"
-
-          echo "Construindo e enviando imagem do Worker..."
-          docker build -t "$DOCKER_USERNAME/tech-worker:latest" -f ./src/Tech.Challenge.Grupo27.Worker/Dockerfile .
-          docker push "$DOCKER_USERNAME/tech-worker:latest"
-
-      - name: Criar kubeconfig
-        run: |
-          mkdir -p $HOME/.kube
-          # Se sua secret KUBE_CONFIG estiver em base64, mantenha o pipe base64 -d. Caso contrário, remova.
-          echo "${{ secrets.KUBE_CONFIG }}" | base64 -d > $HOME/.kube/config
-
-      - name: Deploy no Kubernetes (AKS)
-        run: |
-          echo "Aplicando deployments e serviços do AKS..."
-          kubectl apply -f k8s/api-deployment.yaml
-          kubectl apply -f k8s/api-service.yaml
-          kubectl apply -f k8s/worker-deployment.yaml
-          kubectl apply -f k8s/worker-service.yaml
-          kubectl apply -f k8s/prometheus-deployment.yaml
-          kubectl apply -f k8s/prometheus-service.yaml
-          kubectl apply -f k8s/grafana-deployment.yaml
-          kubectl apply -f k8s/grafana-service.yaml
-          kubectl apply -f k8s/mssql-server-deployment.yaml
-          kubectl apply -f k8s/mssql-server-service.yaml
-          kubectl apply -f k8s/rabbit-mq-deployment.yaml
-          kubectl apply -f k8s/rabbitmq-service.yaml
-
-      - name: Verificar status dos pods e serviços
-        run: |
-          echo "Status dos pods:"
-          kubectl get pods -o wide
-          echo "Status dos serviços:"
-          kubectl get svc -o wide
+      - name: Implantação no Kubernetes
+        run: kubectl apply -f FiapDocker/k8s .
+      
