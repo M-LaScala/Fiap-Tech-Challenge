@@ -17,7 +17,7 @@ jobs:
         run: ls -la
 
       - name: Restaurar pacotes
-        run: dotnet restore TechChallenge.sln
+        run: dotnet restore Tech.Challenge.Grupo27.sln
 
       - name: Publicar aplicação
         run: dotnet publish -c Release -o ./publish
