@@ -20,7 +20,7 @@ jobs:
         run: dotnet restore Tech.Challenge.Grupo27.sln
 
       - name: Publicar aplicação
-        run: dotnet publish -c Release -o ./publish
+        run: dotnet publish Tech.Challenge.Grupo27.sln -c Release -o ./publish
 
       - name: Set up kubectl
         uses: azure/k8s-set-context@v1
@@ -44,5 +44,5 @@ jobs:
           dir
 
       - name: Implantação no Kubernetes
-        run: kubectl apply -f FiapDocker/k8s .
+        run: kubectl apply -f FiapDocker/k8s . # Ajustar aqui
       
