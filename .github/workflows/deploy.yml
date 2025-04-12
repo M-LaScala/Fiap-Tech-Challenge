@@ -32,6 +32,19 @@ jobs:
       - name: Fazer login no registro Docker
         run: docker login -u ${{ secrets.DOCKERHUB_USERNAME }} -p ${{ secrets.DOCKERHUB_PASSWORD }} 
 
+      - name: Instalar Docker Compose
+        run: |
+          sudo curl -L "https://github.com/docker/compose/releases/download/v2.24.5/docker-compose-linux-x86_64" -o /usr/local/bin/docker-compose
+          sudo chmod +x /usr/local/bin/docker-compose
+          docker-compose version
+
+      - name: Build imagens com Docker Compose
+        run: docker-compose build
+
+      - name: Push imagens para Docker Hub
+        run: docker-compose push
+
+
       - name: Construir imagens com Docker Compose
         run: docker-compose build
 
