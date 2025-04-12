@@ -57,5 +57,6 @@ jobs:
           dir
 
       - name: Implantação no Kubernetes
-        run: kubectl apply -f FiapDocker/k8s . # Ajustar aqui
+        run: kubectl apply -f k8s
+
       
