@@ -118,4 +118,6 @@ app.UseHealthCheckCustom();
 
 app.MapControllers();
 
+Console.WriteLine("Aplicação iniciando...");
 app.Run();
+Console.WriteLine("Aplicação finalizou.");
