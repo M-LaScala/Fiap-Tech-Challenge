@@ -44,7 +44,6 @@ jobs:
       - name: Push imagens para Docker Hub
         run: docker-compose push
 
-
       - name: Construir imagens com Docker Compose
         run: docker-compose build
 
@@ -56,7 +55,14 @@ jobs:
           echo "Executando dir..."
           dir
 
+      - name: Criar secret de acesso ao Docker Hub no AKS
+        run: |
+          kubectl create secret docker-registry regcred \
+            --docker-server=https://index.docker.io/v1/ \
+            --docker-username=${{ secrets.DOCKERHUB_USERNAME }} \
+            --docker-password=${{ secrets.DOCKERHUB_PASSWORD }} \
+            --docker-email=${{ secrets.DOCKERHUB_EMAIL }} \
+            --dry-run=client -o yaml | kubectl apply -f -
+
       - name: Implantação no Kubernetes
         run: kubectl apply -f k8s
-
-      
