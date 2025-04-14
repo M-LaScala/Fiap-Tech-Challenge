@@ -18,7 +18,7 @@ spec:
         - name: regcred
       containers:
         - name: delete-contato
-          image: matheuslascala/techchallenge-contato-api-delete:4.0
+          image: matheuslascala/techchallenge-contato-api-delete-4.0
           ports:
             - containerPort: 8011
             - containerPort: 8010

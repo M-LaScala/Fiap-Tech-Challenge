@@ -16,7 +16,7 @@ spec:
         - name: regcred
       containers:
         - name: api
-          image: matheuslascala/techchallenge-contato-api-consultar:4.0
+          image: matheuslascala/techchallenge-contato-api-consultar-4.0
           ports:
             - containerPort: 8001
             - containerPort: 8000
