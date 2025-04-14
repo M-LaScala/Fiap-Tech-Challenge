@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: atualizar-contato
-          image: grupo27fiap/techchallenge-contato-api-atualizar:4.0
+          image: matheuslascala/techchallenge-contato-api-atualizar:4.0
           ports:
             - containerPort: 8009
             - containerPort: 8008

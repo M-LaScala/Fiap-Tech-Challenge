@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: delete-contato
-          image: grupo27fiap/techchallenge-contato-api-delete:4.0
+          image: matheuslascala/techchallenge-contato-api-delete:4.0
           ports:
             - containerPort: 8011
             - containerPort: 8010

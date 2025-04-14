@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: inserir-contato
-          image: grupo27fiap/techchallenge-contato-api-inserir:4.0
+          image: matheuslascala/techchallenge-contato-api-inserir:4.0
           ports:
             - containerPort: 8005
             - containerPort: 8004
