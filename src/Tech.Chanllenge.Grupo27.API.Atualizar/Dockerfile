@@ -1,4 +1,4 @@
-# Etapa base (runtime)
+ï»¿# Etapa base (runtime)
 FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS base
 USER app
 WORKDIR /app
@@ -22,15 +22,15 @@ FROM build AS publish
 ARG BUILD_CONFIGURATION=Release
 RUN dotnet publish "Tech.Chanllenge.Grupo27.API.Atualizar.csproj" -c $BUILD_CONFIGURATION -o /app/publish /p:UseAppHost=false
 
-# Verificação de conteúdo
-RUN echo "Conteúdo de /app/publish:" && ls -la /app/publish
+# Verificaï¿½ï¿½o de conteï¿½do
+RUN echo "Conteï¿½do de /app/publish:" && ls -la /app/publish
 
 # Etapa final
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
 
-# Adicione a variável de ambiente para evitar erro de porta
+# Adicione a variï¿½vel de ambiente para evitar erro de porta
 ENV ASPNETCORE_URLS=http://+:8080
 
 ENTRYPOINT ["dotnet", "Tech.Chanllenge.Grupo27.API.Atualizar.dll"]
