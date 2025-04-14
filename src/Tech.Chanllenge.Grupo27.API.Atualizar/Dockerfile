@@ -1,25 +1,36 @@
-#See https://aka.ms/customizecontainer to learn how to customize your debug container and how Visual Studio uses this Dockerfile to build your images for faster debugging.
-
+# Etapa base (runtime)
 FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS base
 USER app
 WORKDIR /app
 EXPOSE 8080
 EXPOSE 8081
 
+# Etapa de build
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
-COPY ["src/Tech.Chanllenge.Grupo27.API.Atualizar/Tech.Chanllenge.Grupo27.API.Atualizar.csproj", "src/Tech.Chanllenge.Grupo27.API.Atualizar/"]
-RUN dotnet restore "./src/Tech.Chanllenge.Grupo27.API.Atualizar/./Tech.Chanllenge.Grupo27.API.Atualizar.csproj"
-COPY . .
-WORKDIR "src/Tech.Chanllenge.Grupo27.API.Atualizar"
-RUN dotnet build "./Tech.Chanllenge.Grupo27.API.Atualizar.csproj" -c $BUILD_CONFIGURATION -o /app/build
 
+COPY ["src/Tech.Chanllenge.Grupo27.API.Atualizar/Tech.Chanllenge.Grupo27.API.Atualizar.csproj", "src/Tech.Chanllenge.Grupo27.API.Atualizar/"]
+RUN dotnet restore "src/Tech.Chanllenge.Grupo27.API.Atualizar/Tech.Chanllenge.Grupo27.API.Atualizar.csproj"
+
+COPY . .
+WORKDIR "/src/src/Tech.Chanllenge.Grupo27.API.Atualizar"
+RUN dotnet build "Tech.Chanllenge.Grupo27.API.Atualizar.csproj" -c $BUILD_CONFIGURATION -o /app/build
+
+# Etapa de publish
 FROM build AS publish
 ARG BUILD_CONFIGURATION=Release
-RUN dotnet publish "./Tech.Chanllenge.Grupo27.API.Atualizar.csproj" -c $BUILD_CONFIGURATION -o /app/publish /p:UseAppHost=false
+RUN dotnet publish "Tech.Chanllenge.Grupo27.API.Atualizar.csproj" -c $BUILD_CONFIGURATION -o /app/publish /p:UseAppHost=false
 
+# Verificação de conteúdo
+RUN echo "Conteúdo de /app/publish:" && ls -la /app/publish
+
+# Etapa final
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
+
+# Adicione a variável de ambiente para evitar erro de porta
+ENV ASPNETCORE_URLS=http://+:8080
+
 ENTRYPOINT ["dotnet", "Tech.Chanllenge.Grupo27.API.Atualizar.dll"]
