@@ -44,12 +44,6 @@ jobs:
       - name: Push imagens para Docker Hub
         run: docker-compose push
 
-      - name: Construir imagens com Docker Compose
-        run: docker-compose build
-
-      - name: Enviar imagens para o Docker Hub
-        run: docker-compose push
-
       - name: Listar arquivos no diretório
         run: |
           echo "Executando dir..."
