@@ -16,7 +16,7 @@ spec:
         - name: regcred
       containers:
         - name: inserir-contato
-          image: matheuslascala/techchallenge-contato-api-inserir-4.0
+          image: matheuslascala/fiap-techchallenge:contato-api-inserir-4.0
           ports:
             - containerPort: 8005
             - containerPort: 8004

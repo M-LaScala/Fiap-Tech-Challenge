@@ -18,7 +18,7 @@ spec:
         - name: regcred
       containers:
         - name: atualizar-contato
-          image: matheuslascala/techchallenge-contato-api-atualizar-4.0
+          image: matheuslascala/fiap-techchallenge:contato-api-atualizar-4.0
           ports:
             - containerPort: 8009
             - containerPort: 8008
