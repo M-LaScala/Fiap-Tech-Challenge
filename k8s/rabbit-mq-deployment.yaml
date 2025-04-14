@@ -15,6 +15,9 @@ spec:
       containers:
         - name: rabbit-mq
           image: rabbitmq:3-management
+          env:
+            - name: RABBITMQ_NODE_IP_ADDRESS
+              value: "0.0.0.0"
           ports:
             - containerPort: 5672
             - containerPort: 15672
