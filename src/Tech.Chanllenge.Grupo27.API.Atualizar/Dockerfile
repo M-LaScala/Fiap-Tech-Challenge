@@ -12,7 +12,7 @@ WORKDIR /src
 COPY ["src/Tech.Chanllenge.Grupo27.API.Atualizar/Tech.Chanllenge.Grupo27.API.Atualizar.csproj", "src/Tech.Chanllenge.Grupo27.API.Atualizar/"]
 RUN dotnet restore "./src/Tech.Chanllenge.Grupo27.API.Atualizar/./Tech.Chanllenge.Grupo27.API.Atualizar.csproj"
 COPY . .
-WORKDIR "/src/src/Tech.Chanllenge.Grupo27.API.Atualizar"
+WORKDIR "/src/Tech.Chanllenge.Grupo27.API.Atualizar"
 RUN dotnet build "./Tech.Chanllenge.Grupo27.API.Atualizar.csproj" -c $BUILD_CONFIGURATION -o /app/build
 
 FROM build AS publish

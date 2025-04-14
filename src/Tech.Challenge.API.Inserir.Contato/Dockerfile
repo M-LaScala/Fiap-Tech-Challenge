@@ -12,7 +12,7 @@ WORKDIR /src
 COPY ["src/Tech.Challenge.API.Inserir.Contato/Tech.Challenge.Grupo27.API.Inserir.Contato.csproj", "src/Tech.Challenge.API.Inserir.Contato/"]
 RUN dotnet restore "./src/Tech.Challenge.API.Inserir.Contato/./Tech.Challenge.Grupo27.API.Inserir.Contato.csproj"
 COPY . .
-WORKDIR "/src/src/Tech.Challenge.API.Inserir.Contato"
+WORKDIR "/src/Tech.Challenge.API.Inserir.Contato"
 RUN dotnet build "./Tech.Challenge.Grupo27.API.Inserir.Contato.csproj" -c $BUILD_CONFIGURATION -o /app/build
 
 FROM build AS publish
