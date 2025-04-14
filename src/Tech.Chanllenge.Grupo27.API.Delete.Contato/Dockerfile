@@ -12,7 +12,7 @@ WORKDIR /src
 COPY ["src/Tech.Chanllenge.Grupo27.API.Delete.Contato/Tech.Chanllenge.Grupo27.API.Delete.Contato.csproj", "src/Tech.Chanllenge.Grupo27.API.Delete.Contato/"]
 RUN dotnet restore "./src/Tech.Chanllenge.Grupo27.API.Delete.Contato/./Tech.Chanllenge.Grupo27.API.Delete.Contato.csproj"
 COPY . .
-WORKDIR "/src/Tech.Chanllenge.Grupo27.API.Delete.Contato"
+WORKDIR "src/Tech.Chanllenge.Grupo27.API.Delete.Contato"
 RUN dotnet build "./Tech.Chanllenge.Grupo27.API.Delete.Contato.csproj" -c $BUILD_CONFIGURATION -o /app/build
 
 FROM build AS publish
