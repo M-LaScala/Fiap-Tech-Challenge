@@ -22,4 +22,4 @@ RUN dotnet publish "./Tech.Challenge.Grupo27.API.Inserir.Contato.csproj" -c $BUI
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
-ENTRYPOINT ["dotnet", "Tech.Challenge.API.Inserir.Contato.dll"]
+ENTRYPOINT ["dotnet", "Tech.Challenge.Grupo27.API.Inserir.Contato.dll"]
