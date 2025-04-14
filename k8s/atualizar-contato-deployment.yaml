@@ -14,6 +14,8 @@ spec:
       labels:
         app: atualizar-contato
     spec:
+      imagePullSecrets:
+        - name: regcred
       containers:
         - name: atualizar-contato
           image: matheuslascala/techchallenge-contato-api-atualizar:4.0

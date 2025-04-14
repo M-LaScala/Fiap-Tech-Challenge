@@ -14,6 +14,8 @@ spec:
       labels:
         app: delete-contato
     spec:
+      imagePullSecrets:
+        - name: regcred
       containers:
         - name: delete-contato
           image: matheuslascala/techchallenge-contato-api-delete:4.0

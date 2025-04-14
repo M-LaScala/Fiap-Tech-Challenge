@@ -12,6 +12,8 @@ spec:
       labels:
         app: inserir-contato
     spec:
+      imagePullSecrets:
+        - name: regcred
       containers:
         - name: inserir-contato
           image: matheuslascala/techchallenge-contato-api-inserir:4.0
